@@ -1,7 +1,9 @@
+@import "../../style/variables";
+
 $background: rgba(200, 200, 200, 0.2);
-$main-color: #ea5b3d;
 $border-color: #ddd;
 $radius: 3px;
+
 
 body{
   font-size: 16px;
@@ -39,6 +41,10 @@ body{
     border-radius: $radius;
     margin-bottom: 10px;
     background-color: $background;
+  }
+
+  @at-root #{&}-form{
+    margin-bottom: 40px;
   }
 
   @at-root #{&}-hd{
@@ -107,5 +113,21 @@ body{
       height: 100%;
       width: 100%;
     }
+  }
+}
+
+
+.login-submit{
+  margin-bottom: 15px;
+}
+
+.ft-action{
+  font-size: 0.8rem;
+  line-height: 1;
+  text-decoration: underline;
+  display: flex;
+  justify-content: space-between;
+  a{
+    color: $main-color;
   }
 }

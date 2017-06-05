@@ -1,0 +1,26 @@
+@import '../../style/variables';
+
+.weui-btn{
+  border-radius: 3px;
+  line-height: 2.2em;
+}
+
+.weui-btn_primary{
+  background-color: $btn-bg-color;
+}
+
+.weui-btn_primary:not(.weui-btn_disabled):active{
+  background-color: darken($btn-bg-color, 10%);
+}
+
+.weui-dialog{
+  top: 35%;
+  width: 70%;
+  border-radius: 16px;
+  font-weight: lighter;
+}
+
+.weui-dialog__bd{
+  font-size: 0.8rem;
+  color: #666666;
+}

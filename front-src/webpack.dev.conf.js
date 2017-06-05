@@ -51,10 +51,17 @@ let webpackConfig = {
             exclude: /node_modules/
         }, {
             test: /\.less$/,
-            // loader: ExtractTextPlugin.extract({
-            //     fallback: 'style-loader', use: 'css-loader!less-loader'
-            // }),
+            loader: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: 'css-loader!less-loader'
+            }),
         }, {
+            test: /\.scss$/,
+            loader: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: 'css-loader!sass-loader'
+            })
+        },{
             test: /\.(png|jpe?g|ico)$/,
             loader: 'url-loader',
             query: {
