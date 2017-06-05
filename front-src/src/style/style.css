@@ -1,0 +1,5 @@
+:global(.search-pad){
+    width: 200px;
+    margin: 0 10px 10px;
+    display: inline-block;
+}

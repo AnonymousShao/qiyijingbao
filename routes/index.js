@@ -1,11 +1,14 @@
-var router = require('koa-router')();
+const Router = require('koa-router');
+const router = new Router()
 
-router.get('/', async function (ctx, next) {
-  ctx.state = {
-    title: 'koa2 title'
-  };
+const users = require('./users');
+const home = require('./home');
+const auction = require('./auction');
+const login = require('./login');
 
-  await ctx.render('index', {
-  });
-})
-module.exports = router;
+router.use('/users', users.routes(), users.allowedMethods());
+router.use('/home', home.routes(), home.allowedMethods());
+router.use('/auction', auction.routes(), auction.allowedMethods());
+router.use('/login', login.routes(), login.allowedMethods());
+
+module.exports = router

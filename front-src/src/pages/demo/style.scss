@@ -1,0 +1,111 @@
+$background: rgba(200, 200, 200, 0.2);
+$main-color: #ea5b3d;
+$border-color: #ddd;
+$radius: 3px;
+
+body{
+  font-size: 16px;
+}
+
+.logo-text{
+  width: 90px;
+  height: 22px;
+  display: block;
+  padding: 12px 15px;
+}
+
+.banner{
+  height: 3px;
+  width: 100%;
+  display: block;
+  margin-bottom: 21px;
+}
+
+.logo{
+  width: 30%;
+  max-width: 90px;
+  display: block;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.cp_input{
+  $height: 40px;
+
+  @at-root #{&}-wrap{
+    display: flex;
+    height: $height;
+    position: relative;
+    border-radius: $radius;
+    margin-bottom: 10px;
+    background-color: $background;
+  }
+
+  @at-root #{&}-hd{
+    width: 2.8rem;
+    color: $main-color;
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: $height;
+    position: relative;
+    &:after{
+      content: '';
+      width: 1px;
+      right: 0;
+      position: absolute;
+      height: 80%;
+      top: 10%;
+      background-color: $border-color;
+    }
+  }
+
+  @at-root #{&}-input{
+    position: relative;
+    flex: 1;
+
+    input{
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      border: none;
+      padding: 11px 15px;
+      box-sizing: border-box;
+      font-size: 0.9rem;
+    }
+    input:focus{
+      outline: 0;
+      box-shadow: none;
+    }
+    input::-webkit-input-placeholder{
+      color: #ccc;
+      font-family: "Heiti SC";
+    }
+  }
+
+  @at-root #{&}-phone{
+    text-decoration: underline;
+    color: $main-color;
+    font-size: 0.8rem;
+    padding-right: 10px;
+    line-height: $height;
+  }
+
+  @at-root #{&}-ft{
+    width: 30px;
+    text-align: center;
+    line-height: $height;
+  }
+
+  @at-root #{&}-code{
+    width: 70px;
+    padding: 5px;
+    position: relative;
+    border-radius: $radius;
+    background-color: $border-color;
+    box-sizing: border-box;
+    img{
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

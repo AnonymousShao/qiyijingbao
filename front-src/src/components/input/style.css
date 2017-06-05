@@ -1,0 +1,53 @@
+.wrap {
+    padding: 5px;
+    position: relative;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    background-color: rgba(200, 200, 200, 0.2);
+}
+.inputHeader {
+    width: 35px;
+    color: #E86952;
+    font-size: 18px;
+    text-align: center;
+    display: inline-block;
+    border-right: 1px double #ddd;
+}
+
+.inputWrap {
+    display: inline-block;
+    width: calc(100% - 40px);
+    position: relative;
+}
+
+.input{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    padding: 5px 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.input:focus{
+    outline: 0;
+    box-shadow: none;
+}
+
+.showPwd{
+    width: 25px;
+    position: absolute;
+    right: 0
+}
+
+.codeBox{
+    right: 0;
+    width: 60px;
+    height: 100%;
+    margin-top: -5px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: 2px;
+    background-color: #ddd;
+}
