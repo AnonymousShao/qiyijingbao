@@ -48,7 +48,7 @@ export default class Input extends Component{
                     }</span>
                 ):null}
                 {this.props.actionType==='phone'?(
-                    <span className="cp_input-phone" onTouchEnd={this.sendCode.bind(this)}>
+                    <span className="cp_input-phone" onTouchEnd={this.props.onAction}>
                         发送至手机
                     </span>
                 ):null}

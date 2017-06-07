@@ -4,6 +4,7 @@ import Input from '../../components/input'
 import {Link} from 'react-router-dom'
 import setTitle from '../../helper/fix-title'
 const { Toast, Dialog, Button } = weui
+import {sendResetCode, resetPwd} from '../../helper/http'
 
 const phone = 'PHONE',
     password = 'PASSWORD',
@@ -28,9 +29,30 @@ export default class Register extends Component{
         })
     }
 
+    onAction(){
+        if(!this.state[phone]){
+            alert('wu')
+            return
+        }
+        const params = {
+            phone: this.state[phone]
+        }
+        sendResetCode(params).then(data=>{
+
+        })
+    }
+
     dealData(){
-        this.setState({
-            dialogShow: true
+        const data = {
+            phone: this.state[phone],
+            password: this.state[password],
+            code: this.state[code]
+        }
+        if(!data.phone||!data.password||!data.code){
+            return
+        }
+        resetPwd(data).then(data=>{
+            debugger
         })
     }
 
@@ -40,7 +62,11 @@ export default class Register extends Component{
                 <div className="cp_input-form">
                     <Input type="text" placeholder="请输入您的手机号" onChange={this.handleChange.bind(this, phone)}/>
                     <Input type="password" placeholder="密码6-18位大小写英文和数字" onChange={this.handleChange.bind(this, password)}/>
-                    <Input type="text" actionType="phone" placeholder="请输入验证码" onChange={this.handleChange.bind(this, code)} />
+                    <Input type="text"
+                           actionType="phone"
+                           placeholder="请输入验证码"
+                           onAction={this.onAction.bind(this)}
+                           onChange={this.handleChange.bind(this, code)} />
                 </div>
                 <Button className="login-submit" onClick={this.dealData.bind(this)}>登录</Button>
                 <div className="ft-action">

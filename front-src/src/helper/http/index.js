@@ -1,57 +1,71 @@
 import http from 'axios'
 import config from '../config'
-const host = config.server
+const host = config.server,
+    success = config.success
 
 // require('../mock')
 
 const init = {
     get(){
         const params = arguments[1],
-            url = arguments[0]?host + arguments[0]: ''
+            url = host + arguments[0]
         return http.get(url, {params})
             .then(res=>{
-            return res.data
+                return res.data
         })
             .then(data=>{
-            if(data.code === '200'){
-                return data
-            }else {
-                alert(data.message)
-            }
-        }).catch(e=>{
-            alert(e)
+                if(data.res_code === success){
+                    return data
+                }else {
+                    alert(data.res_error)
+                }
+        })
+            .catch(e=>{
+                alert(e)
             })
     },
     put(){
         const url = arguments[0]?host+arguments[0]:'',
         data = arguments[1] || {}
-        return http.put(url, data, arguments[2]||null).then(res=>{
+        return http.put(url, data, arguments[2]||null)
+            .then(res=>{
             return res.data
-        }).then(data=>{
-            if(data.code === '200'){
-                return data
-            } else {
-                alert(data.message)
-            }
-        }).catch(e=>{
-            alert(e)
+        })
+            .then(data=>{
+                if(data.res_code === success){
+                    return data
+                }else {
+                    alert(data.res_error)
+                }
+        })
+            .catch(e=>{
+                alert(e)
             return 'error'
         })
-    }
+    },
+    post(){
+        return http.post.apply(http, arguments)
+            .then(res=>{
+                return res.data
+            })
+            .then(data=>{
+                if(data.res_code === success){
+                    return data
+                }else {
+                    alert(data.res_error)
+                }
+            })
+            .catch(e=>{
+                alert(e)
+                return 'error'
+            })
+    },
 }
 
-export function t() {
-    return init.get('api/1/keys/choices/')
+export function sendResetCode(params){
+    return init.get('login/resetSendCode', params)
 }
 
-export function getNews(id) {
-    return init.get('api/1/news/'+id)
-}
-
-export function getAllNews(params) {
-    return init.get('api/1/news/', params)
-}
-
-export function putNews(pk, data) {
-    return init.put(`api/1/news/${pk}`, data)
+export function resetPwd(params) {
+    return init.post('/login/resetPwd', params)
 }

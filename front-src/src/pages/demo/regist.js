@@ -28,9 +28,14 @@ export default class Register extends Component{
     }
 
     dealData(){
-        this.setState({
-            dialogShow: true
-        })
+        const {phone, password, code} = this.state
+        if(!phone||!password||!code){
+            return
+        }
+        const data = {
+            phone, password, code
+        }
+
     }
 
     render(){
