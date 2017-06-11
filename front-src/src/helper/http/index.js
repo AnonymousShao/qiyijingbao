@@ -69,3 +69,11 @@ export function sendResetCode(params){
 export function resetPwd(params) {
     return init.post('/login/resetPwd', params)
 }
+
+export function login(params) {
+    return init.post('/login/login', params)
+}
+
+export function register(params){
+    return init.post('/login/register', params)
+}

@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom'
 import setTitle from '../../helper/fix-title'
 const { Toast, Dialog, Button } = weui
 
+import { login } from '../../helper/http'
+
 const phone = 'PHONE',
     password = 'PASSWORD',
     code = 'CODE'
@@ -30,8 +32,16 @@ export default class Register extends Component{
     }
 
     dealData(){
-        this.setState({
-            dialogShow: true
+        const data = {
+            phone: this.state[phone],
+            password: this.state[password],
+            imgCode: this.state[code]
+        }
+        if(!data.phone||!data.password||!data.imgCode){
+            return
+        }
+        login(data).then(data=>{
+            debugger
         })
     }
 

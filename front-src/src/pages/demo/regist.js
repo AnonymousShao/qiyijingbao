@@ -4,10 +4,12 @@ import Input from '../../components/input'
 import {Link} from 'react-router-dom'
 import setTitle from '../../helper/fix-title'
 const { Toast, Dialog, Button } = weui
+import { register } from '../../helper/http'
 
 const phone = 'PHONE',
     password = 'PASSWORD',
-    code = 'CODE'
+    code = 'CODE',
+    imgCode = 'IMGCODE'
 
 export default class Register extends Component{
 
@@ -28,14 +30,18 @@ export default class Register extends Component{
     }
 
     dealData(){
-        const {phone, password, code} = this.state
-        if(!phone||!password||!code){
+        const data = {
+            phone: this.state[phone],
+            password: this.state[password],
+            code: this.state[code],
+            imgCode: this.state[imgCode]
+        }
+        if(!data.phone||!data.password||!data.code||!data.imgCode){
             return
         }
-        const data = {
-            phone, password, code
-        }
+        register(data).then(data=>{
 
+        })
     }
 
     render(){
@@ -45,7 +51,7 @@ export default class Register extends Component{
                     <Input type="text" placeholder="请输入您的手机号" onChange={this.handleChange.bind(this, phone)}/>
                     <Input type="password" placeholder="密码6-18位大小写英文和数字" onChange={this.handleChange.bind(this, password)}/>
                     <Input type="text" actionType="code" placeholder="请输入图形验证码" onChange={this.handleChange.bind(this, code)}/>
-                    <Input type="text" actionType="phone" placeholder="请输入验证码" onChange={this.handleChange.bind(this, code)} />
+                    <Input type="text" actionType="phone" placeholder="请输入验证码" onChange={this.handleChange.bind(this, imgCode)} />
                 </div>
                 <Button className="login-submit" onClick={this.dealData.bind(this)}>注册</Button>
                 <div className="ft-action">

@@ -1,3 +1,6 @@
-/**
- * Created by tangjianfeng on 2017/5/31.
- */
+const http = require('axios')
+const host = require('./config').host
+
+module.exports.getCollect = function () {
+
+}
