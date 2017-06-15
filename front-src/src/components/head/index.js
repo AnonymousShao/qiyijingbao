@@ -12,3 +12,4 @@ export default class Head extends Component{
         )
     }
 }
+

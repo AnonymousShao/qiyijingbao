@@ -14,13 +14,14 @@ let webpackConfig = {
         home:'./src/pages/home/index.js',
         login: './src/pages/login/index.js',
         demo: './src/pages/demo/index.js',
+        auction: './src/pages/auction/index.js'
     },
     resolve: {
         extensions: ['.js', '.jsx'],
     },
     output: {
         path: publicPath,
-        filename: "statics/[name]_bundle.js"
+        filename: "statics/script/[name]_bundle.js"
     },
     watch: true,
     devtool: 'source-map',

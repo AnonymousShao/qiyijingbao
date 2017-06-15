@@ -1,44 +1,118 @@
 const fs = require('fs'),
+    cheerio = require('cheerio'),
     path = require('path');
 
 const current = path.resolve(__dirname, '../') + '/'
+const jsOutDist = 'dist/statics/script/',
+    htmlOutDist = 'dist/',
+    cssOutDist = 'dist/statics/css/';
 
-const js = [
-    'node_modules/react/dist/react.min.js',
-    'node_modules/react-dom/dist/react-dom.min.js',
-    'node_modules/redux/dist/redux.min.js',
-    'node_modules/react-redux/dist/react-redux.min.js',
-    'node_modules/react-router-dom/umd/react-router-dom.min.js',
-    'node_modules/antd/dist/antd.min.js',
-    'node_modules/moment/min/moment.min.js',
-    'node_modules/draft-js/dist/Draft.min.js',
-    'node_modules/immutable/dist/immutable.min.js'
-]
+let htmlFiles = {
+        home: 'src/pages/home/index.html',
+        login: 'src/pages/login/index.html',
+        demo: 'src/pages/demo/index.html',
+        auction: 'src/pages/auction/index.html'
+    };
 
-const jsRaw = [
-    'node_modules/react/dist/react.js',
-    'node_modules/react-dom/dist/react-dom.js',
-    'node_modules/redux/dist/redux.js',
-    'node_modules/react-redux/dist/react-redux.js',
-    'node_modules/react-router-dom/umd/react-router-dom.js',
-    'node_modules/antd/dist/antd.js',
-    'node_modules/draft-js/dist/Draft.js',
-    'node_modules/immutable/dist/immutable.js'
-]
+const scriptObjs = [],
+    linkObjs = [];
 
-const css = [
-    'node_modules/antd/dist/antd.min.css',
-    'node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-];
+function getEntities(){
+    Object.keys(htmlFiles).forEach(html=>{
+        const relativeDir = path.dirname(path.resolve(current, htmlFiles[html]))
+        const rawHtml = fs.readFileSync(current + htmlFiles[html])
+        let $ = cheerio.load(rawHtml);
+        htmlFiles[html] = $
+        const CheerioScripts = $('script'),
+            CheerioLinks = $('link');
+        for(let i=0;i<CheerioScripts.length;i++){
+            CheerioScripts[i].attribs['defer'] = undefined
+            if(CheerioScripts[i].attribs['__raw']===undefined){
+                scriptObjs.push({
+                    dom: CheerioScripts[i],
+                    relativeDir,
+                    sourceDir: CheerioScripts[i].attribs.src,
+                    distDir: ''
+                })
+            } else {
+                delete CheerioScripts[i].attribs['__raw']
+            }
+        }
+        for(let i=0;i<CheerioLinks.length;i++){
+            if(CheerioLinks[i].attribs['__raw']===undefined){
+                linkObjs.push({
+                    dom: CheerioLinks[i],
+                    relativeDir,
+                    sourceDir: CheerioLinks[i].attribs.href,
+                    distDir: ''
+                })
+            } else {
+                delete CheerioLinks[i].attribs['__raw']
+            }
+        }
+    })
+}
 
-(js.concat(jsRaw)).forEach(item=>{
-    const fileName = item.split('/'),
-    name = fileName[fileName.length-1]
-    fs.createReadStream(current + item).pipe(fs.createWriteStream(current+'dist/statics/script/'+name))
-})
+function selectEntityObjs(){
+    scriptObjs.forEach(script=>{
+        script.sourceDir = path.resolve(script.relativeDir, script.sourceDir)
+    })
 
-css.forEach(item=>{
-    const fileName = item.split('/'),
-        name = fileName[fileName.length-1]
-    fs.createReadStream(current + item).pipe(fs.createWriteStream(current+'dist/statics/css/'+name))
-})
+    linkObjs.forEach(link=>{
+        link.sourceDir = path.resolve(link.relativeDir, link.sourceDir)
+    })
+}
+
+function transfer(){
+    function copy(src, distDir){
+        const fileName = src.sourceDir.split('/'),
+            name = fileName[fileName.length-1]
+        try{
+            fs.createReadStream(src.sourceDir).pipe(
+                fs.createWriteStream(current + distDir + name)
+            )
+            src.distDir = (distDir + name).replace('dist/', '')
+        } catch (e){
+            console.log(e)
+        }
+    }
+
+    scriptObjs.forEach(item=>{
+        copy(item, jsOutDist)
+    })
+    linkObjs.forEach(item=>{
+        copy(item, cssOutDist)
+    })
+}
+
+function linkToDest() {
+    scriptObjs.forEach(script=>{
+        script.dom.attribs.src = script.distDir
+    })
+    linkObjs.forEach(link=>{
+        link.dom.attribs.href = link.distDir
+    })
+}
+
+function product(){
+    Object.keys(htmlFiles).forEach(htmlName=>{
+        htmlFiles[htmlName] = htmlFiles[htmlName].html()
+            .replace(/<!--.+?-->\n/g, '')
+            .replace(/\n/g, '')
+            .replace(/\s+/, ' ')
+            .replace(/>(\s)+</g, '><')
+    })
+}
+
+function compileToDist(){
+    Object.keys(htmlFiles).forEach(htmlName=>{
+        fs.writeFileSync(current + htmlOutDist + htmlName + '.html', htmlFiles[htmlName])
+    })
+}
+
+getEntities()
+selectEntityObjs()
+transfer()
+linkToDest()
+product()
+compileToDist()

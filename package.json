@@ -6,8 +6,10 @@
     "koa": "./node_modules/.bin/runkoa bin/www",
     "pm2": "pm2 start bin/run ",
     "fstart": "cd front-src/ && npm start",
+    "fcp": "cd front-src/ && npm run cp",
     "tstart": "cd front-src/ && NODE_ENV=production npm start",
-    "test": "./node_modules/.bin/mocha -u bdd"
+    "test": "./node_modules/.bin/mocha -u bdd",
+    "totest": "rsync -avz ./ --exclude='.git/' --exclude='.idea/' root@daxianyu.cn:/data/yjs"
   },
   "dependencies": {
     "axios": "^0.16.1",
