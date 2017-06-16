@@ -3,6 +3,8 @@ import weui from 'react-weui'
 import Input from '../../components/input'
 import {Link} from 'react-router-dom'
 import setTitle from '../../helper/fix-title'
+import validator from 'validator'
+import { isValidPassword } from '../../helper/validatorX'
 const { Toast, Dialog, Button } = weui
 
 import { login } from '../../helper/http'
@@ -31,18 +33,45 @@ export default class Register extends Component{
         })
     }
 
-    dealData(){
-        const data = {
-            phone: this.state[phone],
-            password: this.state[password],
-            imgCode: this.state[code]
-        }
-        if(!data.phone||!data.password||!data.imgCode){
+    validator(){
+        if(!validator.isMobilePhone(this.state[phone], 'zh-CN')){
+            this.setState({[phone + 'isError']: true})
+            setTimeout(()=>{
+                this.setState({[phone + 'isError']: false})
+            }, 500)
             return
         }
-        login(data).then(data=>{
-            debugger
-        })
+        if(!isValidPassword(this.state[password])){
+            this.setState({[password + 'isError']: true})
+            setTimeout(()=>{
+                this.setState({[password + 'isError']: false})
+            }, 500)
+            return
+        }
+        if(!this.state[code]){
+            this.setState({[code + 'isError']: true})
+            setTimeout(()=>{
+                this.setState({[code + 'isError']: false})
+            }, 500)
+            return
+        }
+        return true
+    }
+
+    dealData(){
+        if(this.validator()){
+            const data = {
+                phone: this.state[phone],
+                password: this.state[password],
+                imgCode: this.state[code]
+            }
+            if(!data.phone||!data.password||!data.imgCode){
+                return
+            }
+            login(data).then(data=>{
+                debugger
+            })
+        }
     }
 
     hideDialog(){
@@ -80,9 +109,21 @@ export default class Register extends Component{
         return (
             <div>
                 <div className="cp_input-form">
-                    <Input type="text" actionType="phone" placeholder="请输入您的手机号" onChange={this.handleChange.bind(this, phone)}/>
-                    <Input type="password" actionType="password" placeholder="密码6-18位大小写英文和数字" onChange={this.handleChange.bind(this, password)}/>
-                    <Input type="text" actionType="code" placeholder="请输入图形验证码" onChange={this.handleChange.bind(this, code)}/>
+                    <Input type="text"
+                           isError={this.state[phone+'isError']}
+                           actionType="phone"
+                           placeholder="请输入您的手机号"
+                           onChange={this.handleChange.bind(this, phone)}/>
+                    <Input type="password"
+                           isError={this.state[password+'isError']}
+                           actionType="password"
+                           placeholder="密码6-18位大小写英文和数字"
+                           onChange={this.handleChange.bind(this, password)}/>
+                    <Input type="text"
+                           isError={this.state[code+'isError']}
+                           actionType="imgCode"
+                           placeholder="请输入图形验证码"
+                           onChange={this.handleChange.bind(this, code)}/>
                 </div>
                 <Button className="login-submit" onClick={this.dealData.bind(this)}>登录</Button>
                 <div className="ft-action">
@@ -91,7 +132,7 @@ export default class Register extends Component{
                 </div>
                 <div style={this.style.weChat}>
                     <img style={this.style.quickImg} src={require('../../assets/images/login_quick.png')}/>
-                    <a href={'/wxlogin?redirect=' + encodeURIComponent(location.href)}>
+                    <a href={'/wx/wxlogin?sourceurl=' + encodeURIComponent(location.href)}>
                         <img style={this.style.weChatImg} src={require('../../assets/images/wechat.png')} alt=""/>
                     </a>
                 </div>

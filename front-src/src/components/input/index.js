@@ -17,8 +17,9 @@ export default class Input extends Component{
 
     componentWillMount(){
         this.state = {
-            type: this.props.type,
             image: '',
+            type: this.props.type,
+            seconds: 0,
             randomImage: Math.random()
         }
     }
@@ -36,7 +37,22 @@ export default class Input extends Component{
     }
 
     sendCode(){
-
+        let countDown = () => {
+            let next = this.state.seconds - 1
+            this.setState({
+                seconds: next
+            })
+            if(next > 0){
+                setTimeout(countDown, 1000)
+            }
+        }
+        this.props.onAction().then(res=>{
+            if(res){
+                this.setState({
+                    seconds: 60,
+                }, countDown)
+            }
+        })
     }
 
     handleChange(event){
@@ -50,9 +66,10 @@ export default class Input extends Component{
                     <img style={{width: 20, paddingTop: 10}} src={this.images[this.props.actionType]} alt=""/>
                 </span>
                 <div className="cp_input-input">
-                    <input type={this.state.type} placeholder={this.props.placeholder||''} onChange={this.handleChange.bind(this)} />
+                    <input className={this.props.isError?'animated shake':''}
+                           type={this.state.type} placeholder={this.props.placeholder||''} onChange={this.handleChange.bind(this)} />
                 </div>
-                {this.props.actionType==='code'?(
+                {this.props.actionType==='imgCode'?(
                     <span className="cp_input-code">
                         <img src={"/users?rdm="+this.state.randomImage} onClick={this.randomImage.bind(this)}/>
                     </span>
@@ -64,10 +81,10 @@ export default class Input extends Component{
                             :(<img style={{width: 20, paddingTop: 10}} src={this.images.passwordOff} alt=""/>)
                     }</span>
                 ):null}
-                {this.props.actionType==='phone'?(
-                    <span className="cp_input-phone" onTouchEnd={this.props.onAction}>
-                        发送至手机
-                    </span>
+                {this.props.actionType==='code'?(
+                    this.state.seconds === 0
+                        ?(<span className="cp_input-phone" onTouchEnd={this.sendCode.bind(this)}>发送至手机</span>)
+                        :(<span className="cp_input-phone">{this.state.seconds}秒后重新获取</span>)
                 ):null}
             </div>
         )

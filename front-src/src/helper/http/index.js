@@ -53,17 +53,23 @@ const init = {
                     return data
                 }else {
                     alert(data.res_error)
+                    throw new Error(data)
                 }
             })
             .catch(e=>{
                 alert(e)
-                return 'error'
+                throw new Error(e)
             })
     },
 }
 
 export function sendResetCode(params){
-    return init.get('login/resetSendCode', params)
+    return init.get('login/resetSendCode', params).then(data=>{
+        debugger
+        return data.res_code === success
+    }).catch(()=>{
+        return false
+    })
 }
 
 export function resetPwd(params) {

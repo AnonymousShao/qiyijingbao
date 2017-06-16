@@ -116,9 +116,13 @@ body{
   }
 }
 
-
 .login-submit{
   margin-bottom: 15px;
+}
+
+.login-disabled{
+  background-color: #CCC!important;
+  pointer-events: none;
 }
 
 .ft-action{

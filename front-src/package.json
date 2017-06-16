@@ -8,12 +8,12 @@
     "start": "node config/copy-modules.js && webpack --config webpack.dev.conf.js --display-error-details --profile",
     "start-show": "webpack --config webpack.dev.conf.js --display-error-details --display-modules",
     "cp": "node config/copy-modules.js",
-    "deploy": "rsync -avz dist/ root@172.16.88.140:/root/www",
     "prod": "NODE_ENV=production webpack --config webpack.dev.conf.js && npm run cp && npm run deploy"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "animate.css": "^3.5.2",
     "axios": "^0.16.1",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
@@ -24,6 +24,7 @@
     "react-weui": "^1.0.3",
     "redux": "^3.6.0",
     "redux-promise": "^0.5.3",
+    "validator": "^7.0.0",
     "weui": "^1.1.0"
   },
   "devDependencies": {

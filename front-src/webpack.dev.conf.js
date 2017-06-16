@@ -13,7 +13,7 @@ let webpackConfig = {
     entry: {
         home:'./src/pages/home/index.js',
         login: './src/pages/login/index.js',
-        demo: './src/pages/demo/index.js',
+        // demo: './src/pages/demo/index.js',
         auction: './src/pages/auction/index.js'
     },
     resolve: {
@@ -96,7 +96,8 @@ let webpackConfig = {
         'react-router-dom': 'ReactRouterDOM',
         'antd': 'antd',
         'moment': 'moment',
-        'draft-js': 'Draft'
+        'draft-js': 'Draft',
+        'validator': 'validator'
     }
 };
 
