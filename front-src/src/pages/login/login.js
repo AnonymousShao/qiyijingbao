@@ -1,17 +1,16 @@
 import React, {Component} from 'react'
-import weui from 'react-weui'
 import Input from '../../components/input'
 import {Link} from 'react-router-dom'
 import setTitle from '../../helper/fix-title'
 import validator from 'validator'
 import { isValidPassword } from '../../helper/validatorX'
-const { Toast, Dialog, Button } = weui
-
+import { Button, Dialog } from '../../components/button'
 import { login } from '../../helper/http'
+import Toast from '../../components/toast'
 
 const phone = 'PHONE',
     password = 'PASSWORD',
-    code = 'CODE'
+    imgCode = 'IMGCODE'
 
 export default class Register extends Component{
 
@@ -23,6 +22,8 @@ export default class Register extends Component{
         setTitle('登录')
         this.state = {
             dialogShow: false,
+            errorMsg: 's',
+            showErr: false,
             [phone]: ''
         }
     }
@@ -41,17 +42,18 @@ export default class Register extends Component{
             }, 500)
             return
         }
-        if(!isValidPassword(this.state[password])){
+        // if(!isValidPassword(this.state[password])){  只要校验不为空即可
+        if(!this.state[password]){
             this.setState({[password + 'isError']: true})
             setTimeout(()=>{
                 this.setState({[password + 'isError']: false})
             }, 500)
             return
         }
-        if(!this.state[code]){
-            this.setState({[code + 'isError']: true})
+        if(!this.state[imgCode]){
+            this.setState({[imgCode + 'isError']: true})
             setTimeout(()=>{
-                this.setState({[code + 'isError']: false})
+                this.setState({[imgCode + 'isError']: false})
             }, 500)
             return
         }
@@ -63,13 +65,13 @@ export default class Register extends Component{
             const data = {
                 phone: this.state[phone],
                 password: this.state[password],
-                imgCode: this.state[code]
-            }
-            if(!data.phone||!data.password||!data.imgCode){
-                return
+                imgCode: this.state[imgCode]
             }
             login(data).then(data=>{
-                debugger
+                if(data){
+                    window.location.href = '/auction.html'
+                    // alert('登录成功！')
+                }
             })
         }
     }
@@ -93,7 +95,7 @@ export default class Register extends Component{
         weChat: {
             width: '60%',
             margin: 'auto',
-            marginTop: 60,
+            marginTop: 20,
             textAlign: 'center'
         },
         quickImg: {
@@ -117,25 +119,33 @@ export default class Register extends Component{
                     <Input type="password"
                            isError={this.state[password+'isError']}
                            actionType="password"
-                           placeholder="密码6-18位大小写英文和数字"
+                           placeholder="密码6-18位英文和数字"
                            onChange={this.handleChange.bind(this, password)}/>
                     <Input type="text"
-                           isError={this.state[code+'isError']}
+                           isError={this.state[imgCode+'isError']}
                            actionType="imgCode"
                            placeholder="请输入图形验证码"
-                           onChange={this.handleChange.bind(this, code)}/>
+                           onChange={this.handleChange.bind(this, imgCode)}/>
                 </div>
-                <Button className="login-submit" onClick={this.dealData.bind(this)}>登录</Button>
+                <Button className="login-submit"
+                        style={{backgroundImage: `url(${require('../../assets/images/btn_1.png')}`}}
+                        onClick={this.dealData.bind(this)}>登录</Button>
                 <div className="ft-action">
-                    <Link to="/reset">忘记密码</Link>
-                    <Link to="/register">注册账号</Link>
+                    <Link className="u-line" to="/reset">忘记密码</Link>
+                    <Link className="u-line" to="/register">注册账号</Link>
                 </div>
                 <div style={this.style.weChat}>
                     <img style={this.style.quickImg} src={require('../../assets/images/login_quick.png')}/>
-                    <a href={'/wx/wxlogin?sourceurl=' + encodeURIComponent(location.href)}>
+                    <a href={'/wx/wxlogin?sourceurl=' +
+                    // encodeURIComponent(location.href)
+                    encodeURIComponent(location.origin + '/auction.html')
+                    }>
                         <img style={this.style.weChatImg} src={require('../../assets/images/wechat.png')} alt=""/>
                     </a>
                 </div>
+                {/*<Toast ref="toast">*/}
+                    {/*{this.state.errorMsg}*/}
+                {/*</Toast>*/}
                 <Dialog show={this.state.dialogShow} buttons={this.dialogButtons}>绑定微信后，在登录时可使用微信快捷登录是否现在绑定？</Dialog>
             </div>
         )

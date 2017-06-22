@@ -1,0 +1,23 @@
+.footer-container{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+}
+
+.footer-item{
+  text-align: center;
+  padding: 5px 6px;
+  box-sizing: border-box;
+  img{
+    width: 24px;
+    display: block;
+  }
+  .footer-name{
+    font-size: 0.6rem;
+  }
+}

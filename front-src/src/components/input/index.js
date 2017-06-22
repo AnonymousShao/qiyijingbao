@@ -13,6 +13,14 @@ export default class Input extends Component{
             passwordOn: require('../../assets/images/login_password_on.png'),
             passwordOff: require('../../assets/images/login_password_off.png')
         }
+        this.image = {
+            phone: 'icon-shouji',
+            code: '',
+            imgCode: 'icon-tubiao',
+            password: 'icon-yuechi',
+            passwordOn: '',
+            passwordOff: ''
+        }
     }
 
     componentWillMount(){
@@ -59,11 +67,16 @@ export default class Input extends Component{
         this.props.onChange(event.target.value)
     }
 
+
     render(){
+        const iconClass = `iconfont ${this.image[this.props.actionType]}`
+
         return (
             <div className="cp_input-wrap">
                 <span className="cp_input-hd">
-                    <img style={{width: 20, paddingTop: 10}} src={this.images[this.props.actionType]} alt=""/>
+                    {this.props.actionType!=='code'
+                        ?<i style={{fontSize: '1.2em'}} className={iconClass} />
+                        :<img style={{width: 20, paddingTop: 10}} src={this.images[this.props.actionType]} alt=""/>}
                 </span>
                 <div className="cp_input-input">
                     <input className={this.props.isError?'animated shake':''}

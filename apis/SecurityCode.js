@@ -4,14 +4,13 @@ const getInputObjectSignForH5 = require('../globals/apiSign').getInputObjectSign
 const host = require('./config').host
 const moment = require('moment')
 const userInfo = require('../globals/user_info').userInfo
+const {error, success, successCode } = require('./config')
 
 module.exports.sendMSM = function (params) {
     const encyc = des.encrypt(params.phone)
     const sign = encyc.substr(0, 5) + encyc.substring(encyc.length-5)
     params.sign = sign.toUpperCase()
-    return http.get(host + 'api/securitycode', {params}).then(data=>{
-        return data.data
-    })
+    return http.get(host + 'api/securitycode', {params})
 }
 
 module.exports.resetSendCode = function (params) {
@@ -19,11 +18,7 @@ module.exports.resetSendCode = function (params) {
     const sign = encyc.substr(0, 5) + encyc.substring(encyc.length-5)
     params.sign = sign.toUpperCase()
     params.flag = 'resetpwd'
-    return http.get(host + 'api/securitycode', {params}).then(data=>{
-        return data.data
-    }).catch(err=>{
-        console.log(err)
-    })
+    return http.get(host + 'api/securitycode', {params})
 }
 
 function resetAndRegister(params, signKey) {
@@ -58,22 +53,12 @@ function resetAndRegister(params, signKey) {
 
 module.exports.resetPwd = function (params) {
     const data = resetAndRegister(params, 'reset')
-    return http.post(host + 'api/member?flag=3', data).then(data=>{
-        debugger
-        return data
-    }).catch(err=>{
-        debugger
-    })
+    return http.post(host + 'api/member?flag=3', data)
 }
 
 module.exports.register = function (params) {
     const data = resetAndRegister(params, 'register')
-    return http.post(host + 'api/member', data).then(data=>{
-        debugger
-        return data
-    }).catch(err=>{
-        debugger
-    })
+    return http.post(host + 'api/member', data)
 }
 
 module.exports.login = function (params) {
@@ -85,10 +70,7 @@ module.exports.login = function (params) {
                 Password: enPassword
             }
         }
-    return http.post(host + 'api/Member?flag=1', data).then(data=>{
-        debugger
-        return data
-    })
+    return http.post(host + 'api/Member?flag=1', data)
 }
 
 module.exports.wxlogin = function (params) {

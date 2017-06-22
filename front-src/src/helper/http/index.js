@@ -53,23 +53,16 @@ const init = {
                     return data
                 }else {
                     alert(data.res_error)
-                    throw new Error(data)
                 }
             })
             .catch(e=>{
                 alert(e)
-                throw new Error(e)
             })
     },
 }
 
 export function sendResetCode(params){
-    return init.get('login/resetSendCode', params).then(data=>{
-        debugger
-        return data.res_code === success
-    }).catch(()=>{
-        return false
-    })
+    return init.get('/login/resetSendCode', params)
 }
 
 export function resetPwd(params) {
@@ -80,6 +73,18 @@ export function login(params) {
     return init.post('/login/login', params)
 }
 
+export function sendSMS(params) {
+    return init.get('/login/sendMSMALL', params)
+}
+
 export function register(params){
     return init.post('/login/register', params)
+}
+
+export function getAuction() {
+    return init.get('/auction').then(data=>(data.res_body))
+}
+
+export function getArtists() {
+    return init.get('/auction/getArtistList').then(data=>(data.data))
 }

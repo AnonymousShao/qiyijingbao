@@ -118,6 +118,7 @@ body{
 
 .login-submit{
   margin-bottom: 15px;
+  background-size: cover;
 }
 
 .login-disabled{
@@ -128,10 +129,12 @@ body{
 .ft-action{
   font-size: 0.8rem;
   line-height: 1;
-  text-decoration: underline;
   display: flex;
   justify-content: space-between;
   a{
     color: $main-color;
+  }
+  .u-line{
+    text-decoration: underline;
   }
 }

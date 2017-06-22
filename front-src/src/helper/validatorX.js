@@ -5,7 +5,7 @@ export function isValidPassword(input) {
     if(!input) return false
     if(input.length < 6 || input.length > 18) return false
     if(!hasSmallChar.test(input)) return false
-    if(!hasBigChar.test(input)) return false
+    // if(!hasBigChar.test(input)) return false
     if(!hasNum.test(input)) return false
     return true
 }

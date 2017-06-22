@@ -2,7 +2,12 @@ const router = require('koa-router')();
 const genImage = require('captchapng')
 
 router.get('/', function (ctx, next) {
-    const p = new genImage(60, 35, 4423)
+    let code = ''
+    while (code.length<4) {
+        code += Math.floor(10 * Math.random())
+    }
+    ctx.session.imgCode = code
+    const p = new genImage(60, 35, code)
     p.color(200, 200, 200, 1)
     p.color(195, 19, 32, 255)
     let img = p.getBase64()

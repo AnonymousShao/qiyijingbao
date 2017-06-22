@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
-import weui from 'react-weui'
 import Input from '../../components/input'
 import {Link} from 'react-router-dom'
 import setTitle from '../../helper/fix-title'
 import validator from 'validator'
 import {isValidPassword} from '../../helper/validatorX'
-const { Toast, Dialog, Button } = weui
-import { register } from '../../helper/http'
+import {Button} from '../../components/button'
+import { register, sendSMS } from '../../helper/http'
 
 const phone = 'PHONE',
     password = 'PASSWORD',
@@ -39,14 +38,12 @@ export default class Register extends Component{
     constructor(props){
         super(props)
         this.state = {
-            checked: false
+            checked: true,
+            [phone]: ''
         }
     }
     componentWillMount(){
         setTitle('注册')
-        this.state = {
-            [phone]: ''
-        }
     }
 
     handleChange(key, value){
@@ -98,9 +95,8 @@ export default class Register extends Component{
         const params = {
             phone: this.state[phone]
         }
-        return sendResetCode(params)
+        return sendSMS(params)  // 交给 倒计时处 处理
     }
-
 
     dealData(){
         if(this.validator()){
@@ -110,11 +106,11 @@ export default class Register extends Component{
                 code: this.state[code],
                 imgCode: this.state[imgCode]
             }
-            if(!data.phone||!data.password||!data.code||!data.imgCode){
-                return
-            }
             register(data).then(data=>{
-
+                if(data){
+                    window.location.href = '/auction.html'
+                    // alert('注册成功，即将跳转(假装的)！')
+                }
             })
         }
     }
@@ -130,7 +126,7 @@ export default class Register extends Component{
                            onChange={this.handleChange.bind(this, phone)}/>
                     <Input type="password"
                            actionType="password"
-                           placeholder="密码6-18位大小写英文和数字"
+                           placeholder="密码6-18位英文和数字"
                            isError={this.state[password+'isError']}
                            onChange={this.handleChange.bind(this, password)}/>
                     <Input type="text"
@@ -145,13 +141,15 @@ export default class Register extends Component{
                            isError={this.state[code+'isError']}
                            onChange={this.handleChange.bind(this, code)} />
                 </div>
-                <Button className={"login-submit " + (this.state.checked?'':'login-disabled')} onClick={this.dealData.bind(this)}>注册</Button>
+                <Button className={"login-submit " + (this.state.checked?'':'login-disabled')}
+                        style={{backgroundImage: `url(${require('../../assets/images/btn_1.png')}`}}
+                        onClick={this.dealData.bind(this)}>注册</Button>
                 <div className="ft-action">
                     <span>
                         <CheckBox checked={this.state.checked} onChange={this.handleChange.bind(this, 'checked')}/>
                         <span style={{verticalAlign: 'text-top'}}>同意《天宝用户注册协议》</span>
                     </span>
-                    <Link to="/login">登录</Link>
+                    <Link className="u-line" to="/login">登录</Link>
                 </div>
             </div>
         )

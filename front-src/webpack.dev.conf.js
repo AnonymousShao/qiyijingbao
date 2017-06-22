@@ -13,6 +13,7 @@ let webpackConfig = {
     entry: {
         home:'./src/pages/home/index.js',
         login: './src/pages/login/index.js',
+        auction_schedule: './src/pages/auction_schedule/index.js',
         // demo: './src/pages/demo/index.js',
         auction: './src/pages/auction/index.js'
     },
@@ -69,10 +70,17 @@ let webpackConfig = {
                 limit: 4196,
                 name: 'statics/images/[name]_[hash:6].[ext]',
             },
+        }, {
+            test: /\.(woff)$/,
+            loader: 'url-loader',
+            query: {
+                limit: 419600,
+                name: 'statics/css/[name]_[hash:6].[ext]',
+            },
         }]
     },
     plugins: [
-        new ExtractTextPlugin('statics/css/style.css'),
+        new ExtractTextPlugin('statics/css/[name]_style.css'),
         new webpack.LoaderOptionsPlugin({
             options: {
                 context: __dirname,
@@ -97,7 +105,10 @@ let webpackConfig = {
         'antd': 'antd',
         'moment': 'moment',
         'draft-js': 'Draft',
-        'validator': 'validator'
+        'validator': 'validator',
+        // 'react-iscroll': 'ReactIScroll',
+        'iscrll': 'IScroll',
+        'react-slick': 'Slider'
     }
 };
 

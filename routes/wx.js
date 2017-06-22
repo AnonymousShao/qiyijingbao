@@ -6,7 +6,7 @@ router.get('/', function (ctx) {
 })
 
 router.get('/wxlogin', function (ctx) {
-    const sourceUrl = ctx.request.query.sourceurl,
+    const sourceUrl = encodeURIComponent(ctx.request.query.sourceurl),
         url = getCodeUrl(sourceUrl);
     ctx.session.sourceUrl = sourceUrl
     ctx.response.redirect(url)
@@ -25,7 +25,7 @@ router.get('/getcode', async function (ctx) {
 
     let userInfo = await getUserInfo({accessToken, openId})
     let sourceUrl = ctx.session.sourceUrl || '/'
-    ctx.response.redirect(sourceUrl)
+    ctx.response.redirect('http://test.daxianyu.cn/auction.html')
     ctx.body = userInfo.data
 })
 

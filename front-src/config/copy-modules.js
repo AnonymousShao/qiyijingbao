@@ -10,8 +10,8 @@ const jsOutDist = 'dist/statics/script/',
 let htmlFiles = {
         home: 'src/pages/home/index.html',
         login: 'src/pages/login/index.html',
-        demo: 'src/pages/demo/index.html',
-        auction: 'src/pages/auction/index.html'
+        auction: 'src/pages/auction/index.html',
+        auction_schedule: 'src/pages/auction_schedule/index.html'
     };
 
 const scriptObjs = [],
@@ -27,7 +27,7 @@ function getEntities(){
             CheerioLinks = $('link');
         for(let i=0;i<CheerioScripts.length;i++){
             CheerioScripts[i].attribs['defer'] = undefined
-            if(CheerioScripts[i].attribs['__raw']===undefined){
+            if(CheerioScripts[i].attribs['__raw']===undefined && CheerioScripts[i].attribs.src){
                 scriptObjs.push({
                     dom: CheerioScripts[i],
                     relativeDir,

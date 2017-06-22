@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
-import weui from 'react-weui'
 import Input from '../../components/input'
 import {Link} from 'react-router-dom'
 import setTitle from '../../helper/fix-title'
 import validator from 'validator'
 import {isValidPassword} from '../../helper/validatorX'
-const { Toast, Dialog, Button } = weui
+import { Button } from '../../components/button'
 import {sendResetCode, resetPwd} from '../../helper/http'
 
 const phone = 'PHONE',
     password = 'PASSWORD',
-    code = 'CODE'
+    code = 'CODE',
+    imgCode = 'IMGCODE'
 
 export default class Register extends Component{
 
@@ -46,6 +46,13 @@ export default class Register extends Component{
             }, 500)
             return
         }
+        if(!this.state[imgCode]){
+            this.setState({[imgCode + 'isError']: true})
+            setTimeout(()=>{
+                this.setState({[imgCode + 'isError']: false})
+            }, 500)
+            return
+        }
         if(!this.state[code]){
             this.setState({[code + 'isError']: true})
             setTimeout(()=>{
@@ -75,13 +82,14 @@ export default class Register extends Component{
             const data = {
                 phone: this.state[phone],
                 password: this.state[password],
-                code: this.state[code]
-            }
-            if(!data.phone||!data.password||!data.code){
-                return
+                code: this.state[code],
+                imgCode: this.state[imgCode]
             }
             resetPwd(data).then(data=>{
-                debugger
+                if(data){
+                    window.location.href = '/auction.html'
+                    // alert('注册成功，即将跳转(假装的)！')
+                }
             })
         }
     }
@@ -97,9 +105,14 @@ export default class Register extends Component{
                            onChange={this.handleChange.bind(this, phone)}/>
                     <Input type="password"
                            actionType="password"
-                           placeholder="密码6-18位大小写英文和数字"
+                           placeholder="密码6-18位英文和数字"
                            isError={this.state[password+'isError']}
                            onChange={this.handleChange.bind(this, password)}/>
+                    <Input type="text"
+                           isError={this.state[imgCode+'isError']}
+                           actionType="imgCode"
+                           placeholder="请输入图形验证码"
+                           onChange={this.handleChange.bind(this, imgCode)}/>
                     <Input type="text"
                            actionType="code"
                            placeholder="请输入验证码"
@@ -107,12 +120,13 @@ export default class Register extends Component{
                            isError={this.state[code+'isError']}
                            onChange={this.handleChange.bind(this, code)} />
                 </div>
-                <Button className="login-submit" onClick={this.dealData.bind(this)}>登录</Button>
+                <Button className="login-submit"
+                        style={{backgroundImage: `url(${require('../../assets/images/btn_1.png')}`}}
+                        onClick={this.dealData.bind(this)}>登录</Button>
                 <div className="ft-action">
-                    <Link to="/login">登录</Link>
-                    <Link to="/register">注册</Link>
+                    <Link className="u-line" to="/login">登录</Link>
+                    <Link className="u-line" to="/register">注册</Link>
                 </div>
-                <Toast show={false}/>
             </div>
         )
     }

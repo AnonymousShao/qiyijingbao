@@ -1,0 +1,116 @@
+@import "../../style/variables";
+
+body {
+  background-color: #f8f8f8;
+  padding-bottom: 60px;
+}
+
+.card{
+  background-color: white;
+  box-sizing: border-box;
+  width: 375px;
+  padding: 0 10px;
+}
+
+.container{
+  width: 100%;
+  height: 197px;
+  background-position: 100% 100%;
+  background-size: cover;
+}
+
+.artist-container {
+  display: flex;
+}
+
+.artist{
+  width: 25%;
+  float: left;
+  text-align: center;
+  img.artist-header{
+    margin: auto;
+    width: 80%;
+    border-radius: 50%;
+  }
+  .artist-name{
+    font-size: 0.8rem;
+    color: #333333;
+  }
+  .artist-code{
+    font-size: 0.75rem;
+    color: #999999;
+  }
+}
+
+.title-wrap{
+  margin: 15px auto;
+  width: 200px;
+  text-align: center;
+}
+
+.title{
+  position: relative;
+  font-weight: Bold;
+  font-size: 1rem;
+  &:before, &:after{
+    content: '';
+    position: absolute;
+    width: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 1px solid;
+  }
+
+  &:before{
+    left: -30px;
+
+  }
+  &:after{
+    right: -30px;
+  }
+}
+
+.category{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  &:last-child{
+    padding-bottom: 10px;
+  }
+}
+
+.category-item{
+  width: calc(50% - 5px);
+  margin-bottom: 10px;
+  img{
+    width: 100%;
+    display: block;
+  }
+}
+
+.menu__container{
+  position: absolute;
+  z-index: 2;
+  background-color: white;
+  list-style: none;
+  border-radius: 4px;
+  margin-top: 10px;
+  right: 4px;
+  li{
+    padding: 10px 29px;
+    border-bottom: 1px solid #DDD;
+    &:last-child{
+      border-bottom: none;
+    }
+  }
+  &:before{
+    border: 8px solid transparent;
+    border-bottom: 10px solid #fff;
+    width: 0;
+    height: 0;
+    position: absolute;
+    content: ' ';
+    bottom: 100%;
+    right: 10px;
+  }
+}
