@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux';
 import {store} from '../../reduxes/store'
-import Head from '../../components/head'
+import Head from '../../components/login_head'
 import Register from './regist'
 import Login from './login'
 import Reset from './reset'

@@ -15,7 +15,7 @@ describe('Koa GET /', function(){
         // console.log(res)
         res.status.should.equal(200);
         // console.log(res.text)
-        res.text.should.equal('<!DOCTYPE html><html><head><title>koa2 title</title><link rel="stylesheet" href="/stylesheets/style.scss"></head><body><h1>koa2 title</h1><p>JADE Welcome to koa2 title</p></body></html>');
+        res.text.should.equal('<!DOCTYPE html><html><login_head><title>koa2 title</title><link rel="stylesheet" href="/stylesheets/style.scss"></login_head><body><h1>koa2 title</h1><p>JADE Welcome to koa2 title</p></body></html>');
         done();
       });
   })

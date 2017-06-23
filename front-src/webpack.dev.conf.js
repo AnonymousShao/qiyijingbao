@@ -14,7 +14,7 @@ let webpackConfig = {
         home:'./src/pages/home/index.js',
         login: './src/pages/login/index.js',
         auction_schedule: './src/pages/auction_schedule/index.js',
-        // demo: './src/pages/demo/index.js',
+        demo: './src/pages/demo/index.js',
         auction: './src/pages/auction/index.js'
     },
     resolve: {

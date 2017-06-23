@@ -9,6 +9,7 @@ const jsOutDist = 'dist/statics/script/',
 
 let htmlFiles = {
         home: 'src/pages/home/index.html',
+        demo: 'src/pages/demo/index.html',
         login: 'src/pages/login/index.html',
         auction: 'src/pages/auction/index.html',
         auction_schedule: 'src/pages/auction_schedule/index.html'

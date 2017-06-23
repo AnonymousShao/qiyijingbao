@@ -3,7 +3,7 @@ const config = {
     RDS_HOST: '127.0.0.1',
     RDS_PORT: '6379',
 };
-config.RDS_OPTS = {auth_pass: 'tjf9975'};
+config.RDS_OPTS = {auth_pass: require('./config').redisPwd};
 
 let client = redis.createClient(config.RDS_PORT, config.RDS_HOST, config.RDS_OPTS);
 
