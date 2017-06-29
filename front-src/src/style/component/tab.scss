@@ -1,0 +1,26 @@
+@import '../variables';
+
+.title-tab__container{
+  display: flex;
+  background-color: #fff;
+  border-bottom: 1px solid $border-cl;
+  justify-content: space-around;
+
+  .title-tab__item{
+    position: relative;
+    padding: 5px 10px;
+    font-size: 1rem;
+    &.active{
+      color: $btn-bg-color;
+      &:after{
+        left: -5%;
+        height: 2px;
+        content: "";
+        width: 110%;
+        bottom: 0;
+        position: absolute;
+        background-color: $btn-bg-color;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.auction-info__{
+
+  @at-root #{&}wrap{
+    padding: 15px;
+    background-color: white;
+    margin-bottom: 15px
+  }
+
+  @at-root #{&}title{
+    font-size: 1.1rem;
+    color: #222222;
+  }
+
+  @at-root #{&}info{
+    font-size: 0.8rem;
+    color: #666666;
+  }
+
+  @at-root #{&}content{
+    font-size: 0.8rem;
+    color: #999999
+  }
+
+  @at-root #{&}remainder{
+    font-size: 0.8rem;
+    color: #666666;
+    padding: 6px 10px;
+    line-height: 1.8rem;
+  }
+}
+
+

@@ -1,37 +1,4 @@
-@import "../../style/variables";
-
-body {
-  background-color: $body-bg-color;
-  padding-bottom: 60px;
-}
-
-.menu-wrap{
-  display: flex;
-  flex-flow: noWrap;
-}
-
-.menu-title{
-  width: 25%;
-  //flex-shrink: 0;
-  text-align: center;
-  padding: 10px 0;
-  .title{
-    position: relative;
-    &.active{
-      color: $btn-bg-color;
-      &:after{
-        content: "";
-        position: absolute;
-        bottom: 10px;
-        left: 0;
-        top: 114%;
-        width: 100%;
-        height: 1px;
-        background-color: $btn-bg-color;
-      }
-    }
-  }
-}
+@import "../../style/common";
 
 .head-btn-group{
   position: relative;

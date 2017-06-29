@@ -1,7 +1,5 @@
 import http from 'axios'
-import config from '../config'
-const host = config.server,
-    success = config.success
+import {server as host, success} from '../config'
 
 // require('../mock')
 
@@ -87,4 +85,16 @@ export function getAuction() {
 
 export function getArtists() {
     return init.get('/auction/getArtistList').then(data=>(data.data))
+}
+
+export function getArtisitDetail(params) {
+    return init.get('/artist/artistInfo', params).then(data=>data.res_body)
+}
+
+export function searchAuction(params) {
+    return init.get('/search/auction', params).then(data=>data.res_body)
+}
+
+export function getSimilar(params) {
+    return init.get('/search/getSimilar', params).then(data=>data.res_body)
 }

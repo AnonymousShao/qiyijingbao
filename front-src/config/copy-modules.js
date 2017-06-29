@@ -8,12 +8,20 @@ const jsOutDist = 'dist/statics/script/',
     cssOutDist = 'dist/statics/css/';
 
 let htmlFiles = {
-        home: 'src/pages/home/index.html',
-        demo: 'src/pages/demo/index.html',
-        login: 'src/pages/login/index.html',
-        auction: 'src/pages/auction/index.html',
-        auction_schedule: 'src/pages/auction_schedule/index.html'
-    };
+    home: 'src/pages/home/index.html',
+    demo: 'src/pages/demo/index.html',
+    login: 'src/pages/login/index.html',
+    search: 'src/pages/search/index.html',
+    artist_list: 'src/pages/artist_list/index.html',
+    artist_detail: 'src/pages/artist_detail/index.html',
+    auction: 'src/pages/auction/index.html',
+    auction_schedule: 'src/pages/auction_schedule/index.html',
+    auction_list: 'src/pages/auction_list/index.html',
+    auction_bid: 'src/pages/auction_bid/index.html',
+    auction_detail: 'src/pages/auction_detail/index.html',
+    auction_history_list: 'src/pages/auction_history_list/index.html',
+    auction_history_detail: 'src/pages/auction_history_detail/index.html',
+};
 
 const scriptObjs = [],
     linkObjs = [];

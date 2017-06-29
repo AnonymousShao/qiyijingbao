@@ -1,0 +1,137 @@
+@import "../../style/common";
+
+
+.auction-info-board{
+  @at-root #{&}{
+    .remaining{
+      font-size: 0.8rem;
+      color: #666666;
+    }
+
+    .title{
+      font-size: 1rem;
+      color: #222222;
+      font-weight: normal;
+    }
+
+    .remainder{
+      font-size: 0.8rem;
+      color: #666666;
+    }
+
+    .name{
+      font-size: 0.9rem;
+      color: #666666;
+    }
+
+    .info{
+      font-size: 0.8rem;
+      color: #666666;
+    }
+
+    .price{
+      padding-top: 5px;
+      font-size: 0.9rem;
+      color: $btn-bg-color;
+    }
+  }
+}
+
+
+
+.product-specialist__board{
+  $border-cl: rgba(155,155,155,0.3);
+
+  padding: 10px 14px;
+  border-top: 1px solid $border-cl;
+  border-bottom: 1px solid $border-cl;
+  overflow: hidden;
+  img{
+    width: 30px;
+    float: left;
+  }
+
+  .product-specialist{
+    padding-left: 10px;
+    line-height: 30px;
+    float: left;
+  }
+}
+
+
+.artist-intro{
+  .artist-intro-header{
+    img{
+      margin-top: -50px;
+    }
+  }
+}
+
+.brand-board{
+  text-align: center;
+  padding: 15px 0;
+  .img-container{
+    width: 60px;
+    margin: 5px auto 10px;
+    position: relative;
+    img{
+      display: block;
+      max-width: 100%;
+    }
+    &:before{
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 115%;
+      height: 1px;
+      width: 40px;
+      background-color: $btn-bg-color;
+    }
+
+    &:after{
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 115%;
+      height: 1px;
+      width: 40px;
+      background-color: $btn-bg-color;
+    }
+
+  }
+  .title{
+    color: #222222;
+    font-size: 0.9rem;
+    font-weight:normal;
+  }
+  .rate{
+    color: #666666;
+    font-size: 0.8rem;
+  }
+}
+
+.auction-action{
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-bottom: -10px;
+
+  .action-tel{
+    width: 40%;
+    padding: 10px;
+    background-color: white;
+  }
+
+  .action-2{
+    width: 30%;
+    color: white;
+    padding: 10px;
+    background-color: #333
+  }
+  .action-3{
+    width: 30%;
+    color: white;
+    padding: 10px;
+    background-color: $btn-bg-color
+  }
+}

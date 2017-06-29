@@ -1,0 +1,42 @@
+@import "../../style/variables";
+.list__{
+  @at-root #{&}container{
+    display: flex;
+    padding: 15px;
+  }
+
+  @at-root #{&}imgwrap{
+    width: 40%;
+    img{
+      max-width: 100%;
+      display: block;
+    }
+  }
+
+  @at-root #{&}info-box{
+    padding: 6px 12px;
+    width: 75%;
+    .title{
+      font-size: 1rem;
+      color: #222222;
+    }
+    .sub-title{
+      font-size: 0.9rem;
+      color: #999999;
+    }
+
+    .price{
+      font-size: 0.9rem;
+      color: $btn-bg-color;
+    }
+
+    .info{
+      padding-top: 10px;
+      font-size: 0.8rem;
+      color: #999999;
+      strong{
+        color: black;
+      }
+    }
+  }
+}

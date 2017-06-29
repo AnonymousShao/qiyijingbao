@@ -1,119 +1,14 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import Header from '../../components/search_head_lite'
-import Carousel from '../../components/Carousel'
+import Head from '../../components/search_head_lite'
+import Carousel from '../../components/carousel'
 import { Button, ButtonArea } from '../../components/button'
 import Schedule from './schedule'
+import Menus from '../../components/menus'
 import Footer from '../../components/footer'
+import Search from "../../components/search/index";
 require('./style.scss')
 
-class Menus extends Component{
-
-    state = {
-        currentPage: 0
-    }
-
-    menu = [
-        [
-            {name: '中国书画', type: 'G'},
-            {name: '西画雕刻', type: 'X'},
-            {name: '瓷画陶器'},
-            {name: '珠宝翡翠'}],
-        [
-            {name: '玉石文玩'},
-            {name: '工艺杂项'},
-            {name: '古典家具'},
-            {name: '佛教珍藏'}]
-    ]
-
-    style = {
-        wrap: {
-            display: 'flex',
-            flexFlow: 'noWrap',
-        },
-        title: {
-            width: document.body.clientWidth / 4,
-            flexShrink: 0,
-            textAlign: 'center',
-            padding: '10px 0'
-        },
-        arrow: {
-            position: 'relative',
-        },
-        arrowRev: {
-            padding: '10px 2px',
-            position: 'absolute',
-            left: 0, top: 0,
-            height: '100%',
-            boxSizing: 'border-box',
-            zIndex: 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.05)'
-        },
-        arrowImg: {
-            top: '50%',
-        }
-    }
-
-    handleClick(action){
-        this.refs.carousel[action]()
-    }
-
-    onAfterChange(target){
-        this.setState({
-            currentPage: target
-        })
-    }
-
-    onBeforeChange(){
-
-    }
-
-    render(){
-        const settings = {
-            dots: false,
-            infinite: false,
-            slidesToShow: 1,
-            initialSlide: this.state.currentPage,
-            slidesToScroll: 1
-        }
-
-        return (
-            <div style={{position: 'relative'}}>
-                {/*{this.state.currentPage!==(0)?(<span style={this.style.arrowRev} onClick={this.handleClick.bind(this, 'slickPrev')}>*/}
-                    {/*<img style={Object.assign({}, this.style.arrowImg, {transform: 'rotate(180deg)'})}*/}
-                         {/*src={require('../../assets/images/auction/ic_more.png')} alt=""/>*/}
-                {/*</span>):null}*/}
-                <Carousel ref='carousel' settings={settings}
-                          onBeforeChange={this.onBeforeChange.bind(this)}
-                          onAfterChange={this.onAfterChange.bind(this)}>
-                    {this.menu.map(m=>(
-                        <div>
-                            <div className="menu-wrap">
-                                {this.state.currentPage!==(0)
-                                    ?(<span style={this.style.arrow} onClick={this.handleClick.bind(this, 'slickPrev')}>
-                                    <img style={Object.assign({}, this.style.arrowImg, {transform: 'rotate(180deg)'})}
-                                         src={require('../../assets/images/auction/ic_more.png')} alt=""/></span>)
-                                    :null}
-                                {m.map(mm=>(
-                                    <span className={'menu-title'}>
-                                        <span className={'title ' + (mm.type==='G'?'active':'')}>{mm.name}</span>
-                                    </span>
-                                ))}
-                                {this.state.currentPage!==(this.menu.length-1)
-                                    ?(<span style={this.style.arrow} onClick={this.handleClick.bind(this, 'slickNext')}>
-                                    <img style={this.style.arrowImg} src={require('../../assets/images/auction/ic_more.png')} alt=""/>
-                                </span>)
-                                    :null}
-                            </div>
-                        </div>
-                    ))}</Carousel>
-                {/*{this.state.currentPage!==(this.menu.length-1)?(<span style={this.style.arrow} onClick={this.handleClick.bind(this, 'slickNext')}>*/}
-                    {/*<img style={this.style.arrowImg} src={require('../../assets/images/auction/ic_more.png')} alt=""/>*/}
-                {/*</span>):null}*/}
-            </div>
-        )
-    }
-}
 
 class Adv extends Component{
 
@@ -188,13 +83,30 @@ class Controller extends Component{
                                 onClick={this.handleClick.bind(this, 'share')}>分享给朋友</Button>
                     </ButtonArea>
                 </div>
-
                 <Schedule/>
+                <div className="board-container">
+                    <a href="/auction_history_list.html">
+                        <Button style={{backgroundSize: 'cover', backgroundImage: `url(${require('../../assets/images/btn_2.png')})`}}>历史场次回顾</Button>
+                    </a>
+                </div>
             </div>
         )
     }
 }
 
+class Header extends Component{
+    state = {
+        showSearch: false
+    }
+
+    render(){
+        return (
+            <div>
+                <Head onSearchClick={e=>this.setState({showSearch: true})}/>
+                {this.state.showSearch?<Search hideSearch={e=>this.setState({showSearch: false})}/>:null}
+            </div>)
+    }
+}
 
 const Root = () => (
     <div>

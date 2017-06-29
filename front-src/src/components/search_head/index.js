@@ -41,6 +41,7 @@ export default class Header extends Component{
         },
         ruler: {
             height: 3,
+            width: '100%',
             display: 'block'
         },
         bcg: {

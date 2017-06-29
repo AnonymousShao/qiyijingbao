@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 
-
 export default class Schedule extends Component{
 
     state = {
@@ -63,15 +62,17 @@ class ImgCard extends Component{
     render(){
         return (
             <div className="card">
-                <div className="card-img" style={{backgroundImage: `url(${this.props.card.img})`}} />
-                <div className="card-body">
-                    <h3>价格区间</h3>
-                    <p className="card-price">
-                        <span>{this.props.card.price}</span>
-                        <small>RMB</small>
-                    </p>
-                    <ul className="card-list">{this.props.card.list.map(info=>(<li key={info}>{info}</li>))}</ul>
-                </div>
+                <a href="/auction_list.html">
+                    <div className="card-img" style={{backgroundImage: `url(${this.props.card.img})`}} />
+                    <div className="card-body">
+                        <h3>价格区间</h3>
+                        <p className="card-price">
+                            <span>{this.props.card.price}</span>
+                            <small>RMB</small>
+                        </p>
+                        <ul className="card-list">{this.props.card.list.map(info=>(<li key={info}>{info}</li>))}</ul>
+                    </div>
+                </a>
             </div>
         )
     }

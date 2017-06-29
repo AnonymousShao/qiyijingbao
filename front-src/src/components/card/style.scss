@@ -1,0 +1,62 @@
+@import "../../style/variables";
+
+.t-card-container{
+  overflow: hidden;
+
+  .t-card{
+    float: left;
+    position: relative;
+    width: calc(50% - 7.5px);
+    &:nth-of-type(odd){
+      padding-right: 15px;
+    }
+  }
+}
+
+.t-card-image{
+  width: 100%;
+  background-size: cover;
+  padding-top: 70%;
+  position: relative;
+  .t-card-band{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    position: absolute;
+    font-weight:normal;
+    padding-left: 15px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.56);
+  }
+}
+
+.t-card-body{
+  margin-bottom: 15px;
+  padding: 15px 23px 9px;
+  min-height: 5rem;
+  background-color: white;
+  font-size: 0.8rem;
+  color: #999;
+  .dot{
+    position: relative;
+    &:before{
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      top: 50%;
+      background-color: #999;
+      left: -10px;
+      border-radius: 100%;
+    }
+  }
+  .price-title{
+    color: #333333;
+  }
+  .price{
+    color: $btn-bg-color;
+  }
+}

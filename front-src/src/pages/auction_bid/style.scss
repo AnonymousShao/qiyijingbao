@@ -1,0 +1,83 @@
+@import "../../style/common";
+
+.product-specialist__board{
+  $border-cl: rgba(155,155,155,0.3);
+
+  padding: 10px 14px;
+  border-top: 1px solid $border-cl;
+  border-bottom: 1px solid $border-cl;
+  overflow: hidden;
+  img{
+    width: 30px;
+    float: left;
+  }
+
+  .product-specialist{
+    padding-left: 10px;
+    line-height: 30px;
+    float: left;
+  }
+}
+
+.search-icon{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  padding: 0 10px;
+}
+
+.bid-select-title{
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.auction-action{
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  margin-bottom: -10px;
+
+  .action-tel{
+    width: 40%;
+    padding: 10px;
+    background-color: white;
+  }
+
+  .action-2{
+    width: 30%;
+    color: white;
+    padding: 10px;
+    background-color: #333
+  }
+  .action-3{
+    width: 30%;
+    color: white;
+    padding: 10px;
+    background-color: $btn-bg-color
+  }
+}
+
+.artist-intro{
+
+  .artist-intro-header{
+    margin: auto;
+    width: 55px;
+    text-align: center;
+    img{
+      position: relative;
+      margin-top: -50px;
+      max-width: 100%;
+      z-index: 9;
+    }
+  }
+  .artist-intro-name{
+    text-align: center;
+  }
+  .artist-intro-address{
+    text-align: center;
+  }
+}

@@ -1,24 +1,36 @@
 import React, {Component} from 'react'
+import { SearchBar } from '../button'
+import { ge} from '../../helper/query_string'
 import './style.scss'
 
 export default class Search extends Component{
+
+    state = {
+        value: ''
+    }
 
     componentDidMount(){
         this.refs.input.focus()
     }
 
+    handleChange(e){
+        this.setState({
+            value: e.target.value
+        })
+    }
+
     search(){
-        alert('search!')
+        window.location.href = '/search.html?q='+this.state.value
         this.props.hideSearch()
     }
 
     render(){
         return (
-            <div className="search__container">
-                <div onClick={e=>{e.stopPropagation()}} className="search__container__header">
-                    <span className="search__container__back" onClick={this.props.hideSearch}>《</span>
-                    <input ref="input" className="search__container__input" type="text" placeholder="请输入"/>
-                    <span className="search__container__btn" onClick={this.search.bind(this)}>搜索</span>
+            <div className="search__container" onClick={this.props.hideSearch}>
+                <div onClick={e=>{e.stopPropagation()}}>
+                    <SearchBar
+                        onSubmit={this.search.bind(this)}
+                    />
                 </div>
             </div>
         )

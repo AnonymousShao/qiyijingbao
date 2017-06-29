@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import Head from '../../components/search_head'
 import { getAuction, getArtists } from '../../helper/http'
-import Carousel from '../../components/Carousel'
-import config  from '../../helper/config'
-const imgHost = config.imageHost
+import Carousel from '../../components/carousel'
+import { imageHost as imgHost } from '../../helper/config'
 import Search from '../../components/search'
 import Footer from '../../components/footer'
 
@@ -31,7 +30,7 @@ class Main extends Component{
         dotsClass: 'dots',
         autoplay: true,
         infinite: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 8000,
         slidesToShow: 1,
         slidesToScroll: 1,
     }
@@ -72,7 +71,7 @@ class Artists extends Component{
     settings = {
         infinite: true,
         autoplay: true,
-        autoplaySpeed: 2500,
+        autoplaySpeed: 8000,
         slidesToShow: 1,
         slidesToScroll: 1,
         initialSlide: 0,
@@ -81,14 +80,18 @@ class Artists extends Component{
 
     render(){
         return (
-            <Carousel className="card" settings={this.settings} style={{marginBottom: '0.5rem'}}>
+            <Carousel className="board-container" settings={this.settings} style={{marginBottom: '0.5rem'}}>
                 {this.state.workClass.map(klass =>(klass.artists.length!==0?<div>
-                    <p className="title-wrap"><strong className="title">{klass.name}艺术家</strong></p>
-                    {klass.artists.length>4?(
-                        <ArtistSet artistList={klass.artists} />
-                    ):(<div className="artist-container">{klass.artists.map(artist=>(
-                        <Artist artist={artist}/>
-                    ))}</div>)}
+                    <a style={{color: '#222'}} href="/artist_list.html">
+                        <p className="center-title__wrap" style={{padding: '5px 0 10px'}}>
+                            <a href="/artist_list.html"><strong className="center-title">{klass.name}艺术家</strong></a>
+                        </p>
+                        {klass.artists.length>4?(
+                            <ArtistSet artistList={klass.artists} />
+                        ):(<div className="artist-container">{klass.artists.map(artist=>(
+                            <Artist artist={artist}/>
+                        ))}</div>)}
+                    </a>
                 </div>:null))}
             </Carousel>
         )
@@ -99,9 +102,11 @@ const Artist = (props) => {
     const artist = props.artist
     return (
         <div className="artist">
-            <img className="artist-header" src={ imgHost + artist.HeadImgUrl }/>
-            <h3 className="artist-name">{artist.Name}</h3>
-            <p className="artist-code">{artist.ArtistCode}</p>
+            <a href={"/artist_detail.html?artistno=" + artist.NO}>
+                <img className="artist-header" src={ imgHost + artist.HeadImgUrl }/>
+                <h3 className="artist-name">{artist.Name}</h3>
+                <p className="artist-code">{artist.ArtistCode}</p>
+            </a>
         </div>
     )
 }
@@ -132,7 +137,7 @@ class ArtistSet extends Component{
         const settings = {
             infinite: false,
             autoplay: true,
-            autoplaySpeed: 1500,
+            autoplaySpeed: 4000,
             slidesToShow: 1,
             slidesToScroll: 1,
             initialSlide: 0,
@@ -158,8 +163,10 @@ class Category extends Component{
 
     render(){
         return (
-            <div className="card">
-                <p className="title-wrap"><strong className="title">拍品类别</strong></p>
+            <div className="board-container">
+                <p className="center-title__wrap" style={{padding: '5px 0 10px'}}>
+                    <strong className="center-title">拍品类别</strong>
+                </p>
                 <div className="category">
                     <a href="/auction_schedule.html" className="category-item">
                         <img src={require('../../assets/images/auction/img_CN painting.png')} alt=""/>
@@ -188,14 +195,19 @@ class MenuDown extends Component{
     menus = [
         {
             name: '出价参考',
+            url: '/auction_bid.html'
         }, {
             name: '浏览资讯',
+            url: ''
         }, {
             name: '看看展览',
+            url: ''
         }, {
             name: '逛逛商城',
+            url: ''
         }, {
             name: '联系客服',
+            url: ''
         },
     ]
 
@@ -203,7 +215,7 @@ class MenuDown extends Component{
         return(
             <ul className="menu__container">
                 {this.menus.map(menu=>(
-                    <li>{menu.name}</li>
+                    <li><a href={menu.url}>{menu.name}</a></li>
                 ))}
             </ul>
         )

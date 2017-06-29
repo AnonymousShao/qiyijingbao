@@ -1,0 +1,58 @@
+@import "./variables";
+
+.max-height2{
+  overflow: hidden;
+  max-height: 2rem;
+}
+
+.max-height3{
+  overflow: hidden;
+  max-height: 3rem;
+}
+
+.max-height4{
+  overflow: hidden;
+  max-height: 4rem;
+}
+
+.fc-weak{
+  color: #999999;
+  font-weight: normal;
+}
+
+.main-color{
+  color: $btn-bg-color
+}
+
+
+.mb10{
+  margin-bottom: 10px!important;
+}
+
+.pb10{
+  padding-bottom: 10px!important;
+}
+
+.mb15{
+  margin-bottom: 15px!important;
+}
+
+.pb15{
+  padding-bottom: 15px!important;
+}
+
+.mt10{
+  margin-top: 10px!important;
+}
+
+.pt10{
+  padding-top: 10px!important;
+}
+
+.mt15{
+  margin-top: 15px!important;
+}
+
+.pt15{
+  padding-top: 15px !important;
+}

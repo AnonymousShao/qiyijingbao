@@ -1,14 +1,9 @@
-@import "../../style/variables";
-
-body {
-  background-color: #f8f8f8;
-  padding-bottom: 60px;
-}
+@import "../../style/common";
 
 .card{
   background-color: white;
   box-sizing: border-box;
-  width: 375px;
+  width: 100%;
   padding: 0 10px;
 }
 
@@ -42,34 +37,6 @@ body {
   }
 }
 
-.title-wrap{
-  margin: 15px auto;
-  width: 200px;
-  text-align: center;
-}
-
-.title{
-  position: relative;
-  font-weight: Bold;
-  font-size: 1rem;
-  &:before, &:after{
-    content: '';
-    position: absolute;
-    width: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-top: 1px solid;
-  }
-
-  &:before{
-    left: -30px;
-
-  }
-  &:after{
-    right: -30px;
-  }
-}
-
 .category{
   display: flex;
   flex-wrap: wrap;
@@ -96,8 +63,11 @@ body {
   border-radius: 4px;
   margin-top: 10px;
   right: 4px;
+  a{
+    color: #333;
+  }
   li{
-    padding: 10px 29px;
+    padding: 9px 29px;
     border-bottom: 1px solid #DDD;
     &:last-child{
       border-bottom: none;

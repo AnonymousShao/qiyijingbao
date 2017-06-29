@@ -1,0 +1,36 @@
+@import "../variables";
+
+
+.artist-intro{
+  .artist-intro-header{
+    margin: auto;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border-radius: 100px;
+    overflow: hidden;
+    img{
+      position: relative;
+      //margin-top: -50px;
+      max-width: 100%;
+      z-index: 9;
+    }
+  }
+  .artist-intro-name{
+    color: #222222;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: normal;
+  }
+  .artist-intro-address{
+    color: #666666;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  .content{
+    padding-top: 3px;
+    color: #222222;
+    line-height: 1.2rem;
+    font-size: 0.9rem;
+  }
+}

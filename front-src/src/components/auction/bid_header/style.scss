@@ -1,0 +1,19 @@
+.header-wrap{
+  background-color: white;
+}
+
+.header-head{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+
+  .logo{
+    width: 28%;
+  }
+}
+
+.logo-underline{
+  display: block;
+  width: 100%;
+}
