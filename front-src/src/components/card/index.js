@@ -23,7 +23,7 @@ class CardItem extends Component{
     render(){
         return (
             <div>
-                <a href="/auction_detail.html">
+                <a href={"/bid_refer.html?artistno=" + (this.props.ArtistNO||this.props.ArtistNo)}>
                     <div className="t-card-image" style={{backgroundImage: `url(${imageHost + this.props.WorkImgUrl})`}} >
                         <div className="t-card-band">{this.props.Theme}</div>
                     </div>

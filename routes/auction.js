@@ -7,11 +7,68 @@ router.get('/', async function (ctx, next) {
     ctx.body = await getAuction()
 })
 
+router.get('/getAuction', async function (ctx) {
+    let params = {
+        rows: ctx.request.query.rows || 1,
+        page: ctx.request.query.page || 1,
+        auctionStatus: ctx.request.query.state || 2,
+        account: ''
+    }
+    ctx.body = await getAuction(params)
+})
+
+router.get('/getAuctions', async function (ctx) {
+    let params = {
+        auctionStatus: ctx.request.query.state || 1,
+        types: ctx.request.query.type || 1,
+    }
+    ctx.body = await getAuction(params)
+})
+
+router.get('/getAuction2', async function (ctx) {
+    let params = {
+        type: ctx.request.query.type || 1,
+    }
+    ctx.body = await getAuction(params)
+})
+
+router.get('/getAuctionListSeatNo', async function (ctx) {
+    let params = {
+        rows: ctx.request.query.rows,
+        page: ctx.request.query.page,
+        auctionno: ctx.request.query.auctionno,
+        workclassno: ctx.request.query.workclassno,
+    }
+    ctx.body = await getAuction(params)
+})
+
+router.get('/getAuctionDetail', async function (ctx) {
+    let params = {
+        auctionworkno: ctx.request.query.no,
+        account: ''
+    }
+    ctx.body = await getAuction(params)
+})
+
+// router.get('/getAuctions', async function (ctx) {
+//     let params = {
+//
+//     }
+//     ctx.body = await getAuction(params)
+// })
+//
+// router.get('/getAuctions', async function (ctx) {
+//     let params = {
+//
+//     }
+//     ctx.body = await getAuction(params)
+// })
+
 router.get('/getArtistList', async function (ctx) {
     const page = ctx.request.query.page,
         rows = ctx.request.query.rows
 
-    ctx.body = await Promise.all([getWorkClass(), getArtistList({page, rows})]).then(response=>{
+    ctx.body = await Promise.all([getWorkClass({parentno:0}), getArtistList({page, rows})]).then(response=>{
         const workClassRes = response[0],
             artistListRes = response[1]
         if(workClassRes.res_code==='0' && artistListRes.res_code==='0'){

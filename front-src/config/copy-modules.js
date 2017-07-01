@@ -18,6 +18,7 @@ let htmlFiles = {
     auction_schedule: 'src/pages/auction_schedule/index.html',
     auction_list: 'src/pages/auction_list/index.html',
     auction_bid: 'src/pages/auction_bid/index.html',
+    bid_refer: 'src/pages/bid_refer/index.html',
     auction_detail: 'src/pages/auction_detail/index.html',
     auction_history_list: 'src/pages/auction_history_list/index.html',
     auction_history_detail: 'src/pages/auction_history_detail/index.html',

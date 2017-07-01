@@ -11,7 +11,10 @@ import Graphics from "./graphic";
 import './style.scss'
 import Carousel from "../../components/carousel/index";
 import {Type5} from "../../components/Image_text_items/index";
-import {Popup} from "../../components/button";
+import {getAuctionDetail} from '../../helper/http/auction'
+import { getSimilar } from '../../helper/http'
+import { getParameterByName, toThousands } from '../../helper/query_string'
+import { imageHost } from '../../helper/config'
 
 
 class Actions extends Component{
@@ -144,49 +147,19 @@ class Specialist extends Component{
                         buttons={this.state.buttons}
                 >
                     <div style={{textAlign: 'center', paddingBottom: 15}}>
-                        <img style={{width: 45}} src={require('../../assets/images/img_source/img_5.png')} alt=""/>
-                        <h3>黄小和</h3>
-                        <p>xiaohe huang</p>
+                        <img style={{width: 45}} src={imageHost + this.props.Attache_HeadUrl} alt=""/>
+                        <h3>{this.props.Attache_Name}</h3>
+                        <p>{this.props.Attache_EnglishName}</p>
                     </div>
                     <div>
-                        <p><span>职称:</span><span> 高级产品专员</span></p>
-                        <p><span>联络专线:</span><span> 400-120332-23</span></p>
-                        <p><span>值班时间:</span><span> 8:00 - 17:00</span></p>
+                        <p><span>职称:</span><span> {this.props.Attache_Post}</span></p>
+                        <p><span>联络专线:</span><span> {this.props.Attache_Phone}</span></p>
+                        <p><span>值班时间:</span><span> {this.props.Attache_Time}</span></p>
                     </div>
                 </Dialog>
                 <div className="product-specialist__board" onClick={e=>this.setState({show: true})}>
-                    <img src={require('../../assets/images/img_source/img_5.png')} alt=""/>
-                    <span className="product-specialist" >产品专员 张淑芬</span>
-                </div>
-            </div>
-        )
-    }
-}
-
-class SimilarDetail extends Component{
-
-    render(){
-        return (
-            <div style={{height: document.documentElement.clientHeight * 0.6, overflow: 'auto', backgroundColor:'#f8f8f8'}}>
-                <div style={{backgroundColor: 'white', marginBottom: 10}}>
-                    <p className="center-title__wrap" style={{padding: '6px 0'}}>
-                        <strong className="center-title">价格参考</strong>
-                    </p>
-                    <div>
-                        <img style={{width: '100%'}} src={require('../../assets/images/img_source/img_1.png')} alt=""/>
-                    </div>
-                    <div className="">
-                        <h3 style={{color: '#222222', fontWeight: 'normal'}}>作者：刘海粟 当代</h3>
-                        <h4 style={{color: '#666666', fontSize: '0.9rem'}}>题材：山水 青绿山水</h4>
-                        <p style={{color: '#666666' ,fontSize: '0.9rem'}}>简介：刘海粟（1896-1994），名槃，字季芳，号海翁。汉族，江苏常州人。现代杰出画家、美术教育家。1912年与乌始光、张聿光等创办上海图画美术院，后改为上海美术专科学校，任校长。1949年后任南京艺术学…</p>
-                    </div>
-                </div>
-
-                <div style={{backgroundColor: 'white'}}>
-                    <p className="center-title__wrap" style={{padding: '6px 0'}}>
-                        <strong className="center-title">刘海粟作品价格曲线图</strong>
-                    </p>
-                    <Graphics/>
+                    <img src={imageHost + this.props.Attache_HeadUrl} alt=""/>
+                    <span className="product-specialist" >产品专员 {this.props.Attache_Name}</span>
                 </div>
             </div>
         )
@@ -205,10 +178,6 @@ class Similar extends Component{
         lazyLoad: true
     }
 
-    state = {
-        popupShow: false
-    }
-
     test(){
         this.setState({popupShow: false})
     }
@@ -220,13 +189,8 @@ class Similar extends Component{
                     <strong className="center-title">同类题材出价参考</strong>
                 </p>
                 <Carousel settings={this.settings}>
-                    {[1,2,3,4,5,6].map(i=>(<div>
-                        <span onClick={e=>this.setState({popupShow: true})}><Type5/></span>
-                    </div>))}
+                    {this.props.list.map(item=>(<div><Type5 {...item}/></div>))}
                 </Carousel>
-                <Popup show={this.state.popupShow} onClick={this.test.bind(this)}>
-                    <SimilarDetail/>
-                </Popup>
             </div>
         )
     }
@@ -236,6 +200,10 @@ class Main extends Component{
 
     state = {
         view: 'exhibition',
+        imgList: [],
+        consultInfo: {},
+        workInfo: {},
+        similarList: []
     }
 
     style = {
@@ -245,6 +213,34 @@ class Main extends Component{
 
     handleClick(view){
         this.setState({view})
+    }
+
+    componentDidMount(){
+        const no = getParameterByName('no')
+        if(!no){
+            alert('无参数，非法请求！')
+            return
+        }
+        getAuctionDetail({no}).then(data=>{
+            if(data){
+                data = data.res_body
+                this.setState({
+                    imgList: data.AuctionWorkImg,
+                    consultInfo: data.AuctionConsultInfo[0],
+                    workInfo: data.AuctionoWorkInfo[0]
+                })
+                let similarParams = {
+                    ref_workclassno: data.AuctionoWorkInfo[0].WorkClassNo
+                }
+                getSimilar(similarParams).then(data=>{
+                    if(!data){return}
+                    data = data.res_body
+                    this.setState({
+                        similarList: data
+                    })
+                })
+            }
+        })
     }
 
     render(){
@@ -261,7 +257,9 @@ class Main extends Component{
                           onClick={this.handleClick.bind(this, 'graphic')}
                     >成交曲线</span>
                 </div>
-                {(this.state.view==='exhibition'||this.state.view==='artists')?<Exhibition />:null}
+                {((this.state.view==='exhibition'||this.state.view==='artists')&&this.state.imgList.length)
+                    ?<Exhibition list={this.state.imgList}/>
+                    :null}
                 {this.state.view==='artists'?<Artists artistNo="A20170419153051"/>:null}
                 {this.state.view==='graphic'?<Graphics />:null}
 
@@ -271,19 +269,19 @@ class Main extends Component{
                         <span>lot 2001 中国山水</span>
                         <span className="fr remainder">收藏</span>
                     </h2>
-                    <p className="name">刘克明</p>
-                    <p className="info">60*10 120平方尺</p>
-                    <p className="info">设色纸本 立轴 2006年作</p>
-                    <p className="price">估价： ￥20,000-</p>
+                    <p className="name">{this.state.workInfo.ArtistName}</p>
+                    <p className="info">{this.state.workInfo.Specifications}</p>
+                    <p className="info">(假数据)设色纸本 立轴 2006年作</p>
+                    <p className="price">估价： RMB {toThousands(this.state.workInfo.MinEvaluationPrice)} - {toThousands(this.state.workInfo.MaxEvaluationPrice)}</p>
                 </div>
 
-                <Specialist/>
+                <Specialist {...this.state.consultInfo}/>
 
                 <div className="board-container" style={{marginBottom: 10}}>
                     <Actions />
                 </div>
 
-                <Similar/>
+                <Similar list={this.state.similarList}/>
 
                 <Accordion title="竞价指南（含视频演示）" />
 

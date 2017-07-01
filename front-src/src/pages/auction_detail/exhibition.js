@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Carousel from '../../components/carousel'
+import { imageHost } from '../../helper/config'
 
 
 class LeftNavButton extends Component {
@@ -39,9 +40,9 @@ export default class Exhibition extends Component{
     render(){
         return (<div>
             <Carousel settings={this.settings}>
-                {[1,2,3,4].map(i=><div
+                {this.props.list.map(img=><div
                     className="carousel-container"
-                    style={{backgroundImage: `url(${this.state.exhibitImage})`}}>
+                    style={{backgroundImage: `url(${imageHost + img.ImgUrl})`}}>
                 </div>)}
             </Carousel>
         </div>)

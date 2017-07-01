@@ -1,5 +1,6 @@
 const router = require('koa-router')();
 const { getAuction } = require('../apis/Auction')
+const { getWorkClass } = require('../apis/Artist')
 const { getSimilar } = require('../apis/artist_similar')
 
 router.get('/auction', async function (ctx) {
@@ -31,6 +32,11 @@ router.get('/getSimilar', async function (ctx) {
     ctx.body = await getSimilar(params)
 })
 
-
+router.get('/getWorkClass', async function (ctx) {
+    let params = {
+        parentno: ctx.request.query.parentno || 0
+    }
+    ctx.body = await getWorkClass(params)
+})
 
 module.exports = router

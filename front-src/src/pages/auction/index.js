@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import Head from '../../components/search_head'
-import { getAuction, getArtists } from '../../helper/http'
+import { getArtists } from '../../helper/http'
+import { getHomeAdv } from '../../helper/http/home'
 import Carousel from '../../components/carousel'
 import { imageHost as imgHost } from '../../helper/config'
 import Search from '../../components/search'
@@ -18,10 +19,10 @@ class Main extends Component{
         this.state = {
             slideImgSet: []
         }
-        getAuction().then(data=>{
-            this.setState({
-                slideImgSet: data.AuctionList
-            })
+        getHomeAdv().then(data=>{
+            if(data){
+                this.setState({slideImgSet: data.HomeAdv})
+            }
         })
     }
 
@@ -39,7 +40,7 @@ class Main extends Component{
         return (
             <Carousel settings={this.settings}>
                 {this.state.slideImgSet.map(auction=>(
-                    <div className='carousel-container' style={{backgroundImage: `url(${imgHost + auction.APPImgUrl})`}} />
+                    <div className='carousel-container' style={{backgroundImage: `url(${imgHost + auction.ImgAddr})`}} />
                 ))}
             </Carousel>
         )

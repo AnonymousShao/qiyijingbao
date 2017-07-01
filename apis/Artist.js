@@ -7,8 +7,12 @@ module.exports.getArtistList = function (params) {
     return http.get(host + '/api/artist',{params}).then(data=>(data.data))
 }
 
-module.exports.getWorkClass = function () {
-    return http.get(host + '/api/artist?parentno=0').then(data=>(data.data))
+module.exports.getClass = function (params) {
+    return http.get(host + '/api/artist', {params}).then(data=>data.data)
+}
+
+module.exports.getWorkClass = function (params) {
+    return http.get(host + '/api/artist', {params}).then(data=>(data.data))
 }
 
 module.exports.getArtistIndex = function (params) {
@@ -16,5 +20,12 @@ module.exports.getArtistIndex = function (params) {
 }
 
 module.exports.getArtistInfo = function (params) {
+    return http.get(host + '/api/artist', {params}).then(data=>(data.data))
+}
+
+module.exports.getArtistDataList = function (params) {
+    if(!params.ref_artistno){
+        return
+    }
     return http.get(host + '/api/artist', {params}).then(data=>(data.data))
 }

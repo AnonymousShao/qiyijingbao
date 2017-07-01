@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
+import {imageHost} from '../../helper/config'
+import { getAuctionList } from '../../helper/http/auction'
 
 export default class Schedule extends Component{
 
     state = {
-        schedule: 'inAuction'
+        schedule: 'inAuction',
+        AuctionList: []
     }
 
     handleChange(type){
@@ -12,33 +15,21 @@ export default class Schedule extends Component{
         })
     }
 
+    componentDidMount(){
+        getAuctionList().then(data=>{
+            if(data){
+                this.setState({
+                    AuctionList: data.AuctionList
+                })
+            }
+        })
+    }
+
     style = {
         container: {
             backgroundColor: 'white'
         }
     }
-
-    data = [{
-        img: require('../../assets/images/img_source/img_1.png'),
-        price: 123,
-        list: [
-            123, 12
-        ]
-    }, {
-        img: require('../../assets/images/img_source/img_11.png'),
-        price: 123,
-        list: [
-            123, 12, 23
-        ]
-    }, {
-        img: require('../../assets/images/img_source/img_1.png'),
-        price: 123,
-        list: []
-    }, {
-        img: require('../../assets/images/img_source/img_11.png'),
-        price: 123,
-        list: []
-    }]
 
     render(){
         return (
@@ -50,7 +41,7 @@ export default class Schedule extends Component{
                           onClick={this.handleChange.bind(this, 'prevision')} >预展日程</span>
                 </div>
                 <div className="card-container" style={{padding: '15px 15px 0'}}>
-                    {this.data.map((card, i)=><ImgCard card={card}/>)}
+                    {this.state.AuctionList.map((card, i)=><ImgCard {...card}/>)}
                 </div>
             </div>
         )
@@ -58,19 +49,18 @@ export default class Schedule extends Component{
 }
 
 class ImgCard extends Component{
-
     render(){
         return (
             <div className="card">
-                <a href="/auction_list.html">
-                    <div className="card-img" style={{backgroundImage: `url(${this.props.card.img})`}} />
+                <a href={"/auction_list.html?no=" + this.props.NO}>
+                    <div className="card-img" style={{backgroundImage: `url(${imageHost + this.props.APPImgUrl})`}} />
                     <div className="card-body">
                         <h3>价格区间</h3>
                         <p className="card-price">
-                            <span>{this.props.card.price}</span>
+                            <span>{this.props.price}</span>
                             <small>RMB</small>
                         </p>
-                        <ul className="card-list">{this.props.card.list.map(info=>(<li key={info}>{info}</li>))}</ul>
+                        {/*<ul className="card-list">{this.props.card.list.map(info=>(<li key={info}>{info}</li>))}</ul>*/}
                     </div>
                 </a>
             </div>

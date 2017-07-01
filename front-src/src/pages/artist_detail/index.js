@@ -5,25 +5,54 @@ import Footer from '../../components/footer'
 import './style.scss'
 import Graphics from "../auction_detail/graphic";
 import Artists from "../auction_detail/artists";
+import {getArtistDataList} from '../../helper/http/artist'
 import { getParameterByName } from '../../helper/query_string'
 
 
 class Main extends Component{
 
     componentWillMount(){
-        let artistNo = getParameterByName('artistno')
-        this.state = {
-            artistNo
+        const no = getParameterByName('artistno')
+        let params = {
+            artistno: no
         }
+        getArtistDataList(params).then(data=>{
+            if(data){
+                const list = data.ArtistExponent,
+                    labels = [],
+                    maxPriceList = [],
+                    minPriceList = [],
+                    avrPriceList = [];
+                list.forEach(item=>{
+                    labels.push(item.ExponentTime)
+                    maxPriceList.push(item.MaxAmount)
+                    minPriceList.push(item.MinAmount)
+                    avrPriceList.push(item.AvgAmount)
+                })
+                this.setState({
+                    dataSet: {
+                        labels, maxPriceList, minPriceList, avrPriceList
+                    }
+                })
+            }
+        })
     }
 
-    state = {}
+    state = {
+        artistNo: getParameterByName('artistno'),
+        dataSet: {
+            labels: [],
+            maxPriceList: [],
+            minPriceList: [],
+            avrPriceList: [],
+        }
+    }
 
     render(){
         return (
             <div>
                 <Artists artistNo={this.state.artistNo}/>
-                <Graphics/>
+                {this.state.dataSet.labels.length?<Graphics dataSet={this.state.dataSet}/>:null}
             </div>
         )
     }

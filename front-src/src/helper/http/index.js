@@ -3,7 +3,7 @@ import {server as host, success} from '../config'
 
 // require('../mock')
 
-const init = {
+export const init = {
     get(){
         const params = arguments[1],
             url = host + arguments[0]
@@ -97,4 +97,8 @@ export function searchAuction(params) {
 
 export function getSimilar(params) {
     return init.get('/search/getSimilar', params).then(data=>data.res_body)
+}
+
+export function getWorkClass(params) {
+    return init.get('/search/getWorkClass', params).then(data=>data.res_body)
 }

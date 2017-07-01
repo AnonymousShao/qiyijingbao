@@ -18,6 +18,7 @@ let webpackConfig = {
         auction_detail: './src/pages/auction_detail/index.js',
         auction_history_list: './src/pages/auction_history_list/index.js',
         auction_bid: './src/pages/auction_bid/index.js',
+        bid_refer: './src/pages/bid_refer/index.js',
         auction_history_detail: './src/pages/auction_history_detail/index.js',
         demo: './src/pages/demo/index.js',
         auction: './src/pages/auction/index.js',

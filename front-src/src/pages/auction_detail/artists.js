@@ -9,7 +9,7 @@ export default class Artists extends Component{
     constructor(props){
         super(props)
         const params = {
-            artistNo: this.props.artistNo
+            artistno: this.props.artistNo
         }
         getArtisitDetail(params).then(data=>{
             const artistInfo = data.ArtistInfo[0],
@@ -24,7 +24,7 @@ export default class Artists extends Component{
     state = {
         artistInfo: '',
         artistWorks: '',
-        workClass: ''
+        workClass: '',
     }
 
     render(){

@@ -12,7 +12,7 @@ function getHomeInfo(params) {
 
 module.exports = {
     getHomeAd: ()=>(
-        http.get(host + '/api/homepage').then(data=>(data.data.res_body))
+        http.get(host + '/api/homepage').then(data=>(data.data))
     ),
     getHomeArtist: (params)=>{
         params.page = params.page || 1
@@ -32,3 +32,5 @@ module.exports = {
         return getHomeInfo(params)
     }
 }
+
+module.exports.getHomeAd()

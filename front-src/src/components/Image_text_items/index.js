@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { imageHost } from '../../helper/config'
 import './style.scss'
+import {toThousands} from '../../helper/query_string'
 
 
 export class Type1 extends Component{
@@ -75,17 +76,17 @@ export class Type4 extends Component{
     render(){
         return (
             <li className="img-text__container">
-                <a href="/auction_detail.html">
+                <a href={"/auction_detail.html?no=" + this.props.AuctionWorkNO}>
                     <div className="image_container ic90">
-                        <img src={this.props.src} alt=""/>
+                        <img src={imageHost + this.props.APPImgUrl} alt=""/>
                     </div>
                     <div className="text_container">
-                        <h3 className="main-name">高山流水 <span className="fc-weak">(叶迪)</span></h3>
-                        <p className="sub-name">竞拍名称</p>
+                        <h3 className="main-name">{this.props.WorkClassName} <span className="fc-weak">({this.props.ArtistName})</span></h3>
+                        <p className="sub-name">{this.props.Title}</p>
                         <p className="price">
-                            估价 <span> RMB 5,400</span>
+                            估价 <span> RMB {toThousands(this.props.MinEvaluationPrice)} - {toThousands(this.props.MaxEvaluationPrice)}</span>
                         </p>
-                        <p className="tip-ft"><strong>2</strong>次出价</p>
+                        <p className="tip-ft"><strong>{this.props.AuctionCount}</strong>次出价</p>
                     </div>
                 </a>
             </li>
@@ -100,16 +101,19 @@ export class Type4 extends Component{
 export class Type5 extends Component{
 
     render(){
+        debugger
         return (
             <div className="type5__container">
-                <div className="image_container">
-                    <img src={require('../../assets/images/img_source/img_12.png')} alt=""/>
-                    <div className="image_band">{Math.random().toFixed(5)}</div>
-                </div>
-                <div className="text_container">
-                    <p className="main-name">刘克明</p>
-                    <p className="price">1,100 - 4,400</p>
-                </div>
+                <a href="/bid_refer.html">
+                    <div className="image_container">
+                        <img src={require('../../assets/images/img_source/img_12.png')} alt=""/>
+                        <div className="image_band">{Math.random().toFixed(5)}</div>
+                    </div>
+                    <div className="text_container">
+                        <p className="main-name">刘克明</p>
+                        <p className="price">1,100 - 4,400</p>
+                    </div>
+                </a>
             </div>
         )
     }

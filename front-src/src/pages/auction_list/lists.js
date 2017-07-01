@@ -43,7 +43,7 @@ export default class ListController extends Component{
                 </div>
                 <div>
                     <ul>
-                        {this.itemList.map(item=><Type4 {...item}/>)}
+                        {this.props.list.map(item=><Type4 {...item}/>)}
                     </ul>
                 </div>
             </div>
