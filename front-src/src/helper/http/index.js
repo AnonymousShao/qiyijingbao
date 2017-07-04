@@ -99,6 +99,10 @@ export function getSimilar(params) {
     return init.get('/search/getSimilar', params).then(data=>data.res_body)
 }
 
+export function getBidDetail(params) {
+    return init.get('/search/getBidDetail', params).then(data=>data.res_body)
+}
+
 export function getWorkClass(params) {
     return init.get('/search/getWorkClass', params).then(data=>data.res_body)
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {imageHost} from '../../helper/config'
-import { getAuctionList } from '../../helper/http/auction'
+import { getScheduleList } from '../../helper/http/auction'
 
 export default class Schedule extends Component{
 
@@ -16,7 +16,7 @@ export default class Schedule extends Component{
     }
 
     componentDidMount(){
-        getAuctionList().then(data=>{
+        getScheduleList().then(data=>{
             if(data){
                 this.setState({
                     AuctionList: data.AuctionList

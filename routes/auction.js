@@ -17,6 +17,17 @@ router.get('/getAuction', async function (ctx) {
     ctx.body = await getAuction(params)
 })
 
+router.get('/getScheduleList', async function (ctx) {
+    let params = {
+        type: ctx.request.query.type || 1,
+        // rows: ctx.request.query.rows || 1,
+        // page: ctx.request.query.page || 1,
+        // auctionStatus: ctx.request.query.state || 1,
+        account: ''
+    }
+    ctx.body = await getAuction(params)
+})
+
 router.get('/getAuctions', async function (ctx) {
     let params = {
         auctionStatus: ctx.request.query.state || 1,

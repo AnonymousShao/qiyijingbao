@@ -1,6 +1,6 @@
 const router = require('koa-router')();
 const BaseConst = require('../globals/BaseConst')
-const {getHomeAd, getHomeArtist, getHomeAuction, getHomeBargin, getHomeExhibition} = require('../apis/HomePage')
+const {getHomeAd, getHomeArtist, getHomeAuction, getHomeBargain, getHomeExhibition} = require('../apis/HomePage')
 
 router.get('/ad', async function (ctx, next) {
     ctx.body = await getHomeAd()
@@ -14,7 +14,7 @@ router.get('/auction', async function (ctx, next) {
     ctx.body = await getHomeAuction(ctx.request.query)
 })
 
-router.get('/bargin', async function (ctx, next) {
+router.get('/bargain', async function (ctx, next) {
     ctx.body = await getHomeBargin(ctx.request.query)
 })
 

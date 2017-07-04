@@ -1,5 +1,8 @@
 @import "../../style/common";
 
+body{
+  padding-bottom: 100px;
+}
 
 .auction-info-board{
   @at-root #{&}{
@@ -61,9 +64,7 @@
 
 .artist-intro{
   .artist-intro-header{
-    img{
-      margin-top: -50px;
-    }
+    margin-top: -50px;
   }
 }
 
@@ -107,31 +108,5 @@
   .rate{
     color: #666666;
     font-size: 0.8rem;
-  }
-}
-
-.auction-action{
-  display: flex;
-  justify-content: space-around;
-  text-align: center;
-  margin-bottom: -10px;
-
-  .action-tel{
-    width: 40%;
-    padding: 10px;
-    background-color: white;
-  }
-
-  .action-2{
-    width: 30%;
-    color: white;
-    padding: 10px;
-    background-color: #333
-  }
-  .action-3{
-    width: 30%;
-    color: white;
-    padding: 10px;
-    background-color: $btn-bg-color
   }
 }

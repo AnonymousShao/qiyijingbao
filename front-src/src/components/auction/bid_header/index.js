@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import './style.scss'
 import MenuDown from "../../menu_down/index";
-import {getWorkClass} from '../../../helper/http'
 
 export default class BidHeader extends Component{
 
@@ -12,7 +11,6 @@ export default class BidHeader extends Component{
 
     state = {
         position: {},
-        className: '中国书画',
         menuDisplay: false
     }
 
@@ -23,7 +21,9 @@ export default class BidHeader extends Component{
                 right: document.body.clientWidth - this.refs.btn.offsetLeft - 0.5 * this.refs.btn.offsetWidth - 18
             }
         })
-        this.handleChange(this.menuList[0])
+        if(this.props.belongId===undefined){
+            this.handleChange(this.menuList[0])
+        }
     }
 
     toggleShow(){
@@ -45,7 +45,6 @@ export default class BidHeader extends Component{
 
     handleChange(item){
         this.props.onChangeClass(item)
-        this.setState({className: item.name})
     }
 
     render(){
@@ -54,7 +53,7 @@ export default class BidHeader extends Component{
                 <div className="header-head">
                     <img className="logo" src={require('../../../assets/images/auction/logo_bid.jpg')} alt=""/>
                     <div className="fr">
-                        <span>{this.state.className}</span>
+                        <span>{this.menuList[this.props.belongId || 0].name}</span>
                         <span className="main-color" ref="btn" onClick={this.toggleShow}>[切换]</span>
                         <MenuDown background={true}
                                   show={this.state.menuDisplay}

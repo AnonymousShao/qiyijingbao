@@ -29,20 +29,19 @@ export default class Exhibition extends Component{
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: true,
+        adaptiveHeight: true,
         prevArrow: <LeftNavButton/>,
         nextArrow: <RightNavButton/>
     }
 
-    state = {
-        exhibitImage: require('../../assets/images/img_source/img_11.png')
-    }
+    state = {}
 
     render(){
         return (<div>
             <Carousel settings={this.settings}>
                 {this.props.list.map(img=><div
                     className="carousel-container"
-                    style={{backgroundImage: `url(${imageHost + img.ImgUrl})`}}>
+                    style={{backgroundImage: `url(${imageHost + img.ImgUrl})`, height: (img.ImgHeight / img.ImgWidth)*document.body.clientWidth}}>
                 </div>)}
             </Carousel>
         </div>)

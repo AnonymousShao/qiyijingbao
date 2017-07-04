@@ -7,7 +7,7 @@ function getHomeInfo(params) {
     params.page = params.page || 1
     // params.auctionStatus = params.auctionStatus || 1
     // params.account = params.account || 1
-    return http.get(host + 'api/homepage', {params}).then(data=>(data.data.res_body))
+    return http.get(host + '/api/homepage', {params}).then(data=>(data.data.res_body))
 }
 
 module.exports = {
@@ -23,7 +23,7 @@ module.exports = {
         params.flag = 1
         return getHomeInfo(params)
     },
-    getHomeBargin: (params)=>{
+    getHomeBargain: (params)=>{
         params.flag = 2
         return getHomeInfo(params)
     },

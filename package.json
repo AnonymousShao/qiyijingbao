@@ -9,7 +9,7 @@
     "fcp": "cd front-src/ && npm run cp",
     "tstart": "cd front-src/ && NODE_ENV=production npm start",
     "test": "./node_modules/.bin/mocha -u bdd",
-    "totest": "rsync -avz ./ --exclude='.git/' --exclude='.idea/' root@daxianyu.cn:/data/yjs"
+    "totest": "rsync -avz ./ --include='front-src/dist/' --exclude='front-src/*' --exclude=.git/ --exclude=.idea/ root@daxianyu.cn:/data/yjs"
   },
   "dependencies": {
     "axios": "^0.16.1",

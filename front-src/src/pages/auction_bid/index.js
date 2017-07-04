@@ -13,8 +13,8 @@ class Main extends Component{
         type: '',
         dataList: [],
         theme: '',
-        price: false,
-        year: true,
+        price: undefined,
+        year: undefined,
         workClass: '-1',
         menuList: [],
         belongId: 1,
@@ -34,9 +34,26 @@ class Main extends Component{
     }
 
     handleUpDownChange(type, value){
+        let result = this.state.dataList.slice()
+        if(type==='price'){
+            result = this.state.dataList.sort((p, i)=>{
+                return (value?1:-1) * (p.sortPrice - i.sortPrice)
+            })
+            this.setState({
+                year: undefined
+            })
+        }
+        if(type==='year'){
+            result = this.state.dataList.sort((p, i)=>{
+                return (value?1:-1) * (p.sortYear - i.sortYear)
+            })
+            this.setState({
+                price: undefined
+            })
+        }
         this.setState({
             [type]: value,
-            // dataList: this.state.dataList.sort((p, n)=>{return })
+            dataList: result
         })
     }
 
@@ -59,6 +76,11 @@ class Main extends Component{
             ref_workclassno: this.state.workClass!=='-1'?this.state.workClass:null
         }
         getSimilar(params).then(data=>{
+            let list = data.ArtistExponent
+            list.forEach(item=>{
+                item.sortYear = 0.5 * parseInt(item.ArtistBirthYear) + 0.5 * parseInt(item.ArtistDeathYear || new Date().getFullYear())
+                item.sortPrice = 0.5 * (item.MinEvaluationPrice + item.MaxEvaluationPrice)
+            })
             this.setState({dataList: data.ArtistExponent})
         })
     }
@@ -72,7 +94,7 @@ class Main extends Component{
     render(){
         return (
             <div>
-                <Header onChangeClass={this.handleChangeClass.bind(this)}/>
+                <Header belongId={this.state.belongId - 1} onChangeClass={this.handleChangeClass.bind(this)}/>
                 <FormCell select selectPos="before" style={{backgroundColor: 'white'}}>
                     <CellHeader>
                         <Select onChange={this.handleSelectChange.bind(this)}>
@@ -84,7 +106,6 @@ class Main extends Component{
                         <Input type="search" onChange={this.handleInputChange.bind(this)} placeholder="请输入题材关键字"/>
                         <span className="search-icon" onClick={this.submit.bind(this)}>搜索</span>
                     </CellBody>
-
                 </FormCell>
                 <div style={{margin: '15px 15px 0'}}>
                     <div className="bid-select-title">

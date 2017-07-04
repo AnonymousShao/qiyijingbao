@@ -5,6 +5,58 @@
   text-align: left;
 }
 
+button.weui-btn{
+  border-width: 1px!important;
+  border-color: transparent!important;
+}
+
+button.weui-btn.weui-btn_default {
+  color: #000!important;
+  background-color: white!important;
+  border: 1px solid #222 !important;
+  box-sizing: border-box!important;
+}
+
 .weui-btn_mini {
   padding: 0 0.6em!important;
+}
+
+.uploader-parent{
+  display: flex;
+}
+
+.weui-uploader{
+  width: 33.33%;
+  text-align: center;
+}
+
+.weui-uploader__hd{
+  display: flex;
+  padding: 10px 0;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.weui-uploader__title{
+
+}
+
+.weui-uploader__bd{
+  margin: 0;
+}
+
+.weui-uploader__files{
+
+}
+
+.weui-uploader__input-box{
+  float: none!important;
+  position: relative;
+  margin: auto;
+  margin-bottom: 9px;
+  width: 77px;
+  height: 77px;
+  border: 1px solid #d9d9d9;
 }

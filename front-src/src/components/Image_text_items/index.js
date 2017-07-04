@@ -101,17 +101,42 @@ export class Type4 extends Component{
 export class Type5 extends Component{
 
     render(){
-        debugger
         return (
             <div className="type5__container">
-                <a href="/bid_refer.html">
-                    <div className="image_container">
-                        <img src={require('../../assets/images/img_source/img_12.png')} alt=""/>
-                        <div className="image_band">{Math.random().toFixed(5)}</div>
+                <a href={"/bid_refer.html?artistno=" + this.props.ArtistNo}>
+                    <div className="img-bg-container" style={{backgroundImage: `url(${imageHost + this.props.WorkImgUrl})`}} >
+                        <div className="img_band">{this.props.Theme}</div>
                     </div>
                     <div className="text_container">
-                        <p className="main-name">刘克明</p>
-                        <p className="price">1,100 - 4,400</p>
+                        <p className="main-name">{this.props.ArtistName}</p>
+                        <p className="price">RMB {toThousands(this.props.MinEvaluationPrice)} - {toThousands(this.props.MaxEvaluationPrice)}</p>
+                    </div>
+                </a>
+            </div>
+        )
+    }
+}
+
+
+/*
+* 议价详情页
+* */
+export class Type6 extends Component{
+
+    render(){
+        return (
+            <div className="img-text__container">
+                <a>
+                    <div className="image_container ic105">
+                        <img src={require('../../assets/images/img_source/img_12.png')} alt=""/>
+                    </div>
+                    <div className="text_container" style={{width: '65%'}}>
+                        <p className="information">lot号 级别符号</p>
+                        <h3 className="main-name">高山流水</h3>
+                        <p className="sub-name">艺术家（b.1986）</p>
+                        <p className="price" style={{paddingTop: 15}}>
+                            估价 <span> RMB {toThousands(30000)} - {toThousands(50000)}</span>
+                        </p>
                     </div>
                 </a>
             </div>

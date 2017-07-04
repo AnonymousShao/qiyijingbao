@@ -1,0 +1,100 @@
+@import "../../../style/common";
+
+body{
+  padding-bottom: 100px;
+}
+
+.bargain-info-board{
+  @at-root #{&}{
+    .remaining{
+      font-size: 0.8rem;
+      color: #666666;
+    }
+
+    .title{
+      font-size: 1rem;
+      color: #222222;
+      font-weight: normal;
+    }
+
+    .remainder{
+      font-size: 0.8rem;
+      color: #666666;
+    }
+
+    .name{
+      font-size: 0.9rem;
+      color: #666666;
+    }
+
+    .info{
+      font-size: 0.8rem;
+      color: #666666;
+    }
+
+    .price{
+      padding-top: 5px;
+      font-size: 0.9rem;
+      color: $btn-bg-color;
+    }
+
+    .eva-price{
+      padding-top: 5px;
+      font-size: 0.9rem;
+      color: #999999;
+    }
+  }
+}
+
+
+.info-actions{
+  display: flex;
+  background-color: white;
+  justify-content: space-around;
+  & > div{
+    width: 15%;
+    text-align: center;
+    position: relative;
+    img{
+      width: 60%
+    }
+    .title{
+      font-size: .8rem;
+      color: #999999;
+    }
+  }
+}
+
+.page-pricing-container{
+  position: fixed;
+  bottom: 51px;
+  width: 100%;
+
+  .auction-action{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+
+    .action-tel{
+      width: 40%;
+      padding: 10px;
+      background-color: white;
+    }
+
+    .action-2{
+      width: 30%;
+      color: white;
+      padding: 10px;
+      background-color: #333
+    }
+    .action-3{
+      width: 30%;
+      color: white;
+      padding: 10px;
+      background-color: $btn-bg-color
+    }
+  }
+}
+
+
+

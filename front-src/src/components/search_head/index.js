@@ -8,8 +8,7 @@ export default class Header extends Component{
 
     toggleMenu(){
         if(!this.state.menuOn){
-            let containerHeight = window.getComputedStyle(this.refs.searchContainer).height
-            document.body.style.paddingTop = containerHeight
+            document.body.style.paddingTop = window.getComputedStyle(this.refs.searchContainer).height
         } else {
             document.body.style.paddingTop = 0
         }

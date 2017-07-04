@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Header from "../../components/header/index";
 import Footer from "../../components/footer/index";
 import Graphics from "../auction_detail/graphic";
-import { getSimilar } from '../../helper/http'
+import { getBidDetail } from '../../helper/http'
 import { getParameterByName } from '../../helper/query_string'
 import {imageHost} from '../../helper/config'
 import './style.scss'
@@ -22,13 +22,12 @@ class Main extends Component{
     }
 
     componentDidMount(){
-        const artistNo = getParameterByName('artistno')
-        let params = {
-            ref_artistno: artistNo
-        }
-        getSimilar(params).then(data=>{
+        const workno = getParameterByName('workno')
+        getBidDetail({workno}).then(data=>{
             if(data){
                 const list = data.ArtistExponent
+                const artistWorkInfo = data.ArtistWorkInfo
+
                 if(list.length){
                     const labels= [],
                         maxList = [],
@@ -51,8 +50,20 @@ class Main extends Component{
                         list, artistInfo:list[0]
                     })
                 }
+
+                if(artistWorkInfo){
+                    this.setState({
+                        artistInfo: artistWorkInfo[0]
+                    })
+                }
             }
         })
+        // getSimilar({ref_workclassno: WorkClassNo}).then(data=>{
+        //     if(data){
+        //         let filteredList = data.ArtistExponent.filter(artist=>(artist.ArtistNo===artistNo))
+        //         debugger
+        //     }
+        // })
     }
 
     render(){
@@ -63,11 +74,11 @@ class Main extends Component{
                         <strong className="center-title">价格参考</strong>
                     </p>
                     <div>
-                        <img style={{width: '100%'}} src={imageHost + this.state.artistInfo.WorkImgUrl} alt=""/>
+                        <img style={{width: '100%'}} src={imageHost + this.state.artistInfo.WorkHighImgUrl} alt=""/>
                     </div>
                     <div className="">
-                        <h3 style={{color: '#222222', fontWeight: 'normal'}}>作者：{this.state.artistInfo.ArtistName} 当代</h3>
-                        <h4 style={{color: '#666666', fontSize: '0.9rem'}}>题材：{this.state.artistInfo.WorkClassName}</h4>
+                        <h3 style={{color: '#222222', fontWeight: 'normal'}}>作者：{this.state.artistInfo.ArtistName}</h3>
+                        <h4 style={{color: '#666666', fontSize: '0.9rem'}}>题材：{this.state.artistInfo.Theme}</h4>
                         <p style={{color: '#666666' ,fontSize: '0.9rem'}}>简介：
                             {this.state.artistInfo.ArtistDesc}
                         </p>

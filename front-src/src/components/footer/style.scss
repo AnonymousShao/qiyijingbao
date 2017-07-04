@@ -22,5 +22,10 @@
   }
   .footer-name{
     font-size: 0.6rem;
+    color: #222;
+
+    &.active{
+      color: $btn-bg-color;
+    }
   }
 }

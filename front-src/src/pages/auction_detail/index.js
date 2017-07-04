@@ -9,8 +9,7 @@ import Exhibition from "./exhibition";
 import Graphics from "./graphic";
 
 import './style.scss'
-import Carousel from "../../components/carousel/index";
-import {Type5} from "../../components/Image_text_items/index";
+import Similar from '../../components/similar'
 import {getAuctionDetail} from '../../helper/http/auction'
 import { getSimilar } from '../../helper/http'
 import { getParameterByName, toThousands } from '../../helper/query_string'
@@ -88,7 +87,7 @@ class Pricing extends Component{
 
     render(){
         return (
-            <div>
+            <div className="page-pricing-container">
                 <Dialog
                     show={this.state.view==='bid'}
                     buttons={this.state.bid.buttons}>
@@ -98,19 +97,19 @@ class Pricing extends Component{
                     </div>
                     <div style={this.style.body}>
                         <p style={this.style.item}>
-                            <input type="checkbox"/>
+                            <input type="radio" name="price" value='1'/>
                             <span style={this.style.itemPrice}>RMB 2000</span>
                         </p>
                         <p style={this.style.item}>
-                            <input type="checkbox"/>
+                            <input type="radio" name="price" value='2'/>
                             <span style={this.style.itemPrice}>RMB 3000</span>
                         </p>
                         <p style={this.style.item}>
-                            <input type="checkbox"/>
+                            <input type="radio" name="price" value='3'/>
                             <span style={this.style.itemPrice}>RMB 4000</span>
                         </p>
                         <p style={this.style.item}>
-                            <input type="checkbox"/>
+                            <input type="radio" name="price" value='4'/>
                             <span style={this.style.itemPrice} className="main-color">RMB 9000 一口价摘牌</span>
                         </p>
                     </div>
@@ -166,36 +165,6 @@ class Specialist extends Component{
     }
 }
 
-class Similar extends Component{
-
-    settings = {
-        infinite: false,
-        autoplay: false,
-        autoplaySpeed: 4000,
-        slidesToShow: 3.3,
-        slidesToScroll: 4,
-        initialSlide: 0,
-        lazyLoad: true
-    }
-
-    test(){
-        this.setState({popupShow: false})
-    }
-
-    render(){
-        return (
-            <div className="board-container" style={{marginBottom: 10}}>
-                <p className="center-title__wrap">
-                    <strong className="center-title">同类题材出价参考</strong>
-                </p>
-                <Carousel settings={this.settings}>
-                    {this.props.list.map(item=>(<div><Type5 {...item}/></div>))}
-                </Carousel>
-            </div>
-        )
-    }
-}
-
 class Main extends Component{
 
     state = {
@@ -234,9 +203,8 @@ class Main extends Component{
                 }
                 getSimilar(similarParams).then(data=>{
                     if(!data){return}
-                    data = data.res_body
                     this.setState({
-                        similarList: data
+                        similarList: data.ArtistExponent
                     })
                 })
             }
@@ -260,18 +228,18 @@ class Main extends Component{
                 {((this.state.view==='exhibition'||this.state.view==='artists')&&this.state.imgList.length)
                     ?<Exhibition list={this.state.imgList}/>
                     :null}
-                {this.state.view==='artists'?<Artists artistNo="A20170419153051"/>:null}
+                {this.state.view==='artists'?<Artists artistNo={this.state.workInfo.ArtistNO}/>:null}
                 {this.state.view==='graphic'?<Graphics />:null}
 
                 <div className="board-container auction-info-board">
                     <p className="remaining">距结束 <span>1天</span></p>
                     <h2 className="title">
-                        <span>lot 2001 中国山水</span>
+                        <span>{this.state.workInfo.Title}</span>
                         <span className="fr remainder">收藏</span>
                     </h2>
                     <p className="name">{this.state.workInfo.ArtistName}</p>
                     <p className="info">{this.state.workInfo.Specifications}</p>
-                    <p className="info">(假数据)设色纸本 立轴 2006年作</p>
+                    {/*<p className="info">(假数据)设色纸本 立轴 2006年作</p>*/}
                     <p className="price">估价： RMB {toThousands(this.state.workInfo.MinEvaluationPrice)} - {toThousands(this.state.workInfo.MaxEvaluationPrice)}</p>
                 </div>
 

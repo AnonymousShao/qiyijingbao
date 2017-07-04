@@ -1,11 +1,12 @@
 import React,{Component} from 'react'
+import classNames from 'classnames'
 import './style.scss'
 
 export default class Footer extends Component{
 
     componentWillMount(){
         this.state = {
-            active: 'auction'
+            active: this.props.active || 'auction'
         }
     }
 
@@ -19,7 +20,7 @@ export default class Footer extends Component{
         srcOn: require('../../assets/images/footer/tab_neg_pre@2x.png'),
         srcOff: require('../../assets/images/footer/tab_neg@2x.png'),
         name: '议价',
-        url: '',
+        url: '/bargain.html',
         key: 'bargain'
     }, {
         srcOn: require('../../assets/images/footer/tab_rule_pre@2x.png'),
@@ -60,7 +61,7 @@ class Icon extends Component{
                     <img src={this.props.info.key===this.props.activeKey
                         ?this.props.info.srcOn
                         :this.props.info.srcOff} alt=""/>
-                    <p className="footer-name">{this.props.info.name}</p>
+                    <p className={classNames('footer-name', {active: this.props.info.key===this.props.activeKey})}>{this.props.info.name}</p>
                 </a>
             </div>
         )

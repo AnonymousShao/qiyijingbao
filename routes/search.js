@@ -39,4 +39,11 @@ router.get('/getWorkClass', async function (ctx) {
     ctx.body = await getWorkClass(params)
 })
 
+router.get('/getBidDetail', async function (ctx) {
+    let params = {
+        workno: ctx.request.query.workno
+    }
+    ctx.body = await getSimilar(params)
+})
+
 module.exports = router

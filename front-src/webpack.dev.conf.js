@@ -6,26 +6,12 @@ const webpack = require('webpack'),
     values = require('postcss-modules-values'),
     config = require('./config/index');
 const publicPath = config.build.assetsPublicPath;
+const find = require('./config/find_entry').find
 
 const isProd = process.env.NODE_ENV==='production'
 
 let webpackConfig = {
-    entry: {
-        home:'./src/pages/home/index.js',
-        login: './src/pages/login/index.js',
-        auction_schedule: './src/pages/auction_schedule/index.js',
-        auction_list: './src/pages/auction_list/index.js',
-        auction_detail: './src/pages/auction_detail/index.js',
-        auction_history_list: './src/pages/auction_history_list/index.js',
-        auction_bid: './src/pages/auction_bid/index.js',
-        bid_refer: './src/pages/bid_refer/index.js',
-        auction_history_detail: './src/pages/auction_history_detail/index.js',
-        demo: './src/pages/demo/index.js',
-        auction: './src/pages/auction/index.js',
-        search: './src/pages/search/index.js',
-        artist_list: './src/pages/artist_list/index.js',
-        artist_detail: './src/pages/artist_detail/index.js',
-    },
+    entry: find('./src/pages/**/index.js'),
     resolve: {
         extensions: ['.js', '.jsx'],
     },

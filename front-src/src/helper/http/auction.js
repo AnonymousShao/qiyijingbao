@@ -13,5 +13,9 @@ export function getAuctionListSeatNo(params) {
 }
 
 export function getAuctionDetail(params) {
-    return init.get('/auction/getAuctionDetail', params)
+    return init.get('/auction/getAuctionDetail', params);
+}
+
+export function getScheduleList(params) {
+    return init.get('/auction/getScheduleList', params).then(data=>(data.res_body))
 }

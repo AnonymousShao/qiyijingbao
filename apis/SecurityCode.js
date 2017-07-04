@@ -10,7 +10,7 @@ module.exports.sendMSM = function (params) {
     const encyc = des.encrypt(params.phone)
     const sign = encyc.substr(0, 5) + encyc.substring(encyc.length-5)
     params.sign = sign.toUpperCase()
-    return http.get(host + 'api/securitycode', {params})
+    return http.get(host + '/api/securitycode', {params})
 }
 
 module.exports.resetSendCode = function (params) {
@@ -18,7 +18,7 @@ module.exports.resetSendCode = function (params) {
     const sign = encyc.substr(0, 5) + encyc.substring(encyc.length-5)
     params.sign = sign.toUpperCase()
     params.flag = 'resetpwd'
-    return http.get(host + 'api/securitycode', {params})
+    return http.get(host + '/api/securitycode', {params})
 }
 
 function resetAndRegister(params, signKey) {
@@ -53,12 +53,12 @@ function resetAndRegister(params, signKey) {
 
 module.exports.resetPwd = function (params) {
     const data = resetAndRegister(params, 'reset')
-    return http.post(host + 'api/member?flag=3', data)
+    return http.post(host + '/api/member?flag=3', data)
 }
 
 module.exports.register = function (params) {
     const data = resetAndRegister(params, 'register')
-    return http.post(host + 'api/member', data)
+    return http.post(host + '/api/member', data)
 }
 
 module.exports.login = function (params) {
@@ -70,7 +70,7 @@ module.exports.login = function (params) {
                 Password: enPassword
             }
         }
-    return http.post(host + 'api/Member?flag=1', data)
+    return http.post(host + '/api/Member?flag=1', data)
 }
 
 module.exports.wxlogin = function (params) {
@@ -81,7 +81,7 @@ module.exports.wxlogin = function (params) {
         }
     }
 
-    return http.post(host + 'api/Member?flag=29', data).then(data=>{
+    return http.post(host + '/api/Member?flag=29', data).then(data=>{
         debugger
         return data
     })

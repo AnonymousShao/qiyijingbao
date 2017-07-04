@@ -9,8 +9,10 @@ export default class CardBoard extends Component{
         return (
             <div className="t-card-container">
                 {this.props.cardlist.map(card=>(
-                    <div className="t-card">
-                        <CardItem {...card}/>
+                    <div className="t-card">{
+                        this.props.type==='2'
+                            ?<CardItem2 {...card}/>
+                            :<CardItem {...card}/>}
                     </div>
                 ))}
             </div>
@@ -23,7 +25,7 @@ class CardItem extends Component{
     render(){
         return (
             <div>
-                <a href={"/bid_refer.html?artistno=" + (this.props.ArtistNO||this.props.ArtistNo)}>
+                <a href={"/bid_refer.html?workno=" + (this.props.WorkSimilarNo)}>
                     <div className="t-card-image" style={{backgroundImage: `url(${imageHost + this.props.WorkImgUrl})`}} >
                         <div className="t-card-band">{this.props.Theme}</div>
                     </div>
@@ -32,6 +34,29 @@ class CardItem extends Component{
                         <p className="dot">年代: {this.props.ArtistBirthYear} - {this.props.ArtistDeathYear}</p>
                         <p className="price-title dot">估价</p>
                         <p className="price">{toThousands(this.props.MinEvaluationPrice)} - {toThousands(this.props.MaxEvaluationPrice)}</p>
+                    </div>
+                </a>
+            </div>
+        )
+    }
+}
+
+class CardItem2 extends Component{
+    render(){
+        return (
+            <div>
+                <a href={"/bargain_detail.html?artistno=" + (this.props.ArtistNO||this.props.ArtistNo)}>
+                    <div className="t-card-image" style={{backgroundImage: `url(${require('../../assets/images/img_source/img_13.png')})`}} >
+                        <div className="t-card-band">{this.props.Theme}</div>
+                    </div>
+                    <div className="t-card-body">
+                        <p className="dot">最高出价:{this.props.ArtistName}</p>
+                        <p className="price-title dot">估价</p>
+                        <p className="price">{toThousands(this.props.MinEvaluationPrice)} - {toThousands(this.props.MaxEvaluationPrice)}</p>
+                        <p className="dot">
+                            <span>叶子（b）</span>
+                            <span className="fr bargaining-btn">出价</span>
+                        </p>
                     </div>
                 </a>
             </div>

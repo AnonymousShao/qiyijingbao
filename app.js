@@ -16,6 +16,7 @@ app.keys = ['this is my session oooooh'];
 const router = require('./routes')
 const staticRoot = path.resolve(__dirname, 'front-src/dist/')
 require('axios').defaults.headers.get['Content-Type'] = 'application/json'
+require('axios').defaults.headers.post['Content-Type'] = 'application/json'
 
 const CONFIG = {
     key: 'koa:sess',

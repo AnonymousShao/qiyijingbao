@@ -13,6 +13,9 @@
       display: block;
     }
   }
+  .ic105{
+    width: 35%;
+  }
   .ic90{
     width: 30%;
   }
@@ -79,6 +82,21 @@
     clear: both;
   }
 }
+
+.img-bg-container{
+
+  .img_band{
+    position: absolute;
+    height: 20px;
+    width: 100%;
+    bottom: 0;
+    color: white;
+    font-size: 0.8rem;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
 
 .type5__container{
   padding-right: 10px;
