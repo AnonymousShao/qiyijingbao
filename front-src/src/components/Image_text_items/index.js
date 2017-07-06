@@ -103,7 +103,7 @@ export class Type5 extends Component{
     render(){
         return (
             <div className="type5__container">
-                <a href={"/bid_refer.html?artistno=" + this.props.ArtistNo}>
+                <a href={"/bid_refer.html?workno=" + this.props.WorkSimilarNo}>
                     <div className="img-bg-container" style={{backgroundImage: `url(${imageHost + this.props.WorkImgUrl})`}} >
                         <div className="img_band">{this.props.Theme}</div>
                     </div>

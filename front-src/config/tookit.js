@@ -1,3 +1,6 @@
+const path = require('path')
+const fs = require('fs')
+
 function isObject(obj) {
     return Object.prototype.toString.call(obj) === '[object Object]';
 }
@@ -28,4 +31,49 @@ function mixin (target, source, force, deep) {
     }
 }
 
+function mkDir(dirPath){
+    const pathList = dirPath.split('/')
+
+    try{
+        pathList.reduce((p, n)=>{
+            const temPath = p + '/' + n
+            if(!fs.existsSync(temPath)){
+                fs.mkdirSync(temPath)
+            }
+            return temPath
+        })
+    } catch (e){
+        console.log(e)
+    }
+}
+
+
+function writeFile(to, data){
+    const pathParser = path.parse(to),
+        dir = pathParser.dir
+
+    if(to[to.length - 1] === '/'){
+        console.warn('不能将数据写入文件夹！')
+        return
+    }
+
+    if(!fs.existsSync(dir)) mkDir(dir)
+    fs.writeFileSync(to, data)
+}
+
+function copyFile(from, to) {
+    const pathParser = path.parse(to),
+        dir = pathParser.dir
+
+    if(to[to.length - 1] === '/'){
+        console.warn('不能将数据写入文件夹！')
+        return
+    }
+
+    if(!fs.existsSync(dir)) mkDir(dir)
+    fs.createReadStream(from).pipe(fs.createWriteStream(to))
+}
+
+module.exports.writeFile = writeFile
+module.exports.copyFile = copyFile
 module.exports.mixin = mixin

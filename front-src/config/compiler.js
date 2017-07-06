@@ -3,6 +3,8 @@ const fs = require('fs'),
     path = require('path');
 
 const mixin = require('./tookit').mixin
+const copyFile = require('./tookit').copyFile
+const writeFile = require('./tookit').writeFile
 
 const tooKit = {
     isOutLink: function isOutLink(src) {
@@ -55,6 +57,10 @@ Compiler.prototype.findFile = function (address, context) {
     throw new Error("can't find file " + address)
 }
 
+Compiler.prototype.execOutFile = function (address) {
+
+}
+
 Compiler.prototype.run = function (callback) {
     let scritps = [], links = [], images = [], imports = []
 
@@ -63,9 +69,7 @@ Compiler.prototype.run = function (callback) {
             this.allResource[sourceObj.source] = {
                 name: sourceObj.name,
                 doms: [sourceObj.dom],
-                dist: this.findFile(this.options.output[sourceObj.dom.name]
-                    || this.options.output.publicAssets
-                    || this.options.output.path, this.context),
+                dist: this.options.output[sourceObj.dom.name],
                 type: sourceObj.type,
             }
         } else {
@@ -118,11 +122,11 @@ Compiler.prototype.run = function (callback) {
     if(Array.isArray(rawInfo)){
         rawInfo.forEach(raw=>{
             let outHtmlDom = this.seal(raw)
-            fs.writeFileSync(raw.outPath + '/' + raw.name + '.html', outHtmlDom.html())
+            writeFile(raw.outPath + '/' + raw.name + '.html', outHtmlDom.html())
         })
     } else {
         let outHtmlDom = this.seal(rawInfo)
-        fs.writeFileSync(rawInfo.outPath + '/' + rawInfo.name + '.html', outHtmlDom.html())
+        writeFile(rawInfo.outPath + '/' + rawInfo.name + '.html', outHtmlDom.html())
     }
 
     this.copy()
@@ -135,13 +139,7 @@ Compiler.prototype.copy = function () {
     Object.keys(this.allResource).forEach(resourceName => {
         const info = this.allResource[resourceName]
         if(info.type !== 'copy') return
-        try {fs.createReadStream(resourceName).pipe(
-            fs.createWriteStream(
-                path.resolve(info.dist, info.name)
-            ))
-        }catch (e){
-            console.warn(e)
-        }
+        copyFile(resourceName, path.resolve(info.dist, info.name))
     })
 }
 

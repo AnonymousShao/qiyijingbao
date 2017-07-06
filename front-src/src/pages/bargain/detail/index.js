@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Button, ButtonArea, Dialog } from '../../../components/button'
 import Header from '../../../components/header'
 import Footer from '../../../components/footer'
-import Exhibition from '../../auction_detail/exhibition'
+import Exhibition from '../../auction/detail/exhibition'
 import Artist from './artist'
 import Graphics from './graphics'
 

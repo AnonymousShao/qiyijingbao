@@ -1,0 +1,11 @@
+@import "../../../style/common";
+
+.info-detail {
+  max-height: 3rem;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+
+.pull-down{
+  text-align: center;
+}
