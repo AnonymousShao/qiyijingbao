@@ -1,7 +1,7 @@
 const router = require('koa-router')();
 const BaseConst = require('../globals/BaseConst')
 const { getAuction, pricing, getSucRecord } = require('../apis/Auction')
-const { getComments } = require('../apis/Comments')
+const { getComments, postComment} = require('../apis/Comments')
 const { getArtistList, getWorkClass, getArtistIndex, getArtistInfo } = require('../apis/Artist')
 const { nologin } = require('../apis/config')
 
@@ -217,6 +217,21 @@ router.get('/getComments', async function (ctx) {
         account: userInfo.Account || ''
     }
     ctx.body = await getComments(params)
+})
+
+router.get('/postComment', async function (ctx) {
+    const userInfo = ctx.session.userInfo
+    if(!userInfo) {
+        ctx.body = nologin()
+        return
+    }
+    let params = {
+        Account: userInfo.Account,
+        CommentInfo: ctx.request.query.comment,
+        ReferenceNO: ctx.request.query.referenceNo,
+        WorkNo: ctx.request.query.workNo
+    }
+    ctx.body = await postComment(params)
 })
 
 router.get('/getSucRecord', async function (ctx) {

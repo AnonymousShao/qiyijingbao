@@ -9,16 +9,16 @@ export default class InfoBoard extends Component{
 
     state = {
         showRemainder: false,
+        remainderType: 1,
         buttons: [{
-            type: 'default',
-            label: '确定',
-            onClick: e=>this.setState({showRemainder: false})
-        }, {
             type: 'default',
             label: '关闭',
             onClick: e=>this.setState({showRemainder: false})
-        }
-        ]
+        }, {
+            type: 'default',
+            label: '确定',
+            onClick: e=>this.setState({showRemainder: false})
+        }]
     }
 
     remainder(){
@@ -37,9 +37,9 @@ export default class InfoBoard extends Component{
                         我们将根据您的选择为您发送短信通知以及站内消息。请选择您所需的提醒:
                     </div>
                     <div style={{margin: 'auto', width: 150, padding: 15}}>
-                        <p><input type="checkbox"/><span>开拍前24小时</span></p>
-                        <p><input type="checkbox"/><span>我的出价被超越</span></p>
-                        <p><input type="checkbox"/><span>竞拍介绍前30分钟</span></p>
+                        <p onClick={e=>this.setState({remainderType: 1})}><input type="checkbox" checked={this.state.remainderType===1}/><span>开拍前24小时</span></p>
+                        <p onClick={e=>this.setState({remainderType: 2})}><input type="checkbox" checked={this.state.remainderType===2}/><span>我的出价被超越</span></p>
+                        <p onClick={e=>this.setState({remainderType: 3})}><input type="checkbox" checked={this.state.remainderType===3}/><span>竞拍介绍前30分钟</span></p>
                     </div>
                 </Dialog>
 

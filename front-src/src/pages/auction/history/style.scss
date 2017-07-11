@@ -39,3 +39,28 @@
   }
   margin-bottom: 10px;
 }
+
+.my-select{
+  $height: 36px;
+
+  font-size: 0.9rem;
+  background-color: #fff;
+  border: 1px solid rgba(155, 155, 155, 0.1);
+  padding: 0 10px;
+  display: inline-block;
+  margin-left: 5px;
+  border-radius: 0;
+  -webkit-appearance: none;
+  outline: 0;
+  height: $height;
+  position: relative;
+  z-index: 1;
+  vertical-align: top;
+
+  option{
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+  }
+}

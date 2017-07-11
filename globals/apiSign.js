@@ -3,7 +3,8 @@ const des = require('../globals/crypt')
 const signKeyCollection = {
     reset: 'Pre_MemberInfoView:Account,Password;ApiValid:token,timestamp',
     register: 'Pre_MemberInfoView:Account,Password,Mobile,securitycode;ApiValid:timestamp',
-    bid: 'Pre_MemberInfoAuctionLogView:Account,AuctionNO,AuctionWorkNO;ApiValid:token,timestamp'
+    bid: 'Pre_MemberInfoAuctionLogView:Account,AuctionNO,AuctionWorkNO;ApiValid:token,timestamp',
+    comment: 'Pre_Comments:Account,CommentType;ApiValid:token,timestamp'
 }
 
 function getSignConfig(signKey) {

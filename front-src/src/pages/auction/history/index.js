@@ -7,6 +7,7 @@ import UpOrDown from "../../../components/up_or_down/index";
 import { getHistoryList } from '../../../helper/http/auction'
 import { getParameterByName } from '../../../helper/query_string'
 import {imageHost} from '../../../helper/config'
+import {classes } from '../../../helper/global'
 
 class ImageCard extends Component{
 
@@ -37,13 +38,25 @@ class ImageCard extends Component{
 
 class Main extends Component{
 
+    constructor(props){
+        super(props)
+        this.handleChangeTime = this.handleChangeTime.bind(this)
+        this.handleChangeClass = this.handleChangeClass.bind(this)
+    }
+
     state = {
-        AuctionList: []
+        AuctionList: [],
+        finishTime: '',
+        klass: getParameterByName('classno')
     }
 
     componentDidMount(){
+        this.getList()
+    }
+
+    getList(){
         let params = {
-            classno: getParameterByName('classno')
+            classno: this.state.klass
         }
         getHistoryList(params).then(data=>{
             this.setState({
@@ -52,12 +65,45 @@ class Main extends Component{
         })
     }
 
+    handleChangeTime(value){
+        this.setState({
+            finishTime: value,
+            AuctionList: this.state.AuctionList.sort((p, n)=>{
+                return (new Date(p.EndTime) - new Date(n.EndTime)) * (value?1:-1)
+            })
+        })
+    }
+
+    handleChangeClass(event){
+        this.setState({
+            klass: event.target.value
+        }, this.getList)
+        window.history.replaceState(null, null, '/auction_history.html?classno=' + event.target.value)
+    }
+
     render(){
         return (
             <div>
                 <div className="board-container mb10">
                     <span>排序</span>
-                    <UpOrDown title="结束时间"/>
+                    <UpOrDown
+                        title="结束时间"
+                        value={this.state.finishTime}
+                        onChange={this.handleChangeTime}
+                    />
+
+                    <select className="my-select" value={this.state.klass} onChange={this.handleChangeClass}>
+                        {classes.map(cls=>
+                            <option value={cls.no.toString()}>{cls.name}</option>
+                        )}
+                    </select>
+
+                    {/*<select className="my-select" value={this.state.klass} onChange={this.handleChangeClass}>*/}
+                        {/*{classes.map(cls=>*/}
+                            {/*<option value={cls.no.toString()}>{cls.name}</option>*/}
+                        {/*)}*/}
+                    {/*</select>*/}
+
                 </div>
                 <div className="board-container pt15">
                     <ul>

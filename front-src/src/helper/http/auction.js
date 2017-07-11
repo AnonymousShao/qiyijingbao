@@ -44,6 +44,10 @@ export function getComments(params) {
     return init.get('/auction/getComments', params).then(data=>data.res_body)
 }
 
+export function postComment(params) {
+    return init.get('/auction/postComment', params).then(data=>data.res_body)
+}
+
 export function getSucRecord(params) {
     return init.get('/auction/getSucRecord', params).then(data=>data.res_body)
 }

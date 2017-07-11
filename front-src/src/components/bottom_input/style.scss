@@ -1,0 +1,15 @@
+@import '../../style/variables';
+
+.bottom-input__header{
+  padding: 8px 14px;
+  border-bottom: 1px solid $border-cl;
+}
+
+.bottom-input__body{
+  padding: 8px;
+  border-bottom: 1px solid $border-cl;
+}
+
+.bottom-input__foot{
+  padding: 14px 30px;
+}

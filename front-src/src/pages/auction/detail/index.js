@@ -10,12 +10,14 @@ import Graphics from "./graphic";
 import './style.scss'
 import Similar from '../../../components/similar'
 import {getAuctionDetail, getLatestPrice, submitAuctionWorkPrice,
-    getBidRecord, getComments } from '../../../helper/http/auction'
+    getBidRecord, getComments, postComment } from '../../../helper/http/auction'
 import { getSimilar } from '../../../helper/http'
 import { getParameterByName, toThousands } from '../../../helper/query_string'
 import { imageHost } from '../../../helper/config'
 import { bidRule, commissionRule } from '../../../helper/validatorX'
 import Pricing from './pricing'
+import BottomUp from "../../../components/bottom_input/index";
+import { TextArea } from '../../../components/button'
 
 class Actions extends Component{
 
@@ -78,6 +80,14 @@ class Specialist extends Component{
 
 class Main extends Component{
 
+    constructor(props){
+        super(props)
+        this.getComment = this.getComment.bind(this)
+        this.showComment = this.showComment.bind(this)
+        this.postComment = this.postComment.bind(this)
+        this.handleInput = this.handleInput.bind(this)
+    }
+
     state = {
         view: 'exhibition',
         imgList: [],
@@ -91,7 +101,9 @@ class Main extends Component{
         startPrice: '',
         bidPrice: '',
         multiTime: 1,
-        no: getParameterByName('no')
+        no: getParameterByName('no'),
+        comment: '',
+        commentList: []
     }
 
     style = {
@@ -142,16 +154,7 @@ class Main extends Component{
                         }, e=>this.refs.record.setHeight())
                     }
                 })
-
-                let commentParams = {
-                    auctionWorkNo: this.state.no
-                }
-                getComments(commentParams).then(data=>{
-                    if(data){
-                        debugger
-                    }
-                })
-
+                this.getComment()
             }
         })
     }
@@ -191,6 +194,41 @@ class Main extends Component{
             if(data){
                 this.refs.pricing.hideDialog()
             }
+        })
+    }
+
+    showComment(){
+        this.refs.comment.show()
+    }
+
+    getComment(){
+        let commentParams = {
+            auctionWorkNo: this.state.no
+        }
+        getComments(commentParams).then(data=>{
+            if(data){
+                this.setState({
+                    commentList: data.data
+                }, e=>this.refs.commentList.setHeight())
+            }
+        })
+    }
+
+    postComment(){
+        let params = {
+            comment: this.state.comment,
+            referenceNo: this.state.no,
+            workNo: this.state.workInfo.workNo
+        }
+        postComment(params).then(data=>{
+            this.refs.comment.hide()
+            this.getComment()
+        })
+    }
+
+    handleInput(e){
+        this.setState({
+            comment: e.target.value
         })
     }
 
@@ -288,28 +326,42 @@ class Main extends Component{
                     </div>
                 </Accordion>
 
-                <Accordion title="评论" isDefaultShow="">
+                <Accordion title="评论" isDefaultShow="" ref="commentList">
                     <div className="comment">
-                        <ul>
-                            {[1,2,3,4].map(i=>(
-                                <li className="comment-item">
-                                    <div className="comment-head" />
-                                    <div className="comment-body">
-                                        <p>
-                                            <span className="phone">13110789999</span>
-                                            <span className="fr">102</span>
-                                        </p>
-                                        <p className="content">这件拍品不错啊，各位老师让给我呗，谢谢。</p>
-                                        <p className="time">{new Date().toLocaleDateString()}</p>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
+                        {this.state.commentList.length
+                            ? <ul>
+                                {this.state.commentList.map(li=>(
+                                    <li className="comment-item">
+                                        <div className="comment-head" />
+                                        <div className="comment-body">
+                                            <p>
+                                                <span className="phone">{li.Account}</span>
+                                                <span className="fr">{li.Remark ||0} 赞</span>
+                                            </p>
+                                            <p className="content">{li.CommentInfo}</p>
+                                            <p className="time">{new Date(li.CommentTime).toLocaleDateString()}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                            : <div>暂无评论</div>
+                        }
                         <div className="comment-to-comment">
-                            <Button size="small" type='primary'>我要评论</Button>
+                            <Button size="small" type='primary' onClick={this.showComment}>我要评论</Button>
                         </div>
                     </div>
                 </Accordion>
+
+                <BottomUp
+                    ref="comment"
+                    title="我要评论"
+                    onSubmit={this.postComment}
+                >
+                    <TextArea
+                        value={this.state.comment}
+                        onChange={this.handleInput}
+                    />
+                </BottomUp>
 
                 <div className="accordion-title">
                     进入社区
