@@ -20,7 +20,7 @@ export default class Schedule extends Component{
         AuctionList: [],
         AuctionSchedulerAdv: []
     }
-
+    
     handleChange(type){
         this.setState({
             schedule: type
@@ -45,7 +45,7 @@ export default class Schedule extends Component{
                           onClick={this.handleChange.bind(this, 'prevision')} >预展日程</span>
                 </div>
                 <div className="card-container" style={{padding: '15px 15px 0'}}>
-                    {this.props.AuctionSchedulerAdv.map((card, i)=><ImgCard {...card} status={this.state.schedule==='inAuction' ?2:1}/>)}
+                    {this.props.AuctionSchedulerAdv.map((card, i)=><ImgCard {...card} classNo={this.props.classNo} status={this.state.schedule==='inAuction' ?2:1}/>)}
                 </div>
             </div>
         )
@@ -64,11 +64,19 @@ class ImgCard extends Component{
                         <span>{priceLevels[this.props.PriceLevel]}</span>
                         <small>RMB</small>
                     </p>
-                    {list.length
-                        ? <ul className="card-list">{list.map(info=>(
-                            <li key={info.NO}><a href={'/auction_list.html?no='+info.NO}>{new Date(info.BeginTime).toLocaleTimeString()}</a></li>
-                        ))}</ul>
-                        : <ul className="card-list"><li>暂无{this.props.status===2?'竞拍':'预展'}中的场次</li></ul>
+                    {this.props.status===2
+                        ? list.length
+                            ? <ul className="card-list">{list.sort((p, n)=>(new Date(p.EndTime > new Date(n.EndTime)))).map(info=>(
+                                <li key={info.NO}><a href={'/auction_list.html?no='+info.NO+'&classno='+this.props.classNo}>{new Date(info.EndTime).toLocaleDateString()
+                                + new Date(info.EndTime).toLocaleTimeString()}结束</a></li>
+                            ))}</ul>
+                            : <ul className="card-list"><li>暂无竞拍中的场次</li></ul>
+                        : list.length
+                            ? <ul className="card-list">{list.sort((p, n)=>(new Date(p.ReBeginTime > new Date(n.ReBeginTime)))).map(info=>(
+                                <li key={info.NO}><a href={'/auction_list.html?no='+info.NO+'&classno='+this.props.classNo}>{new Date(info.ReBeginTime).toLocaleDateString()
+                                + new Date(info.ReBeginTime).toLocaleTimeString()}开始</a></li>
+                            ))}</ul>
+                            : <ul className="card-list"><li>暂无预展中的场次</li></ul>
                     }
                 </div>
             </div>

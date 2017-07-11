@@ -70,7 +70,11 @@ router.post('/login', async function (ctx, next) {
     }
     ctx.body = await login({phone, password}).then(data=>{
         if(data.data.res_code === successCode){
-            ctx.session.userInfo = data.data.res_body
+            ctx.session.userInfo = Object.assign({}, data.data.res_body.Pre_MemberInfoView[0], {
+                expirate_time: data.data.res_body.expirate_time,
+                session_secret: data.data.res_body.session_secret,
+                token: data.data.res_body.token
+            })
             return success('OK')
         }
         return data.data

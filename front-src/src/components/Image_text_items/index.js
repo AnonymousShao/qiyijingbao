@@ -143,3 +143,29 @@ export class Type6 extends Component{
         )
     }
 }
+
+export class TypeHistory extends Component{
+    render(){
+        return (
+            <li className="img-text__container">
+                <a href={"/auction_detail.html?no=" + this.props.AuctionWorkNO}>
+                    <div className="image_container ic90">
+                        <div className="img-cover">已成交</div>
+                        <img src={imageHost + this.props.APPImgUrl} alt=""/>
+                    </div>
+                    <div className="text_container">
+                        <h3 className="main-name">{this.props.WorkTitle} <span className="fc-weak">({this.props.ArtistName})</span></h3>
+                        <p className="sub-name">Lot 号{this.props.WorkCode}</p>
+                        <p className="price">
+                            估价 <span> RMB {toThousands(this.props.MinEvaluationPrice)} - {toThousands(this.props.MaxEvaluationPrice)}</span>
+                        </p>
+                        <p className="tip-ft">
+                            <span><strong>{this.props.BidCount}</strong>次出价</span>
+                            <span><strong>{this.props.BrowseCount}</strong>次围观</span>
+                        </p>
+                    </div>
+                </a>
+            </li>
+        )
+    }
+}

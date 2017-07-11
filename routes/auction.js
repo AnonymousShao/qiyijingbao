@@ -1,7 +1,9 @@
 const router = require('koa-router')();
 const BaseConst = require('../globals/BaseConst')
-const { getAuction } = require('../apis/Auction')
+const { getAuction, pricing, getSucRecord } = require('../apis/Auction')
+const { getComments } = require('../apis/Comments')
 const { getArtistList, getWorkClass, getArtistIndex, getArtistInfo } = require('../apis/Artist')
+const { nologin } = require('../apis/config')
 
 router.get('/', async function (ctx, next) {
     ctx.body = await getAuction()
@@ -19,11 +21,10 @@ router.get('/getAuction', async function (ctx) {
 
 router.get('/getScheduleList', async function (ctx) {
     let params = {
-        type: ctx.request.query.type || 1,
+        belongClassNo: ctx.request.query.classno || 1,
         // rows: ctx.request.query.rows || 1,
         // page: ctx.request.query.page || 1,
         // auctionStatus: ctx.request.query.state || 1,
-        account: ''
     }
     ctx.body = await getAuction(params)
 })
@@ -57,6 +58,31 @@ router.get('/getAuctionDetail', async function (ctx) {
     let params = {
         auctionworkno: ctx.request.query.no,
         account: ''
+    }
+    let paramStrategy = {
+        strategyID: 1
+    }
+    ctx.body = await Promise.all([getAuction(params), getAuction(paramStrategy)]).then(response=>{
+        const detail = response[0],
+            strategy = response[1]
+        detail.res_body['Strategy'] = strategy.res_body
+        return detail
+    })
+})
+
+router.get('/getAdv', async function (ctx) {
+    let params = {
+        pagetype: ctx.request.query.type
+    }
+    ctx.body = await getAuction(params)
+})
+
+router.get('/history', async function (ctx) {
+    let params = {
+        rows: 1,
+        page: 1,
+        auctionStatus: '3',
+        classno: ctx.request.query.classno
     }
     ctx.body = await getAuction(params)
 })
@@ -119,6 +145,87 @@ router.get('/getArtistInfo', async function (ctx) {
     const id = ctx.request.query.id
     if (!id) return
     ctx.body = await getArtistInfo({artistno: id})
+})
+
+router.get('/getLatestPrice', async function (ctx) {
+    let params = {
+        // nowPrice: ctx.request.query.nowPrice,
+        // StartPrice: ctx.request.query.StartPrice,
+        strAWorksNO: ctx.request.query.workno,
+    }
+    ctx.body = await getAuction(params)
+})
+
+router.get('/getStrategy', async function (ctx) {
+    let params = {
+        strategyID: ctx.request.query.strategyID || 1
+    }
+    ctx.body = await getAuction(params)
+})
+
+router.get('/isEnough', async function (ctx) {
+    let params = {
+        AuctionNO: "",
+        AuctionWorkNO: "",
+        Account: "",
+        StartPrice: "",
+    }
+    ctx.body = await getAuction(params)
+})
+
+router.get('/submitAuctionWorkPrice', async function (ctx) {
+    if(!ctx.session.userInfo){
+        ctx.body = nologin()
+        return
+    }
+    const userInfo = ctx.session.userInfo
+    let params = {
+        AuctionNO: ctx.request.query.AuctionNO,
+        StartPrice: ctx.request.query.StartPrice,
+        AuctionWorkNO: ctx.request.query.AuctionWorkNO,
+        Account: userInfo.Account,
+        Amount: ctx.request.query.Amount,
+        IntMultipleAuction: ctx.request.query.IntMultipleAuction,
+        IsCopper: ctx.request.query.IsCopper,
+        token: userInfo.token,
+        sessionSecret: userInfo.session_secret
+    }
+
+    ctx.body = await pricing(params)
+})
+
+router.get('/getBidRecord', async function (ctx) {
+    let params = {
+        auctionno: ctx.request.query.AuctionNO,
+        auctionworkno: ctx.request.query.AuctionWorkNO,
+        page: ctx.request.query.page || 1,
+        rows: 10,
+    }
+    ctx.body = await getAuction(params)
+})
+
+router.get('/getComments', async function (ctx) {
+    // if(!ctx.session.userInfo){
+    //     ctx.body = nologin()
+    //     return
+    // }
+    const userInfo = ctx.session.userInfo || {}
+    let params = {
+        key: ctx.request.query.auctionWorkNo,
+        page: ctx.request.query.page || 1,
+        rows: ctx.request.query.rows || 10,
+        account: userInfo.Account || ''
+    }
+    ctx.body = await getComments(params)
+})
+
+router.get('/getSucRecord', async function (ctx) {
+    let params = {
+        auctionno: ctx.request.query.auctionNo,
+        page: ctx.request.query.page || 1,
+        rows: ctx.request.query.rows || 10
+    }
+    ctx.body = await getSucRecord(params)
 })
 
 module.exports = router;

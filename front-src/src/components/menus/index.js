@@ -5,20 +5,21 @@ import './style.scss'
 export default class Menus extends Component{
 
     state = {
-        currentPage: 0
+        currentPage: parseInt(this.props.no) > 4?1:0,
+        currentNo: parseInt(this.props.no) || 1
     }
 
     menu = [
         [
-            {name: '中国书画', type: 'G'},
-            {name: '西画雕刻', type: 'X'},
-            {name: '瓷画陶器'},
-            {name: '珠宝翡翠'}],
+            {name: '中国书画', type: 'G', no: 1},
+            {name: '西画雕刻', type: 'X', no: 2},
+            {name: '瓷画陶器', type: '', no: 3},
+            {name: '珠宝翡翠', type: '', no: 4}],
         [
-            {name: '玉石文玩'},
-            {name: '工艺杂项'},
-            {name: '古典家具'},
-            {name: '佛教珍藏'}]
+            {name: '玉石文玩', type: '', no: 5},
+            {name: '工艺杂项', type: '', no: 6},
+            {name: '古典家具', type: '', no: 7},
+            {name: '佛教珍藏', type: '', no: 8}]
     ]
 
     style = {
@@ -63,6 +64,13 @@ export default class Menus extends Component{
 
     }
 
+    changeMenu(item){
+        this.setState({
+            currentNo: item.no
+        })
+        this.props.onChange(item)
+    }
+
     render(){
         const settings = {
             dots: false,
@@ -81,8 +89,8 @@ export default class Menus extends Component{
                         <div>
                             <div className="menu-wrap">
                                 {m.map(mm=>(
-                                    <span className={'menu-title'}>
-                                        <span className={'title ' + (mm.type==='G'?'active':'')}>{mm.name}</span>
+                                    <span onClick={this.changeMenu.bind(this, mm)} className={'menu-title'}>
+                                        <span className={'title ' + (mm.no===this.state.currentNo?'active':'')}>{mm.name}</span>
                                     </span>
                                 ))}
                             </div>

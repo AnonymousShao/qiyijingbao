@@ -207,3 +207,11 @@ body {
 .rotate180{
   transform: rotate(180deg);
 }
+
+.brt{
+  border-top: 1px solid $border-cl;
+}
+
+.brb{
+  border-bottom: 1px solid $border-cl;
+}

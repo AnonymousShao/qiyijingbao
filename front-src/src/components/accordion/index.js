@@ -9,6 +9,10 @@ export default class Accordion extends Component{
     }
 
     componentDidMount(){
+        this.setHeight()
+    }
+
+    setHeight(){
         const scrollHeight = this.refs.info.scrollHeight
         this.setState({scrollHeight: scrollHeight})
     }

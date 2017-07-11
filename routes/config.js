@@ -1,4 +1,6 @@
 const success = '0'
+const nologin = '401'
+
 module.exports = {
     error: function (res_error) {
         return {
@@ -12,5 +14,11 @@ module.exports = {
             res_body
         }
     },
-    successCode: success
+    nologin: function () {
+        return {
+            res_code: nologin
+        }
+    },
+    successCode: success,
+    nologinCode: nologin
 }

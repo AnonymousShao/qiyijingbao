@@ -1,5 +1,5 @@
 import http from 'axios'
-import {server as host, success} from '../config'
+import {server as host, success, nologin} from '../config'
 
 // require('../mock')
 
@@ -14,7 +14,9 @@ export const init = {
             .then(data=>{
                 if(data.res_code === success){
                     return data
-                }else {
+                }else if(data.res_code===nologin){
+                    window.location.href = '/login.html'
+                } else{
                     alert(data.res_error)
                 }
         })

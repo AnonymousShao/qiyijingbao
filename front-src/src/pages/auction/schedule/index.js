@@ -71,12 +71,6 @@ class Controller extends Component{
         adv2: [],
     }
 
-    handleClick(type){
-        this.setState({
-            active: type
-        })
-    }
-
     style = {
         container: {
             padding: 15,
@@ -86,6 +80,10 @@ class Controller extends Component{
     }
 
     componentDidMount(){
+        this.getList()
+    }
+
+    getList(){
         let params = {
             classno: this.state.classNo
         }
@@ -116,10 +114,23 @@ class Controller extends Component{
         })
     }
 
+    handleClick(type){
+        this.setState({
+            active: type
+        })
+    }
+
+    changeClass(target){
+        window.history.pushState(null, null, '/auction_schedule.html?classno=' + target.no)
+        this.setState({
+            classNo: target.no
+        }, this.getList)
+    }
+
     render(){
         return (
             <div>
-                <Menus />
+                <Menus no={this.state.classNo} onChange={this.changeClass.bind(this)}/>
 
                 {this.state.adv1.length
                     ?<Adv list={this.state.adv1}/>
@@ -138,9 +149,9 @@ class Controller extends Component{
                                 onClick={this.handleClick.bind(this, 'share')}>分享给朋友</Button>
                     </ButtonArea>
                 </div>
-                <Schedule AuctionSchedulerAdv={this.state.AuctionSchedulerAdv}/>
+                <Schedule classNo={this.state.classNo} AuctionSchedulerAdv={this.state.AuctionSchedulerAdv}/>
                 <div className="board-container">
-                    <a href="/auction_history_list.html">
+                    <a href={"/auction_history.html?classno=" + this.state.classNo}>
                         <Button style={{backgroundSize: 'cover', backgroundImage: `url(${require('../../../assets/images/btn_2.png')})`}}>历史场次回顾</Button>
                     </a>
                 </div>

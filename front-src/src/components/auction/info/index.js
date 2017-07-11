@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import OverflowDrop from "../../overflow_drop/index";
 import {Dialog} from '../../button'
 import Actions from "../actions/index";
+import { toThousands } from '../../../helper/query_string'
 import './style.scss'
 
 export default class InfoBoard extends Component{
@@ -43,9 +44,11 @@ export default class InfoBoard extends Component{
                 </Dialog>
 
                 <p>
-                    <span className="auction-info__info">竞拍场次：31212</span>
+                    <span className="auction-info__info">竞拍场次：{this.props.info.AuctionNO}</span>
                     {this.props.history
-                        ?<span className="fr">竞价结束</span>
+                        ?<span className="fr">
+                            <img style={{height: 20, paddingTop: 5}} src={require('../../../assets/images/auction/ic_auction ends.png')} alt=""/>
+                        </span>
                         :null}
                 </p>
                 <h2>
@@ -55,12 +58,16 @@ export default class InfoBoard extends Component{
                         :null}
                 </h2>
                 <p className="auction-info__info">竞拍地点：网络竞拍</p>
-                <p className="auction-info__info">竞拍时间：{new Date(this.props.info.ReBeginTime).toLocaleDateString()} - {new Date(this.props.info.ReEndTime).toLocaleDateString()}</p>
-                <p className="auction-info__info">倒数： <span className="main-color">1天</span></p>
+                <p className="auction-info__info">竞拍时间：{new Date(this.props.info.BeginTime).toLocaleDateString()} - {new Date(this.props.info.EndTime).toLocaleDateString()}</p>
+                {this.props.history
+                    ?null
+                    :<p className="auction-info__info">倒数: <span className="main-color">
+                    {Math.ceil((new Date(this.props.info.EndTime) - new Date())/(84000 * 1000))}天</span></p>}
+
 
                 <OverflowDrop
                     className="max-height2 auction-info__content"
-                    content="这里的文字还是假的：国画为东方瑰宝，上承中国悠久文化史，下启百年底蕴传奇。近百年来， 国画之美,汇集了东方文化和西方美学的丰富内涵,孕育国画为东方瑰宝，上承中国悠久文化史，下启百年底蕴传奇。近百年来， 国画之美,汇集了东方文化和西方美学的丰富内涵,孕育"
+                    content={this.props.info.SubTile}
                 />
                 {this.props.history?null:<Actions/>}
             </div>

@@ -5,8 +5,8 @@ import Footer from "../../components/footer/index";
 import Graphics from "../auction/detail/graphic";
 import { getBidDetail } from '../../helper/http'
 import { getParameterByName } from '../../helper/query_string'
-import {imageHost} from '../../helper/config'
 import './style.scss'
+import MoreImage from "../../components/more_image/index";
 
 class Main extends Component{
 
@@ -58,12 +58,6 @@ class Main extends Component{
                 }
             }
         })
-        // getSimilar({ref_workclassno: WorkClassNo}).then(data=>{
-        //     if(data){
-        //         let filteredList = data.ArtistExponent.filter(artist=>(artist.ArtistNo===artistNo))
-        //         debugger
-        //     }
-        // })
     }
 
     render(){
@@ -73,10 +67,13 @@ class Main extends Component{
                     <p className="center-title__wrap" style={{padding: '6px 0'}}>
                         <strong className="center-title">价格参考</strong>
                     </p>
-                    <div>
-                        <img style={{width: '100%'}} src={imageHost + this.state.artistInfo.WorkHighImgUrl} alt=""/>
-                    </div>
-                    <div className="">
+                    {this.state.artistInfo.WorkHighImgUrl?
+                        <MoreImage image={this.state.artistInfo.WorkHighImgUrl}
+                                   width={this.state.artistInfo.Width}
+                                   height={this.state.artistInfo.Long}
+                        />:null
+                    }
+                    <div className="board-container">
                         <h3 style={{color: '#222222', fontWeight: 'normal'}}>作者：{this.state.artistInfo.ArtistName}</h3>
                         <h4 style={{color: '#666666', fontSize: '0.9rem'}}>题材：{this.state.artistInfo.Theme}</h4>
                         <p style={{color: '#666666' ,fontSize: '0.9rem'}}>简介：

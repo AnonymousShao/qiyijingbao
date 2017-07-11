@@ -110,3 +110,28 @@ body{
     font-size: 0.8rem;
   }
 }
+
+
+.price-info{
+  display: flex;
+  justify-content: space-between;
+
+  .price-info__icon{
+    display: inline-block;
+    width: 16px;
+    vertical-align: middle;
+  }
+  .price-info__text{
+    font-size: 0.7rem;
+    color: #999;
+  }
+}
+
+.price-info__price{
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.price-info__now{
+  color: #999;
+}

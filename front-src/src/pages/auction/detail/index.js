@@ -7,14 +7,15 @@ import Accordion from "../../../components/accordion/index";
 import Artists from "./artists";
 import Exhibition from "./exhibition";
 import Graphics from "./graphic";
-
 import './style.scss'
 import Similar from '../../../components/similar'
-import {getAuctionDetail} from '../../../helper/http/auction'
+import {getAuctionDetail, getLatestPrice, submitAuctionWorkPrice,
+    getBidRecord, getComments } from '../../../helper/http/auction'
 import { getSimilar } from '../../../helper/http'
 import { getParameterByName, toThousands } from '../../../helper/query_string'
 import { imageHost } from '../../../helper/config'
-
+import { bidRule, commissionRule } from '../../../helper/validatorX'
+import Pricing from './pricing'
 
 class Actions extends Component{
 
@@ -35,96 +36,6 @@ class Actions extends Component{
         )
     }
 }
-
-
-class Pricing extends Component{
-
-    hideDialog(){
-        this.setState({
-            view: ''
-        })
-    }
-
-    state = {
-        view: '',
-        bid: {
-            title: 'Heading',
-            buttons: [
-                {
-                    type: 'default',
-                    label: 'Cancel',
-                    onClick: this.hideDialog.bind(this)
-                },
-                {
-                    type: 'primary',
-                    label: 'Ok',
-                    onClick: this.hideDialog.bind(this)
-                }
-            ]
-        }
-    }
-
-    style = {
-        title: {
-            padding: 5,
-            textAlign: 'center'
-        },
-        body: {
-            paddingBottom: 10
-        },
-        item: {
-            lineHeight: 1.6,
-            fontSize: '0.9rem',
-        },
-        itemPrice: {
-            paddingLeft: 10
-        },
-        tip: {
-            fontSize: '0.6rem',
-            color: '#999',
-        }
-    }
-
-    render(){
-        return (
-            <div className="page-pricing-container">
-                <Dialog
-                    show={this.state.view==='bid'}
-                    buttons={this.state.bid.buttons}>
-                    <div style={this.style.title}>
-                        <p>当前最高价：<span className="main-color">RMB 1000</span></p>
-                        <p>您的出价:</p>
-                    </div>
-                    <div style={this.style.body}>
-                        <p style={this.style.item}>
-                            <input type="radio" name="price" value='1'/>
-                            <span style={this.style.itemPrice}>RMB 2000</span>
-                        </p>
-                        <p style={this.style.item}>
-                            <input type="radio" name="price" value='2'/>
-                            <span style={this.style.itemPrice}>RMB 3000</span>
-                        </p>
-                        <p style={this.style.item}>
-                            <input type="radio" name="price" value='3'/>
-                            <span style={this.style.itemPrice}>RMB 4000</span>
-                        </p>
-                        <p style={this.style.item}>
-                            <input type="radio" name="price" value='4'/>
-                            <span style={this.style.itemPrice} className="main-color">RMB 9000 一口价摘牌</span>
-                        </p>
-                    </div>
-                    <p style={this.style.tip}>竞拍成功后必须支付佣金N%</p>
-                </Dialog>
-                <div className="auction-action">
-                    <span className="action-tel">400-885-1666</span>
-                    <span className="action-2">缴纳保证金</span>
-                    <span className="action-3" onClick={e=>this.setState({view: 'bid'})}>我要出价</span>
-                </div>
-            </div>
-        )
-    }
-}
-
 
 class Specialist extends Component{
 
@@ -170,9 +81,17 @@ class Main extends Component{
     state = {
         view: 'exhibition',
         imgList: [],
+        priceLimit: [],
         consultInfo: {},
         workInfo: {},
-        similarList: []
+        similarList: [],
+        bidRecord: [],
+        latest: {},
+        nowPrice: '',
+        startPrice: '',
+        bidPrice: '',
+        multiTime: 1,
+        no: getParameterByName('no')
     }
 
     style = {
@@ -185,18 +104,21 @@ class Main extends Component{
     }
 
     componentDidMount(){
-        const no = getParameterByName('no')
-        if(!no){
+        if(!this.state.no){
             alert('无参数，非法请求！')
             return
         }
-        getAuctionDetail({no}).then(data=>{
+        this.retrieveLatestData = this.retrieveLatestData.bind(this)
+
+        getAuctionDetail({no: this.state.no}).then(data=>{
             if(data){
-                data = data.res_body
                 this.setState({
                     imgList: data.AuctionWorkImg,
                     consultInfo: data.AuctionConsultInfo[0],
-                    workInfo: data.AuctionoWorkInfo[0]
+                    workInfo: data.AuctionoWorkInfo[0],
+                    priceLimit: data.Strategy.PriceLimitList,
+                    startPrice: data.AuctionoWorkInfo[0].StartPrice,
+                    nowPrice: data.AuctionoWorkInfo[0].NowPrice
                 })
                 let similarParams = {
                     ref_workclassno: data.AuctionoWorkInfo[0].WorkClassNo
@@ -206,7 +128,68 @@ class Main extends Component{
                     this.setState({
                         similarList: data.ArtistExponent
                     })
+                    this.retrieveLatestData()
                 })
+
+                let recordParms = {
+                    AuctionNO: data.AuctionoWorkInfo[0].AuctionNO,
+                    AuctionWorkNO: this.state.no
+                }
+                getBidRecord(recordParms).then(data=>{
+                    if(data){
+                        this.setState({
+                            bidRecord: data.AuctionWorkBidList
+                        }, e=>this.refs.record.setHeight())
+                    }
+                })
+
+                let commentParams = {
+                    auctionWorkNo: this.state.no
+                }
+                getComments(commentParams).then(data=>{
+                    if(data){
+                        debugger
+                    }
+                })
+
+            }
+        })
+    }
+
+    retrieveLatestData(){
+        let params = {
+            workno: this.state.no
+        }
+        getLatestPrice(params).then(data=>{
+            const latest = JSON.parse(data.NowPrice)
+            this.setState({
+                latest,
+                nowPrice: latest.NowPrice,
+                bidPrice: latest.NowPrice + bidRule(latest.StartPrice, this.state.priceLimit)
+            })
+            setTimeout(this.retrieveLatestData, 2000)
+        })
+    }
+
+    changeBidPrice(bidPrice, time){
+        this.setState({
+            bidPrice,
+            multiTime: time
+        })
+    }
+
+    biding(){
+        let params = {
+            AuctionNO: this.state.workInfo.AuctionNO,
+            StartPrice: this.state.workInfo.StartPrice,
+            AuctionWorkNO: this.state.no,
+            Amount: this.state.bidPrice,
+            IntMultipleAuction: this.state.multiTime,
+            IsCopper: this.state.workInfo.IsCopper,
+        }
+        submitAuctionWorkPrice(params).then(data=>{
+            if(data){
+                this.refs.pricing.hideDialog()
             }
         })
     }
@@ -243,25 +226,61 @@ class Main extends Component{
                     <p className="price">估价： RMB {toThousands(this.state.workInfo.MinEvaluationPrice)} - {toThousands(this.state.workInfo.MaxEvaluationPrice)}</p>
                 </div>
 
+                {/* 产品专员 */}
+
                 <Specialist {...this.state.consultInfo}/>
 
-                <div className="board-container" style={{marginBottom: 10}}>
+                {/* 操作按钮 */}
+
+                <div className="board-container">
                     <Actions />
                 </div>
 
+                {/* 价格详情 */}
+
+                <div className="board-container brt" >
+                        <p className="price-info__price">起拍价: ￥ {toThousands(this.state.startPrice)}</p>
+                        <p className="price-info__price">保证金: ￥ 3000</p>
+                        <p className="price-info__now">当前价/成交价: ￥ {toThousands(this.state.nowPrice)}</p>
+                </div>
+                <div className="board-container brt" style={{marginBottom: 10}}>
+                    <div className="price-info">
+                        <span>
+                            <img className="price-info__icon" src={require('../../../assets/images/auction/ic_floor.png')} alt=""/>
+                            <span className="price-info__text">无保留价</span>
+                        </span>
+                        <span>
+                            <img className="price-info__icon" src={require('../../../assets/images/auction/ic_commision.png')} alt=""/>
+                            <span className="price-info__text">佣金{100 * commissionRule(this.state.startPrice)}%</span>
+                        </span>
+                        <span>
+                            <img className="price-info__icon" src={require('../../../assets/images/auction/ic_bail.png')} alt=""/>
+                            <span className="price-info__text">允许预缴保证金</span>
+                        </span>
+                        <span>
+                            <img className="price-info__icon" src={require('../../../assets/images/auction/ic_delist.png')} alt=""/>
+                            <span className="price-info__text">允许摘牌</span>
+                        </span>
+                    </div>
+                </div>
+
+                {/* 相似 */}
+
                 <Similar list={this.state.similarList}/>
+
+                {/* 出价记录以及评价区 */}
 
                 <Accordion title="竞价指南（含视频演示）" />
 
-                <Accordion title="出价记录" isDefaultShow=''>
+                <Accordion title="出价记录" isDefaultShow='' ref="record">
                     <div className="pricing">
                         <ul>
-                            {[1,2,3,4,5].map(i=>(
+                            {this.state.bidRecord.filter(record=>record.Account && record.rid!==3).map(record=>(
                                 <li className="pricing-item">
-                                    <span>1232132312312</span>
+                                    <span>{record.Account}</span>
                                     <span>领先</span>
-                                    <span>{new Date().toLocaleDateString()}</span>
-                                    <span>￥ 1,800</span>
+                                    <span>{new Date(record.AuctionTime).toLocaleDateString()}</span>
+                                    <span>￥ {toThousands(record.Amount)}</span>
                                 </li>
                             ))}
                         </ul>
@@ -304,7 +323,14 @@ class Main extends Component{
                     <p className="rate">好评率：99%</p>
                 </div>
 
-                <Pricing/>
+                <Pricing
+                    ref="pricing"
+                    changePrice={this.changeBidPrice.bind(this)}
+                    bidPrice={this.state.bidPrice}
+                    priceLimit={this.state.priceLimit}
+                    biding={this.biding.bind(this)}
+                    nowPrice={this.state.nowPrice}
+                />
             </div>
         )
     }

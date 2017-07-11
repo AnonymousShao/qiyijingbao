@@ -82,7 +82,6 @@ module.exports.wxlogin = function (params) {
     }
 
     return http.post(host + '/api/Member?flag=29', data).then(data=>{
-        debugger
         return data
     })
 }
