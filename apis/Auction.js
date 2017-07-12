@@ -51,3 +51,6 @@ module.exports.pricing = function (params) {
     return http.post(host + '/api/Auction?flag=1', data).then(data=>data.data)
 }
 
+module.exports.alert = function (params) {
+    return http.get(host + '/api/auctionsimple', {params})
+}

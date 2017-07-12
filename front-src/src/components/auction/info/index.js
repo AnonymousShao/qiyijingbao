@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import OverflowDrop from "../../overflow_drop/index";
 import {Dialog} from '../../button'
 import Actions from "../actions/index";
-import { toThousands } from '../../../helper/query_string'
+import { alert } from '../../../helper/http/auction'
+import { toThousands, getParameterByName } from '../../../helper/query_string'
 import './style.scss'
 
 export default class InfoBoard extends Component{
@@ -17,12 +18,22 @@ export default class InfoBoard extends Component{
         }, {
             type: 'default',
             label: '确定',
-            onClick: e=>this.setState({showRemainder: false})
+            onClick: ()=>{
+                this.remainder().then(data=>{
+                    debugger
+                    this.setState({showRemainder: false})
+                })
+            }
         }]
     }
 
     remainder(){
-
+        let params = {
+            type: this.state.remainderType,
+            auctionno: getParameterByName('no'),
+            auctionnoworkno: this.props.info.AuctionNO
+        }
+        return alert(params)
     }
 
     render(){
@@ -60,7 +71,7 @@ export default class InfoBoard extends Component{
                 <p className="auction-info__info">竞拍地点：网络竞拍</p>
                 <p className="auction-info__info">竞拍时间：{new Date(this.props.info.BeginTime).toLocaleDateString()} - {new Date(this.props.info.EndTime).toLocaleDateString()}</p>
                 {this.props.history
-                    ?null
+                    ?<p className="auction-info__info">成交价: {toThousands(this.props.info.SuccTradeAmt)}</p>
                     :<p className="auction-info__info">倒数: <span className="main-color">
                     {Math.ceil((new Date(this.props.info.EndTime) - new Date())/(84000 * 1000))}天</span></p>}
 

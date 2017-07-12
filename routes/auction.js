@@ -1,6 +1,6 @@
 const router = require('koa-router')();
 const BaseConst = require('../globals/BaseConst')
-const { getAuction, pricing, getSucRecord } = require('../apis/Auction')
+const { getAuction, pricing, getSucRecord, alert } = require('../apis/Auction')
 const { getComments, postComment} = require('../apis/Comments')
 const { getArtistList, getWorkClass, getArtistIndex, getArtistInfo } = require('../apis/Artist')
 const { nologin } = require('../apis/config')
@@ -241,6 +241,21 @@ router.get('/getSucRecord', async function (ctx) {
         rows: ctx.request.query.rows || 10
     }
     ctx.body = await getSucRecord(params)
+})
+
+router.get('/alert', async function (ctx) {
+    const userInfo = ctx.session.userInfo
+    if(!userInfo){
+        ctx.body = nologin()
+        return
+    }
+    let params = {
+        account: userInfo.Account,
+        auctionno: ctx.request.query.auctionno,
+        remindtypes: ctx.request.query.type,
+        auctionnoworkno: ctx.request.query.auctionnoworkno
+    }
+    ctx.body = await alert(params)
 })
 
 module.exports = router;

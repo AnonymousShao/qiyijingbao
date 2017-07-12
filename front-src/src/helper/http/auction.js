@@ -51,3 +51,7 @@ export function postComment(params) {
 export function getSucRecord(params) {
     return init.get('/auction/getSucRecord', params).then(data=>data.res_body)
 }
+
+export function alert(params) {
+    return init.get('/auction/alert', params).then(data=>data.res_body)
+}
