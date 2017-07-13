@@ -205,10 +205,6 @@ router.get('/getBidRecord', async function (ctx) {
 })
 
 router.get('/getComments', async function (ctx) {
-    // if(!ctx.session.userInfo){
-    //     ctx.body = nologin()
-    //     return
-    // }
     const userInfo = ctx.session.userInfo || {}
     let params = {
         key: ctx.request.query.auctionWorkNo,
@@ -253,7 +249,6 @@ router.get('/alert', async function (ctx) {
         account: userInfo.Account,
         auctionno: ctx.request.query.auctionno,
         remindtypes: ctx.request.query.type,
-        auctionnoworkno: ctx.request.query.auctionnoworkno
     }
     ctx.body = await alert(params)
 })

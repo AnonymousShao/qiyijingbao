@@ -8,7 +8,6 @@ import InfoBoard from "../../../components/auction/info/index";
 import Adv from '../../../components/auction/list_adv'
 import { getAuctionListSeatNo } from '../../../helper/http/auction'
 import { getParameterByName } from '../../../helper/query_string'
-
 require('./style.scss')
 
 

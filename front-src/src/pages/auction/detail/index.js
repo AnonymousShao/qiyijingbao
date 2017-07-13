@@ -18,23 +18,32 @@ import { bidRule, commissionRule } from '../../../helper/validatorX'
 import Pricing from './pricing'
 import BottomUp from "../../../components/bottom_input/index";
 import { TextArea } from '../../../components/button'
+import Modal, {Share} from "../../../components/modal/index";
 
 class Actions extends Component{
 
+    state={
+        showShare: false
+    }
     handleClick(){
         console.log(1)
     }
 
     render(){
         return (
-            <ButtonArea direction="horizontal">
-                <Button size="small" type='primary'
-                        onClick={this.handleClick.bind(this, 'notice')}>竞拍须知</Button>
-                <Button size="small" type='default'
-                        onClick={this.handleClick.bind(this, 'news')}>竞拍资讯</Button>
-                <Button size="small" type='default'
-                        onClick={this.handleClick.bind(this, 'share')}>分享给朋友</Button>
-            </ButtonArea>
+            <div>
+                <ButtonArea direction="horizontal">
+                    <Button size="small" type='primary'
+                            onClick={this.handleClick.bind(this, 'notice')}>竞拍须知</Button>
+                    <Button size="small" type='default'
+                            onClick={e=>window.location.href='/auction_info.html'}>拍品详情</Button>
+                    <Button size="small" type='default'
+                            onClick={e=>this.setState({showShare: true})}>分享给朋友</Button>
+                </ButtonArea>
+                <Share
+                    onClose={e=>this.setState({showShare: false})}
+                    show={this.state.showShare} />
+            </div>
         )
     }
 }
@@ -103,7 +112,9 @@ class Main extends Component{
         multiTime: 1,
         no: getParameterByName('no'),
         comment: '',
-        commentList: []
+        commentList: [],
+        showGroup: false,
+        showShare: false
     }
 
     style = {
@@ -190,11 +201,7 @@ class Main extends Component{
             IntMultipleAuction: this.state.multiTime,
             IsCopper: this.state.workInfo.IsCopper,
         }
-        submitAuctionWorkPrice(params).then(data=>{
-            if(data){
-                this.refs.pricing.hideDialog()
-            }
-        })
+        return submitAuctionWorkPrice(params)
     }
 
     showComment(){
@@ -269,13 +276,11 @@ class Main extends Component{
                 <Specialist {...this.state.consultInfo}/>
 
                 {/* 操作按钮 */}
-
                 <div className="board-container">
                     <Actions />
                 </div>
 
                 {/* 价格详情 */}
-
                 <div className="board-container brt" >
                         <p className="price-info__price">起拍价: ￥ {toThousands(this.state.startPrice)}</p>
                         <p className="price-info__price">保证金: ￥ 3000</p>
@@ -313,7 +318,7 @@ class Main extends Component{
                 <Accordion title="出价记录" isDefaultShow='' ref="record">
                     <div className="pricing">
                         <ul>
-                            {this.state.bidRecord.filter(record=>record.Account && record.rid!==3).map(record=>(
+                            {this.state.bidRecord.filter(record=>record.Account).map(record=>(
                                 <li className="pricing-item">
                                     <span>{record.Account}</span>
                                     <span>领先</span>
@@ -363,9 +368,19 @@ class Main extends Component{
                     />
                 </BottomUp>
 
-                <div className="accordion-title">
+                <div className="accordion-title" onClick={e=>this.setState({showGroup: true})}>
                     进入社区
                 </div>
+                <Modal
+                    show={this.state.showGroup}
+                    onClose={e=>this.setState({showGroup: false})}
+                >
+                    <div style={{padding: '60px 30px', textAlign: 'center', color: 'white'}}>
+                        <p>请长按二维码图片识别客服专员，</p>
+                        <p>之后您将被添加到天宝艺术社群。</p>
+                        <img style={{width: '60%', paddingTop: 30}} src={require('../../../assets/images/group_code@2x.jpg')} alt=""/>
+                    </div>
+                </Modal>
 
                 <div className="brand-board">
                     <div className="img-container">

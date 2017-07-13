@@ -1,0 +1,44 @@
+@import "../../style/common";
+
+
+.choose-board{
+  background-color: white;
+
+  li{
+    padding: 0 15px;
+    border-top: 1px solid $border-cl;
+  }
+  .choose-board__title{
+    font-size: 0.9rem;
+    line-height: 40px;
+    color: #222222;
+  }
+
+  .choose-board__content{
+    font-size: 1rem;
+    line-height: 50px;
+  }
+
+  .wxpay-icon{
+    font-size: 30px;
+    vertical-align: middle;
+    color: rgb(31, 200, 35);
+    transform: translateY(-4px);
+    display: inline-block;
+    padding-right: 5px;
+  }
+  .unionpay-icon{
+    height: 20px;
+    padding-right: 5px;
+    vertical-align: middle;
+  }
+
+  .offline-icon{
+    font-size: 23px;
+    vertical-align: middle;
+    color: $btn-bg-color;
+    transform: translateY(-4px);
+    display: inline-block;
+    padding-right: 5px;
+  }
+}

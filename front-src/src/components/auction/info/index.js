@@ -10,7 +10,7 @@ export default class InfoBoard extends Component{
 
     state = {
         showRemainder: false,
-        remainderType: 1,
+        remainderType: [],
         buttons: [{
             type: 'default',
             label: '关闭',
@@ -20,7 +20,7 @@ export default class InfoBoard extends Component{
             label: '确定',
             onClick: ()=>{
                 this.remainder().then(data=>{
-                    debugger
+                    alert('提醒成功')
                     this.setState({showRemainder: false})
                 })
             }
@@ -31,7 +31,6 @@ export default class InfoBoard extends Component{
         let params = {
             type: this.state.remainderType,
             auctionno: getParameterByName('no'),
-            auctionnoworkno: this.props.info.AuctionNO
         }
         return alert(params)
     }

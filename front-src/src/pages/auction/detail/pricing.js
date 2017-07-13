@@ -27,11 +27,32 @@ export default class Pricing extends Component{
                     type: 'primary',
                     label: '确定',
                     onClick: ()=>{
-                        this.props.biding()
-                        this.hideDialog()
+                        this.setState({
+                            view: 'confirm'
+                        })
                     }
                 }
             ]
+        },
+        confirm: {
+            title: '',
+            buttons: [{
+                type: 'default',
+                label: '取消',
+                onClick: ()=>{
+                    this.setState({
+                        view: 'bid'
+                    })
+                }
+            }, {
+                type: 'primary',
+                label: '确定',
+                onClick: ()=>{
+                    this.props.biding().then(data=>{
+                        debugger
+                    })
+                }
+            }]
         }
     }
 
@@ -116,9 +137,19 @@ export default class Pricing extends Component{
                     </div>
                     <p style={this.style.tip}>竞拍成功后必须支付佣金{commissionRule(start) * 100}%</p>
                 </Dialog>
+
+                <Dialog
+                    show={this.state.view === 'confirm'}
+                    buttons={this.state.confirm.buttons}
+                >
+                    <div>
+                        确认出价RMB{toThousands(this.state.bidPrice)}?
+                    </div>
+                </Dialog>
+
                 <div className="auction-action">
                     <span className="action-tel">400-885-1666</span>
-                    <span className="action-2">缴纳保证金</span>
+                    <a href="/secure_page.html" className="action-2">缴纳保证金</a>
                     <span className="action-3" onClick={e=>this.setState({view: 'bid'})}>我要出价</span>
                 </div>
             </div>

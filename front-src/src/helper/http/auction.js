@@ -33,7 +33,7 @@ export function getStrategy(params) {
 }
 
 export function submitAuctionWorkPrice(params) {
-    return init.get('/auction/submitAuctionWorkPrice', params).then(data=>data.res_body)
+    return init.get('/auction/submitAuctionWorkPrice', params)
 }
 
 export function getBidRecord(params) {

@@ -21,6 +21,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-imageview": "^1.2.1",
     "react-iscroll": "^2.0.3",
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",

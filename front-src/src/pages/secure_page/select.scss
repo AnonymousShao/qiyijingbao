@@ -1,0 +1,50 @@
+@import "../../style/variables";
+
+.box-item__container{
+  position: relative;
+  width: 32%;
+
+  &:not(:last-child):after{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background-color: $border-cl;
+  }
+
+  .box-icon{
+    position: absolute;
+    top: 0;
+    left: 0
+  }
+
+  .box-content{
+    text-align: center;
+    line-height: 65px;
+    small{
+      font-size: 0.9rem;
+    }
+    span{
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.boxes-container{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+
+  &:not(:last-child):after{
+    content: '';
+    position: absolute;
+    right: 3%;
+    bottom: 0;
+    height: 1px;
+    width: 94%;
+    background-color: $border-cl;
+  }
+}

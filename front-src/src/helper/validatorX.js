@@ -29,7 +29,7 @@ export function bidRule(input, ruleList) {
     input = parseInt(input)
     if(!ruleList.length || !input) return 0
     for(let i=0;i<ruleList.length;i++){
-        if(input < ruleList[i].MaxPrice && input > ruleList[i].MinPrice){
+        if(input < ruleList[i].MaxPrice && input >= ruleList[i].MinPrice){
             return parseInt(ruleList[i].PriceLimit)
         }
     }

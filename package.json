@@ -31,7 +31,8 @@
     "koa-views": "^5.0.1",
     "moment": "^2.18.1",
     "redis": "^2.7.1",
-    "runkoa": "^1.5.2"
+    "runkoa": "^1.5.2",
+    "weixin-pay": "^1.1.7"
   },
   "devDependencies": {
     "less": "^2.7.2",
