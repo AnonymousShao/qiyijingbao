@@ -109,12 +109,10 @@ export default class Pricing extends Component{
                     </div>
                     <div style={this.style.body}>
                         <p style={this.style.item}>
-                            <label>
-                                <input type="radio" name="price" value={(start + commission).toString()}
-                                       checked={this.props.bidPrice===(start + commission)}
-                                       onChange={this.changeBid.bind(this, start + commission, 1)} />
-                                <span style={this.style.itemPrice}>RMB {toThousands(start + commission)}</span>
-                            </label>
+                            <input type="radio" name="price" value={(start + commission).toString()}
+                                   checked={this.props.bidPrice===(start + commission)}
+                                   onChange={this.changeBid.bind(this, start + commission, 1)} />
+                            <span style={this.style.itemPrice}>RMB {toThousands(start + commission)}</span>
                         </p>
                         <p style={this.style.item}>
                             <input type="radio" name="price" value={(start + 2 * commission).toString()}
@@ -142,9 +140,7 @@ export default class Pricing extends Component{
                     show={this.state.view === 'confirm'}
                     buttons={this.state.confirm.buttons}
                 >
-                    <div>
-                        确认出价RMB{toThousands(this.state.bidPrice)}?
-                    </div>
+                    <div>确认出价RMB{toThousands(this.props.bidPrice)}?</div>
                 </Dialog>
 
                 <div className="auction-action">

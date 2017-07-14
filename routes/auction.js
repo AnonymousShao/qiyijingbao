@@ -3,7 +3,7 @@ const BaseConst = require('../globals/BaseConst')
 const { getAuction, pricing, getSucRecord, alert } = require('../apis/Auction')
 const { getComments, postComment} = require('../apis/Comments')
 const { getArtistList, getWorkClass, getArtistIndex, getArtistInfo } = require('../apis/Artist')
-const { nologin } = require('../apis/config')
+const { nologin, successCode } = require('../apis/config')
 
 router.get('/', async function (ctx, next) {
     ctx.body = await getAuction()
@@ -191,7 +191,21 @@ router.get('/submitAuctionWorkPrice', async function (ctx) {
         sessionSecret: userInfo.session_secret
     }
 
-    ctx.body = await pricing(params)
+    let isEnoughParams = {
+        AuctionNO: ctx.request.query.AuctionNO,
+        AuctionWorkNO: ctx.request.query.AuctionWorkNO,
+        Account: userInfo.Account,
+        StartPrice: ctx.request.query.StartPrice,
+    }
+
+    // ctx.body = await pricing(params)
+    ctx.body = await getAuction(isEnoughParams).then(data=>{
+        // if(data.res_code===successCode){
+            return pricing(params)
+        // } else {
+        //     return data
+        // }
+    })
 })
 
 router.get('/getBidRecord', async function (ctx) {

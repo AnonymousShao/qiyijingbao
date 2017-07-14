@@ -36,7 +36,7 @@ class Actions extends Component{
                     <Button size="small" type='primary'
                             onClick={this.handleClick.bind(this, 'notice')}>竞拍须知</Button>
                     <Button size="small" type='default'
-                            onClick={e=>window.location.href='/auction_info.html'}>拍品详情</Button>
+                            onClick={e=>window.location.href='/auction_info.html?no='+this.props.info.WorkNO}>拍品详情</Button>
                     <Button size="small" type='default'
                             onClick={e=>this.setState({showShare: true})}>分享给朋友</Button>
                 </ButtonArea>
@@ -179,8 +179,9 @@ class Main extends Component{
             this.setState({
                 latest,
                 nowPrice: latest.NowPrice,
-                bidPrice: latest.NowPrice + bidRule(latest.StartPrice, this.state.priceLimit)
+                bidPrice: this.state.bidPrice ||latest.NowPrice + bidRule(latest.StartPrice, this.state.priceLimit)
             })
+
             setTimeout(this.retrieveLatestData, 2000)
         })
     }
@@ -277,7 +278,7 @@ class Main extends Component{
 
                 {/* 操作按钮 */}
                 <div className="board-container">
-                    <Actions />
+                    <Actions info={this.state.workInfo}/>
                 </div>
 
                 {/* 价格详情 */}
@@ -393,10 +394,10 @@ class Main extends Component{
                 <Pricing
                     ref="pricing"
                     changePrice={this.changeBidPrice.bind(this)}
-                    bidPrice={this.state.bidPrice}
                     priceLimit={this.state.priceLimit}
                     biding={this.biding.bind(this)}
                     nowPrice={this.state.nowPrice}
+                    bidPrice={this.state.bidPrice}
                 />
             </div>
         )
