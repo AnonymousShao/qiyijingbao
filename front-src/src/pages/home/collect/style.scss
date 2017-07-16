@@ -1,0 +1,194 @@
+@import '../common.scss';
+@import '../../../style/scss/common/reset.scss';
+@import '../../../style/scss/common/iconfont.css';
+@import '../../../style/scss/common/common.scss';
+
+.tb-content{
+  //width:rem(750px);
+  height:auto;
+  min-height: rem(890px);
+  .tb-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height:rem(104px);
+    line-height: rem(104px);
+    a{
+      flex: 1;
+      color:#333;
+      font-weight: 800;
+      font-size: 14px;
+      text-align: center;
+      img{
+        float: left;
+        width:rem(40px);
+        height:rem(40px);
+        padding-left:rem(30px);
+        padding-top:rem(32px);
+      }
+    }
+  }
+  .tb-line{
+    height:rem(20px);
+    background: #f8f8f8;
+    border-bottom:1px solid #eee;
+  }
+  .tb-tab-list{
+    height:rem(70px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    .tb-tab-item{
+      flex: 1;
+      text-align: center;
+      font-size: rem(28px);
+      font-weight: 600;
+      color:#b00000;
+      line-height: rem(70px);
+      border-bottom:2px solid rgba(0,0,0,0);
+    }
+    .tb-tab-active{
+      border-bottom:2px solid #b00000;
+    }
+  }
+  .tb-order{
+    height:rem(98px);
+    border-bottom: 1px solid #eee;
+    padding-left: rem(30px);
+    color:#999;
+    line-height: rem(98px);
+    font-size: rem(28px);
+    span{
+      color:#222;
+    }
+  }
+  .tb-collect-list{
+    height:auto;
+    min-height: rem(600px);
+    .tb-collect-item{
+      border-bottom: 1px solid #eee;
+      height:rem(180px);
+      padding:rem(30px) rem(20px) rem(30px) rem(30px);
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      .tb-collect-logo{
+        width:rem(176px);
+        height:rem(176px);
+        border:1px solid #eee;
+        img{
+          width:100%;
+          height:100%;
+        }
+      }
+      .tb-collect-info{
+        font-size: rem(24px);
+        line-height: rem(44px);
+        .tb-collect-title{
+          color:#222;
+          font-weight: 600;
+        }
+        .tb-collect-stage,.tb-collect-name{
+          color:#999;
+
+        }
+        .tb-collect-year{
+          color:#222;
+        }
+      }
+      .tb-collect-state{
+        width:rem(156px);
+        height:rem(40px);
+
+      }
+      .tb-collect-auction{
+        background: url(../../../assets/images/ic_auction.png) no-repeat 0 0;
+        background-size: contain;
+      }
+      .tb-collect-success{
+        background: url(../../../assets/images/ic_auction.png) no-repeat 0 0;
+        background-size: contain;
+      }
+      .tb-collect-over{
+        background: url(../../../assets/images/ic_auction.png) no-repeat 0 0;
+        background-size: contain;
+      }
+      .tb-collect-exhibition{
+        background: url(../../../assets/images/ic_has%20%delisted.png) no-repeat 0 0;
+        background-size: contain;
+      }
+      .tb-collect-preview{
+        background: url(../../../assets/images/ic_bargaining.png) no-repeat 0 0;
+        background-size: contain;
+      }
+      .tb-collect-pause{
+        background: url(../../../assets/images/per_ic_r.png) no-repeat 0 0;
+        background-size: contain;
+      }
+      .tb-collect-pay{
+        background: url(../../../assets/images/per_ic_s.png) no-repeat 0 0;
+        background-size: contain;
+      }
+      .tb-collect-user{
+        border-radius: 50%;
+        width:rem(176px);
+        height:rem(176px);
+        img{
+          border-radius: 50%;
+          height:100%;
+          width:100%;
+        }
+      }
+      .tb-collect-userinfo{
+        font-size: rem(24px);
+        line-height: rem(44px);
+        color:#666;
+        width:rem(456px);
+        .tb-user-pro{
+          overflow : hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+      }
+
+    }
+    .tb-collect-delete{
+      padding:rem(30px) 0;
+      .tb-collect-delete{
+        height:100%;
+        width:rem(156px);
+        background: #b00000;
+        color:#fff;
+        line-height: rem(180px);
+        font-size: rem(30px);
+        text-align: center;
+      }
+      .tb-collect-logo{
+        width:rem(52px);
+        overflow: hidden;
+        position: relative;
+        img{
+          position: absolute;
+          width: auto;
+          height: 100%;
+          right: 0;
+        }
+      }
+      .tb-collect-user{
+        border-radius: 50%;
+        width:rem(50px);
+        height:rem(176px);
+        position: relative;
+        img{
+          border-radius: 50%;
+          height:100%;
+          width:auto;
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+  }
+}

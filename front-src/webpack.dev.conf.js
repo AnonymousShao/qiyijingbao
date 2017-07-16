@@ -56,7 +56,7 @@ let webpackConfig = {
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
-                use: 'css-loader!sass-loader'
+                use: 'css-loader!postcss-loader!sass-loader'
             })
         },{
             test: /\.(png|jpe?g|ico)$/,
@@ -66,7 +66,7 @@ let webpackConfig = {
                 name: 'statics/images/[name]_[hash:6].[ext]',
             },
         }, {
-            test: /\.(woff)$/,
+            test: /\.(svg|eot|ttf|woff)$/,
             loader: 'url-loader',
             query: {
                 limit: 419600,

@@ -1,0 +1,173 @@
+@import '../common.scss';
+@import '../../../style/scss/common/reset.scss';
+@import '../../../style/scss/common/iconfont.css';
+@import '../../../style/scss/common/common.scss';
+
+.content{
+  .header{
+    padding: 0 rem(30px);
+    height:rem(88px);
+    line-height: rem(88px);
+    border-bottom: rem(7px) solid #a80000;
+    background: #fff;
+    .logo{
+      display:inline-block;
+      vertical-align: middle;
+      height:rem(70px);
+      width:rem(70px);
+      img{
+        width:100%;
+        height:100%;
+      }
+    }
+    .title{
+      color:#333;
+      line-height: rem(88px);
+      font-size: rem(40px);
+      font-weight: 400;
+      font-family: "microsoft yahei";
+    }
+  }
+  .main-content{
+    display: flex;
+    height:rem(75px);
+    width: 100%;
+    background: #fff;
+    a{
+      flex: 1;
+      margin: 0 5%;
+      height:rem(75px);
+      line-height:rem(75px);
+      font-size: rem(32px);
+      color: #000;
+      text-align:center;
+      font-weight: 300;
+      border-bottom: rem(6px) solid transparent;
+      &.active{
+        border-bottom: rem(6px) solid #a80000;
+      }
+    }
+  }
+  .detail{
+    margin-top: rem(2px);
+    li{
+      margin-bottom: rem(14px);
+      padding: rem(32px) rem(34px);
+      background: #fff;
+      .left{
+        display: inline-block;
+        margin-right:rem(30px);
+        height: rem(180px);
+        width: rem(180px);
+        img{
+          height: 100%;
+          width: 100%;
+        }
+      }
+      .right{
+        display: inline-block;
+        p{
+          /*height: rem(48px);
+          line-height: rem(48px);*/
+          font-size: rem(24px);
+          &.goods{
+            height:rem(40px);
+            color:#222;
+            span{
+              color: #a6a6a6;
+            }
+            img{
+              width: rem(156px);
+              height:rem(36px);
+            }
+          }
+          &.lot{
+            height:rem(34px);
+            line-height: rem(34px);
+            color: #a6a6a6;
+          }
+          &.artist{
+            height:rem(40px);
+            line-height: rem(40px);
+            color:#a6a6a6;
+          }
+          &.myPrice{
+            height:rem(38px);
+            line-height: rem(38px);
+            color:#a80000;
+          }
+          &.area{
+            color:#666;
+            height:rem(30px);
+          }
+        }
+      }
+      &.bid-s{
+        padding: 0;
+        .content{
+          padding: rem(32px) rem(34px) 0;
+          .right{
+            display: inline-block;
+            position: relative;
+            p{
+              /*height: rem(48px);
+              line-height: rem(48px);*/
+              font-size: rem(24px);
+              &.goods{
+                height:rem(46px);
+                line-height: rem(46px);
+                color:#222;
+                span{
+                  color: #a6a6a6;
+                }
+                img{
+                  position: absolute;
+                  right: rem(-200px);
+                  vertical-align: top;
+                  width: rem(156px);
+                  height:rem(46px);
+                }
+              }
+              &.lot{
+                height:rem(42px);
+                line-height: rem(42px);
+                color: #a6a6a6;
+              }
+              &.area{
+                height:rem(44px);
+                line-height:rem(44px);
+                color:#666;
+              }
+              &.deal-time{
+                height: rem(48px);
+                line-height:rem(48px);
+              }
+            }
+          }
+        }
+
+      }
+      .operate{
+        padding-left: rem(30px);
+        height: rem(80px);
+        line-height: rem(80px);
+        font-size: 0;
+        background: #fff;
+        border-top: rem(4px) solid #f8f8f8;
+        a{
+          float: right;
+          margin-right: rem(18px);
+          margin-top: rem(10px);
+          width:rem(152px);
+          height: rem(50px);
+          line-height: rem(50px);
+          text-align: center;
+          border: 1px solid #000;
+          border-radius: rem(4px);
+          font-size: rem(26px);
+        }
+      }
+    }
+
+  }
+}

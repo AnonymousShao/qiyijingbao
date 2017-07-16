@@ -2,13 +2,13 @@
   "name": "koa2-demo",
   "version": "0.1.0",
   "scripts": {
-    "start": "./node_modules/.bin/nodemon bin/run",
-    "koa": "./node_modules/.bin/runkoa bin/www",
+    "start": "nodemon bin/run",
+    "koa": "runkoa bin/www",
     "pm2": "pm2 start bin/run ",
     "fstart": "cd front-src/ && npm start",
     "fcp": "cd front-src/ && npm run cp",
     "tstart": "cd front-src/ && NODE_ENV=production npm start",
-    "test": "./node_modules/.bin/mocha -u bdd",
+    "test": "mocha -u bdd",
     "totest": "rsync -avz ./ --include='front-src/dist/' --exclude='front-src/*' --exclude=.git/ --exclude=.idea/ root@daxianyu.cn:/data/yjs"
   },
   "dependencies": {
@@ -41,5 +41,16 @@
     "nodemon": "^1.9.1",
     "should": "^8.3.0",
     "supertest": "^1.2.0"
-  }
+  },
+  "description": "[![npm version](https://badge.fury.io/js/koa2-demo.svg)](http://badge.fury.io/js/runkoa)\r [![Build](https://travis-ci.org/17koa/koa2-demo.svg?branch=master)](https://travis-ci.org/17koa/koa2-demo)",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@daxianyu.cn:/src/yjs.git"
+  },
+  "author": "",
+  "license": "ISC"
 }

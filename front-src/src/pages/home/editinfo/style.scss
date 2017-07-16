@@ -1,0 +1,192 @@
+@import '../common.scss';
+@import '../../../style/scss/common/reset.scss';
+@import '../../../style/scss/common/iconfont.css';
+@import '../../../style/scss/common/common.scss';
+
+.tb-content{
+  height:auto;
+  min-height: rem(990px);
+  .tb-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height:rem(104px);
+    line-height: rem(104px);
+    a{
+      flex: 1;
+      color:#333;
+      font-weight: 800;
+      font-size: rem(28px);
+      text-align: center;
+      img{
+        float: left;
+        width:rem(40px);
+        height:rem(40px);
+        padding-left:rem(30px);
+        padding-top:rem(32px);
+      }
+    }
+  }
+  .tb-user-logo{
+    height:rem(460px);
+    border-bottom:1px solid #dddddd;
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .tb-user-logo-detail{
+      width:rem(460px);
+      height:rem(420px);
+      .tb-logo-header{
+        width:rem(268px);
+        height:rem(268px);
+        border-radius: 50%;
+        position: relative;
+        margin: 0 auto;
+        img{
+          height:100%;
+          width: 100%;
+          border-radius: 50%;
+        }
+        .tb-go-au{
+          position: absolute;
+          left: 0;
+          width:100%;
+          height:rem(50px);
+          bottom:-2px;
+          background: url(../img/shiming.jpg) no-repeat 50% 0;
+          background-size: contain;
+          z-index: 2;
+        }
+        .tb-input-img{
+          position: absolute;
+          top:0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          z-index: 5;
+          color:rgba(0,0,0,0);
+          font-size: 0;
+          visibility: hidden;
+        }
+        .ta-au-gdmask{
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height:100%;
+          background: rgba(0,0,0,.3);
+          border-radius: 50%;
+          text-align: center;
+          line-height: rem(268px);
+          color:#fff;
+          z-index: 1;
+          font-size: rem(36px);
+        }
+      }
+      .ta-au-phone{
+        color: #2d2d2d;
+        font-size: rem(24px);
+        text-align: center;
+        line-height: rem(60px);
+        margin: 0 auto;
+      }
+      .tb-au-question{
+        font-size: rem(24px);
+        margin: 0 auto;
+        a{
+          margin: rem(12px);
+          padding:rem(10px);
+        }
+        .ta-au-way{
+          background: #fffeff;
+          color:#f16319;
+          border: 1px solid #f16319;
+          border-radius: rem(10px);
+        }
+        .ta-au-level{
+          background: #a40200;
+          color:#fff;
+          border-radius: rem(10px);
+        }
+      }
+    }
+  }
+  .tb-name-input{
+    padding-left: rem(30px);
+    height: rem(172px);
+    .ta-au-name-list{
+      height: 100%;
+      width:rem(520px);
+      line-height: rem(86px);
+      float: left;
+      .tb-change-status{
+        border-bottom:1px solid #eee;
+        span{
+          border:1px solid #ddd;
+          color:#686868;
+          padding: rem(4px) rem(10px);
+          margin:0 2px;
+        }
+        .active{
+          border:1px solid #e40001;
+          color:#e10001;
+        }
+      }
+    }
+  }
+  .tb-email-input{
+    padding-left: rem(30px);
+    height: rem(86px);
+
+  }
+  .tb-take-part,.tb-bind-weixin{
+    padding-left: rem(30px);
+    height: rem(86px);
+    border-bottom: 1px solid #dddddd;
+    background: url(../img/next.png) no-repeat right 50%;
+  }
+  .tb-line{
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    height:rem(20px);
+
+  }
+  .tb-input-bar{
+    border-bottom:1px solid #eee;
+  }
+  .tb-input-text{
+    color:#b8b8b8;
+    outline: none;
+    line-height: rem(86px);
+    background: none;
+    border: none;
+
+  }
+  .tb-input-birthday{
+    background: url(../img/next.png) no-repeat right 50%;
+  }
+  .tb-input-title{
+    color:#333;
+    line-height: rem(86px);
+    float: left;
+    margin-right: rem(40px);
+  }
+  .ta-au-submit-btn{
+    height:rem(330px);
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .tb-au-submit{
+      height:rem(92px);
+      width:rem(536px);
+      background: #d00000;
+      border-radius: rem(10px);
+      line-height: rem(92px);
+      color:#fff;
+    }
+  }
+}

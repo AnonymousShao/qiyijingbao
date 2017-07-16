@@ -1,0 +1,131 @@
+@import '../common.scss';
+@import '../../../style/scss/common/reset.scss';
+@import '../../../style/scss/common/iconfont.css';
+@import '../../../style/scss/common/common.scss';
+
+.tb-content{
+  height:auto;
+  min-height: rem(890px);
+  .tb-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height:rem(104px);
+    line-height: rem(104px);
+    border-bottom:rem(3px) solid #8e0000;
+    .tb-logo{
+      height:rem(70px);
+      width:rem(70px);
+      display: block;
+      padding:rem(30px) rem(30px) 0 rem(30px);
+      img{
+        width:100%;
+        height:100%;
+      }
+    }
+    .tb-title{
+      color:#333;
+      line-height: rem(104px);
+      font-size: rem(44px);
+      font-weight: 400;
+      font-family: "microsoft yahei";
+    }
+  }
+  .ta-message{
+    border:1px solid #eeeeee;
+    padding: rem(40px) rem(30px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    .ta-message-icon{
+      width:rem(58px);
+      height:rem(58px);
+      position: relative;
+      .num{
+        position: absolute;
+        width:rem(32px);
+        height:rem(32px);
+        border-radius: 50%;
+        background: #d00000;
+        color:#fff;
+        text-align: center;
+        line-height: rem(32px);
+        right:rem(-16px);
+        top:rem(-16px);
+      }
+    }
+    .ta-message-bidding{
+      background: url(../img/tab_bid@2x.png) no-repeat 50% 50%;
+      background-size: contain;
+    }
+    .ta-message-bargain{
+      background: url(../img/tab_neg@2x.png) no-repeat 50% 50%;
+      background-size: contain;
+    }
+    .ta-message-fund{
+      background: url(../img/money.png) no-repeat 50% 50%;
+      background-size: contain;
+    }
+    .ta-message-sys{
+      background: url(../img/services.png) no-repeat 50% 50%;
+      background-size: contain;
+    }
+  }
+  .ta-message-news{
+    padding: rem(30px);
+    height:auto;
+    color:#333;
+    font-size: rem(25px);
+    line-height: rem(48px);
+    .tb-message-title{
+      .ta-message-state{
+        background: #d00000;
+        padding:rem(5px) rem(7px);
+        margin-right: rem(10px);
+        border-radius: rem(2px);
+        text-align: center;
+        color:#fff;
+      }
+      .ta-message-time{
+        color:#d00000;
+      }
+    }
+    .ta-message-content{
+      color:#333;
+      font-size: rem(25px);
+      line-height: rem(48px);
+    }
+  }
+  .ta-message-history{
+    padding: rem(30px);
+    background: #f8f8f8;
+    .ta-message-history-title{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      .ta-message-title-line{
+        height:rem(2px);
+        background:#eee;
+        flex: .5;
+        margin-top:rem(14px);
+      }
+      .ta-message-title{
+        color:#eee;
+      }
+    }
+    .tb-message-list{
+      color:#666;
+    }
+  }
+}
+.tb-scrollTop{
+  position: fixed;
+  bottom: rem(30px);
+  right: rem(30px);
+  width:rem(60px);
+  height:rem(60px);
+  border-radius: 50%;
+  background: #8d8d8d url(../img/scrollTop.png) no-repeat 50% 50%;
+  background-size: contain;
+}
