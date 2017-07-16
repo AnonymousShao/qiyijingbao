@@ -22,7 +22,7 @@ class Main extends Component{
                     </div>
 
                     <div style={{padding: '60px 50px'}}>
-                        <ButtonClassic onClick={e=>{window.location.href=''}}>我已阅读保证金协议</ButtonClassic>
+                        <ButtonClassic onClick={e=>{window.location.href='/pay.html'}}>我已阅读保证金协议</ButtonClassic>
                     </div>
                 </div>
                 <div>

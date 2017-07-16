@@ -5,12 +5,30 @@ import { getParameterByName } from '../../../helper/query_string'
 
 
 const priceLevels = {
-    0: '0 - 1,000',
-    1: '1,000 - 5,000',
-    2: '5,000 - 10,000',
-    3: '10,000 - 50,000',
-    4: '50,000 - 500,000',
-    5: '> 500,000',
+    0: {
+        num: '0 - 1,000',
+        text: '低价区场次'
+    },
+    1: {
+        num: '1,000 - 5,000',
+        text: '普通区场次'
+    },
+    2: {
+        num: '5,000 - 10,000',
+        text: '中价区场次'
+    },
+    3: {
+        num: '10,000 - 50,000',
+        text: '高价区场次'
+    },
+    4: {
+        num: '50,000 - 500,000',
+        text: '超高价区场次'
+    },
+    5: {
+        num: '> 500,000',
+        text: '特高价区场次'
+    },
 }
 
 export default class Schedule extends Component{
@@ -59,22 +77,37 @@ class ImgCard extends Component{
             <div className="card">
                 <div className="card-img" style={{backgroundImage: `url(${imageHost + this.props.ImgUrl})`}} />
                 <div className="card-body">
-                    <h3>价格区间</h3>
                     <p className="card-price">
-                        <span>{priceLevels[this.props.PriceLevel]}</span>
+                        <span>{priceLevels[this.props.PriceLevel].num}</span>
                         <small>RMB</small>
                     </p>
+
+                    <h3>{priceLevels[this.props.PriceLevel].text}</h3>
                     {this.props.status===2
                         ? list.length
                             ? <ul className="card-list">{list.sort((p, n)=>(new Date(p.EndTime > new Date(n.EndTime)))).map(info=>(
-                                <li key={info.NO}><a href={'/auction_list.html?no='+info.NO+'&classno='+this.props.classNo}>{new Date(info.EndTime).toLocaleDateString()
-                                + new Date(info.EndTime).toLocaleTimeString()}结束</a></li>
+                                <li key={info.NO}>
+                                    <a href={'/auction_list.html?no='+info.NO+'&classno='+this.props.classNo}>
+                                        <h4>{info.Title}</h4>
+                                        <p className="info">
+                                            <i className="iconfont icon-jingjia hammer" style={{fontSize: 'inherit'}}/>
+                                            <span>{new Date(info.EndTime).toLocaleDateString()}结拍</span>
+                                        </p>
+                                    </a>
+                                </li>
                             ))}</ul>
                             : <ul className="card-list"><li>暂无竞拍中的场次</li></ul>
                         : list.length
                             ? <ul className="card-list">{list.sort((p, n)=>(new Date(p.ReBeginTime > new Date(n.ReBeginTime)))).map(info=>(
-                                <li key={info.NO}><a href={'/auction_list.html?no='+info.NO+'&classno='+this.props.classNo}>{new Date(info.ReBeginTime).toLocaleDateString()
-                                + new Date(info.ReBeginTime).toLocaleTimeString()}开始</a></li>
+                                <li key={info.NO}>
+                                    <a href={'/auction_list.html?no='+info.NO+'&classno='+this.props.classNo}>
+                                        <h4>{info.Title}</h4>
+                                        <p className="info">
+                                            <i className="iconfont icon-jingjia hammer" style={{fontSize: 'inherit'}}/>
+                                            <span>{new Date(info.ReBeginTime).toLocaleDateString()}开始</span>
+                                        </p>
+                                    </a>
+                                </li>
                             ))}</ul>
                             : <ul className="card-list"><li>暂无预展中的场次</li></ul>
                     }

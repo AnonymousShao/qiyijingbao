@@ -16,7 +16,7 @@ export default class MoreImage extends Component{
         const height = this.props.height
         this.setHeight(width, height)
 
-        this.refs.img.onload = function () {
+        this.refs.img.onload = function (event) {
             self.setHeight(this.width, this.height)
         }
     }
