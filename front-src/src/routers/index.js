@@ -1,17 +1,17 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {
     Route,
     Switch,
     Redirect
 } from "react-router-dom";
 
-import { Main } from '../pages/main/index'
-import { EditPage } from '../pages/edit/'
+import { Home } from '../pages/home';
+import { EditPage } from '../pages/edit/';
 
 function edit(){
-    import('react-draft-wysiwyg').then((Editor)=>{
+    /*import('react-draft-wysiwyg').then((Editor)=>{
 
-    })
+    })*/
 }
 
 // class NoMatch extends Component{
@@ -34,7 +34,7 @@ export const router = (
     <div>
         <Switch>
             <Route path='/edit/:id' component={EditPage}/>
-            <Route path='/' exact component={Main}/>
+            <Route path='/' exact component={Home}/>
             <Route component={NoMatch}/>
         </Switch>
     </div>

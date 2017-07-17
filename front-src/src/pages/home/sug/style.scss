@@ -1,0 +1,123 @@
+@import '../common.scss';
+@import '../../../style/scss/common/reset.scss';
+@import '../../../style/scss/common/iconfont.css';
+@import '../../../style/scss/common/common.scss';
+
+.tb-content{
+  height:auto;
+  min-height: rem(890px);
+  .tb-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height:rem(104px);
+    line-height: rem(104px);
+    border-bottom:rem(3px) solid #8e0000;
+    .tb-title{
+      color:#333;
+      line-height: rem(104px);
+      font-size: rem(44px);
+      font-weight: 400;
+      padding:0 rem(30px) 0 rem(30px);
+      font-family: "microsoft yahei";
+    }
+  }
+  .tb-complaint{
+    padding:rem(30px);
+    .tb-complaint-title{
+      font-size: rem(30px);
+      color:#333;
+      line-height: rem(30px);
+      margin-bottom: rem(30px);
+    }
+    .tb-complaint-list{
+      font-size: rem(30px);
+
+      color:#333;
+      line-height: rem(60px);
+      .tb-complaint-item{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        height:rem(60px);
+        .tb-complaint-active{
+          width:rem(45px);
+          height:rem(45px);
+          border-radius: 50%;
+          background: url(../img/ic_choose_sel.png) no-repeat 50% 50%;
+          background-size: contain;
+        }
+        .tb-complaint-icon{
+          width:rem(45px);
+          height:rem(45px);
+          border:rem(1px) solid #ddd;
+          border-radius: 50%;
+          margin-top:rem(6px);
+        }
+        .tb-complaint-content{
+          margin-left:rem(22px);
+        }
+      }
+    }
+  }
+  .tb-input-des{
+    padding:rem(30px);
+    background: #f8f8f8;
+    height:rem(128px);
+    .tb-input-content{
+      font-size: rem(26px);
+      outline: none;
+      border: none;
+      background: none;
+      color:#999;
+      resize: none;
+      width: 100%;
+      height:100%;
+    }
+  }
+  .tb-feedback{
+    padding:rem(30px);
+    color:#999;
+    font-size: rem(24px);
+    line-height: rem(36px);
+  }
+  .tb-our-tel{
+    font-size: rem(24px);
+    line-height: rem(36px);
+    padding:rem(30px);
+    text-align: center;
+    .tb-complaint-tel{
+      color:#666;
+      margin: 0 auto;
+      .icon{
+        width:rem(44px);
+        height:rem(34px);
+        display: inline-block;
+        background: url(../img/telephone.png) no-repeat 50% 50%;
+        background-size: contain;
+
+      }
+    }
+    .tb-complaint-phone{
+      color:#ddd;
+      margin: 0 auto;
+    }
+  }
+  .ta-au-submit-btn{
+    height:rem(330px);
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .tb-au-submit{
+      height:rem(92px);
+      width:rem(536px);
+      background: #d00000;
+      border-radius: 5px;
+      line-height: rem(92px);
+      color:#fff;
+    }
+
+  }
+}
