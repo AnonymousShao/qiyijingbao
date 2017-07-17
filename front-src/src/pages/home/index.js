@@ -29,7 +29,7 @@ const Root = () => (
                     {router}
                 </Router>
             </div>
-            <Footer active="user"/>
+            <Footer active="user" />
         </div>
     </Provider>
 );

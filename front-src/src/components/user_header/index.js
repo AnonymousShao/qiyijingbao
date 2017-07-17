@@ -8,10 +8,10 @@ export default class Header extends Component{
             <div>
                 <div className="header-wrap">
                     <div className="up">
-                        <a className ="left edit">编辑</a>
+                        <a className ="left edit"   href="/home_editinfo.html">编辑</a>
                         <div className="right">
-                            <a className="suggest"><i className="icon iconfont icon-tousujianyi"></i><p className="operat">投诉</p></a>
-                            <a className="collect"><i className="icon iconfont icon-tousujianyi"></i><p className="operat">收藏</p></a>
+                            <a className="suggest"  href="/home_sug.html"><i className="icon iconfont icon-tousujianyi"></i><p className="operat">投诉</p></a>
+                            <a className="collect"  href="/home_collect.html"><i className="icon iconfont icon-tousujianyi"></i><p className="operat">收藏</p></a>
                         </div>
                     </div>
                     <div className="down">
@@ -33,13 +33,13 @@ export default class Header extends Component{
                             </div>
                         </div>
                     </div>
-                    <a className="authed"><img src={require('../../assets/images/btn_acc.png')} alt=""/><span>实名认证</span><i className="icon iconfont icon-youjiantou"></i> </a>
+                    <a className="authed" href="/home_auth.html"><img src={require('../../assets/images/btn_acc.png')} alt=""/><span>实名认证</span><i className="icon iconfont icon-youjiantou"></i> </a>
                     <img className="head_bg" src={require('../../assets/images/per_bg_p.png')} alt=""/>
                     <div><img className='bg-rule' src={require('../../assets/images/bg_rule.png')} alt=""/></div>
                 </div>
-                <div className="bid">
+                <div className="bid" href="">
                     <i className="icon iconfont icon-liaotianliebiaozuixiaohua"></i>
-                    <div className="content"><span>恭喜您！</span>成功竞得：xxx中xxx产品XXXvuyfesayu</div>
+                    <a className="content" href="/home_msgbox.html"><span>恭喜您！</span>成功竞得：xxx中xxx产品XXXvuyfesayu</a>
                     <a className="icon iconfont icon-youjiantou"></a>
                 </div>
             </div>

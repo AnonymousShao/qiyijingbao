@@ -19,6 +19,7 @@
       line-height: rem(94px);
       font-size: rem(32px);
       font-weight: 300;
+      color:#fff;
     }
     .right{
       float: right;
@@ -32,6 +33,7 @@
         height: rem(94px);
         float: left;
         text-align: center;
+        color:#fff;
         .icon{
           width: 0;
           height: 0;
@@ -193,6 +195,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: #000;
     span{
       color:#e20001;
       font-weight: 900;
