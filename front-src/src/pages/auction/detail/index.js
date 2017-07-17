@@ -12,7 +12,7 @@ import Similar from '../../../components/similar'
 import {getAuctionDetail, getLatestPrice, submitAuctionWorkPrice,
     getBidRecord, getComments, postComment } from '../../../helper/http/auction'
 import { getSimilar } from '../../../helper/http'
-import { getParameterByName, toThousands } from '../../../helper/query_string'
+import { getParameterByName, toThousands, calcTime } from '../../../helper/query_string'
 import { imageHost } from '../../../helper/config'
 import { bidRule, commissionRule } from '../../../helper/validatorX'
 import Pricing from './pricing'
@@ -114,7 +114,10 @@ class Main extends Component{
         comment: '',
         commentList: [],
         showGroup: false,
-        showShare: false
+        showShare: false,
+        isFinished: false,
+        IsCopper: false,
+        remainingTime: null
     }
 
     style = {
@@ -141,7 +144,9 @@ class Main extends Component{
                     workInfo: data.AuctionoWorkInfo[0],
                     priceLimit: data.Strategy.PriceLimitList,
                     startPrice: data.AuctionoWorkInfo[0].StartPrice,
-                    nowPrice: data.AuctionoWorkInfo[0].NowPrice
+                    nowPrice: data.AuctionoWorkInfo[0].NowPrice,
+                    IsCopper: data.AuctionoWorkInfo[0].IsCopper,
+                    isFinished: data.AuctionoWorkInfo[0].AuctionStatus===3
                 })
                 let similarParams = {
                     ref_workclassno: data.AuctionoWorkInfo[0].WorkClassNo
@@ -166,18 +171,36 @@ class Main extends Component{
                     }
                 })
                 this.getComment()
+
+                this.calculateRemainingTime()
             }
         })
     }
 
+    calculateRemainingTime(){
+        if(this.state.remainingTime===null || this.state.remainingTime>0){
+            this.setState({
+                remainingTime: new Date(this.state.workInfo.EndTime) - new Date()
+            })
+        }
+        setTimeout(()=>this.calculateRemainingTime(), 1000)
+    }
+
     retrieveLatestData(){
+        if(this.state.isFinished) return
         let params = {
             workno: this.state.no
         }
         getLatestPrice(params).then(data=>{
             const latest = JSON.parse(data.NowPrice)
+
+            if(this.state.workInfo.AuctionStatus===2 && this.state.workInfo.IsCopper){
+                this.setState({isFinished: true})
+            }
+
             this.setState({
                 latest,
+                IsCopper: latest.IsCopper,
                 nowPrice: latest.NowPrice,
                 bidPrice: this.state.bidPrice ||latest.NowPrice + bidRule(latest.StartPrice, this.state.priceLimit)
             })
@@ -242,6 +265,8 @@ class Main extends Component{
     }
 
     render(){
+
+
         return (
             <div>
                 <div className="main__menu-wrap">
@@ -262,7 +287,9 @@ class Main extends Component{
                 {this.state.view==='graphic'?<Graphics />:null}
 
                 <div className="board-container auction-info-board">
-                    <p className="remaining">距结束 <span>1天</span></p>
+                    {this.state.isFinished
+                        ?null
+                        : <p className="remaining">距结束 <span>{calcTime(this.state.remainingTime)}</span></p>}
                     <h2 className="title">
                         <span>{this.state.workInfo.AuctionCode + ' ' + this.state.workInfo.Title}</span>
                         <span className="fr remainder">收藏</span>
@@ -285,8 +312,7 @@ class Main extends Component{
                 {/* 价格详情 */}
                 <div className="board-container brt" >
                         <p className="price-info__price">起拍价: ￥ {toThousands(this.state.startPrice)}</p>
-                        <p className="price-info__price">保证金: ￥ 3000</p>
-                        <p className="price-info__now">当前价/成交价: ￥ {toThousands(this.state.nowPrice)}</p>
+                        <p className="price-info__now">{this.state.isFinished?'成交价':'当前价'}: RMB {toThousands(this.state.nowPrice)}</p>
                 </div>
                 <div className="board-container brt" style={{marginBottom: 10}}>
                     <div className="price-info">
@@ -393,11 +419,13 @@ class Main extends Component{
                 </div>
 
                 <Pricing
+                    isFinished={this.state.isFinished}
                     ref="pricing"
                     changePrice={this.changeBidPrice.bind(this)}
                     priceLimit={this.state.priceLimit}
                     biding={this.biding.bind(this)}
                     nowPrice={this.state.nowPrice}
+                    startPrice={this.state.startPrice}
                     bidPrice={this.state.bidPrice}
                 />
             </div>

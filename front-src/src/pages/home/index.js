@@ -24,12 +24,12 @@ const Root = () => (
         <div>
             <Head />
             <Show />
-            <Footer />
             <div style={{padding: '0 25px'}}>
                 <Router>
                     {router}
                 </Router>
             </div>
+            <Footer active="user"/>
         </div>
     </Provider>
 );

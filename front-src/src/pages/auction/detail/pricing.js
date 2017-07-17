@@ -96,7 +96,7 @@ export default class Pricing extends Component{
     }
 
     render(){
-        const commission = bidRule(this.props.nowPrice, this.props.priceLimit),
+        const commission = bidRule(this.props.startPrice, this.props.priceLimit),
             start = parseInt(this.props.nowPrice);
         return (
             <div className="page-pricing-container">
@@ -146,7 +146,9 @@ export default class Pricing extends Component{
                 <div className="auction-action">
                     <span className="action-tel">400-885-1666</span>
                     <a href="/secure_page.html" className="action-2">缴纳保证金</a>
-                    <span className="action-3" onClick={e=>this.setState({view: 'bid'})}>我要出价</span>
+                    {this.props.isFinished
+                        ?<span className="action-3" >已结束</span>
+                        :<span className="action-3" onClick={e=>this.setState({view: 'bid'})}>我要出价</span>}
                 </div>
             </div>
         )
