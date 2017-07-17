@@ -38,7 +38,7 @@ export default class Artists extends Component{
                     <p className="artist-intro-address">{this.state.artistInfo.NativePlace||'中国'}</p>
                     <OverflowDrop
                         className="max-height4 content"
-                        content={this.state.artistInfo.Description}
+                        content={this.state.artistInfo.DESCRIPTION}
                     />
                 </div>:null}
             </div>

@@ -3,13 +3,21 @@ import ReactDOM from 'react-dom'
 import Header from '../../components/header/index'
 import Footer from '../../components/footer/index'
 import { ButtonClassic } from '../../components/button'
+import { getParameterByName } from '../../helper/query_string'
 import classnames from 'classnames'
 import './style.scss'
 
 class Main extends Component{
 
     state={
-        type: '1'
+        type: '1',
+        amount: getParameterByName('amount')
+    }
+
+    componentDidMount(){
+        if(!this.state.amount){
+            alert('缺少金额参数！')
+        }
     }
 
     render(){
@@ -33,7 +41,7 @@ class Main extends Component{
                     <p>您可享受首次缴纳保证金减免500元的优惠。</p>
                 </div>
                 <ul className="choose-board">
-                    <li className="choose-board__title">本次您需要支付的金额为：RMB 4500</li>
+                    <li className="choose-board__title">本次您需要支付的金额为：RMB {this.state.amount}</li>
                     <li className="choose-board__content" onClick={e=>this.setState({type: '1'})}>
                         <i className="iconfont wxpay-icon icon-weixinzhifu" />
                         <span>微信支付</span>
@@ -51,7 +59,7 @@ class Main extends Component{
                     </li>
                 </ul>
                 <div style={{padding: '60px 47px'}}>
-                    <ButtonClassic>确认支付 RMB 4500</ButtonClassic>
+                    <ButtonClassic>确认支付 RMB {this.state.amount}</ButtonClassic>
                 </div>
             </div>
         )

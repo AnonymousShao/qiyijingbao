@@ -8,25 +8,6 @@ export default class ListController extends Component{
         view: 'exhibition'
     }
 
-    itemList = [
-        {
-            name: '',
-            src: require('../../../assets/images/auction/img_CN painting.png')
-        }, {
-            name: '',
-            src: require('../../../assets/images/auction/img_CN painting.png')
-        }, {
-            name: '',
-            src: require('../../../assets/images/auction/img_CN painting.png')
-        }, {
-            name: '',
-            src: require('../../../assets/images/auction/img_CN painting.png')
-        }, {
-            name: '',
-            src: require('../../../assets/images/auction/img_CN painting.png')
-        }
-    ]
-
     render(){
         return (
             <div style={{backgroundColor: 'white'}}>
@@ -37,9 +18,6 @@ export default class ListController extends Component{
                     <span className={"menu-btn " + (this.state.view==='news'?'active':'')}
                           onClick={e=>this.setState({view: 'news'})}
                     >拍品资讯</span>
-                    <span className={"menu-btn " + (this.state.view==='reference'?'active':'')}
-                          onClick={e=>this.setState({view: 'reference'})}
-                    >出价参考</span>
                 </div>
                 <div>
                     <ul>

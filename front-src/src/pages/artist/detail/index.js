@@ -5,7 +5,7 @@ import Footer from '../../../components/footer'
 import './style.scss'
 import Graphics from "../../auction/detail/graphic";
 import Artists from "../../auction/detail/artists";
-import {getArtistDataList} from '../../../helper/http/artist'
+import { getArtistDataList } from '../../../helper/http/artist'
 import { getParameterByName } from '../../../helper/query_string'
 
 

@@ -18,18 +18,23 @@
   background-size: cover;
   padding-top: 70%;
   position: relative;
+  background-position: center center;
+
   .t-card-band{
     left: 0;
     bottom: 0;
     width: 100%;
     color: white;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     line-height: 1.5rem;
     position: absolute;
-    font-weight:normal;
+    font-weight: normal;
     padding-left: 15px;
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.56);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

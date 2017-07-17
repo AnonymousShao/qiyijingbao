@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Popup, Button } from '../button'
+import { Popup,  ButtonClassic,  } from '../button'
 import './style.scss'
 
 export default class BottomUp extends Component{
@@ -44,7 +44,7 @@ export default class BottomUp extends Component{
                         {this.props.children}
                     </div>
                     <div className="bottom-input__foot">
-                        <Button onClick={this.props.onSubmit}>评论</Button>
+                        <ButtonClassic onClick={this.props.onSubmit}>评论</ButtonClassic>
                     </div>
                 </Popup>
             </div>

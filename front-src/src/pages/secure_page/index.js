@@ -8,6 +8,10 @@ import Boxes from "./select";
 
 class Main extends Component{
 
+    state = {
+        value: 100
+    }
+
     render(){
         return (
             <div>
@@ -15,14 +19,17 @@ class Main extends Component{
                     <div className="board-container" style={{overflow: 'hidden'}}>
                         <p>请选择 <span className="main-color">金额</span></p>
                         <div className="select-pad">
-                            <Boxes />
+                            <Boxes
+                                value={this.state.value}
+                                onChange={v=>this.setState({value: v})}
+                            />
                         </div>
-                        <p className="tip">您本次选择的金额为100元，缴纳成功后，您可以竞拍。起拍价RMB 1,000以内的低价竞品3件。</p>
+                        <p className="tip">您本次选择的金额为{this.state.value}元，缴纳成功后，您可以竞拍。起拍价RMB {this.state.value * 10}以内的低价竞品3件。</p>
                         <a className="fr global-info">查看全部<i className="iconfont icon-youjiantou" style={{fontSize: 'inherit'}} /></a>
                     </div>
 
                     <div style={{padding: '60px 50px'}}>
-                        <ButtonClassic onClick={e=>{window.location.href='/pay.html'}}>我已阅读保证金协议</ButtonClassic>
+                        <ButtonClassic onClick={e=>{window.location.href='/pay.html?amount=' + this.state.value}}>我已阅读保证金协议</ButtonClassic>
                     </div>
                 </div>
                 <div>
@@ -38,7 +45,7 @@ const Root = () => {
     return (
         <div>
             <Header />
-            <Main/>
+            <Main />
             <Footer />
         </div>
     )

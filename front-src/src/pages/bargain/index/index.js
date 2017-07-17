@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import Head from '../../../components/search_head'
-import { getHomeAdv } from '../../../helper/http/home'
+import { getHomeAdv } from '../../../helper/http/bargain'
 import Carousel from '../../../components/carousel'
 import { imageHost as imgHost } from '../../../helper/config'
 import Search from '../../../components/search'

@@ -171,7 +171,6 @@ export default class Uploader extends Component {
     handleChange(e) {
         const langs = this.props.lang;
         let _files = e.target.files;
-
         if (_files.length === 0) return;
 
         if (this.props.files.length >= this.props.maxCount) {
@@ -235,16 +234,21 @@ export default class Uploader extends Component {
             [className]: className
         });
 
+        const contentCls = classNames('weui-uploader__input-box', {
+            'content-file': this.props.files && this.props.files.length
+        })
+
         return (
             <div className={cls}>
                 <div className="weui-uploader__hd">
                     <p className="weui-uploader__title">{title}</p>
                 </div>
                 <div className="weui-uploader__bd">
-                    <ul className="weui-uploader__files">
-                        {this.renderFiles()}
-                    </ul>
-                    <div className="weui-uploader__input-box">
+                    <div className={contentCls}
+                         style={
+                             this.props.files && this.props.files.length
+                                 ? {backgroundImage: `url(${this.props.files[0].url})`}
+                                 :null}>
                         <input
                             ref="uploader"//let react to reset after onchange
                             className="weui-uploader__input"

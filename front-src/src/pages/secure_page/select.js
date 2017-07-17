@@ -37,13 +37,11 @@ export default class Boxes extends Component{
     }
 
     state = {
-        value: 100
+        value: this.props.value
     }
 
     handleChange(value){
-        this.setState({
-            value
-        })
+        this.props.onChange(value)
     }
 
     render(){
@@ -53,20 +51,20 @@ export default class Boxes extends Component{
                     {[100, 500, 1000].map(amount=>{
                         return <Box value={amount}
                                     onChange={this.handleChange}
-                                    selected={amount===this.state.value}/>
+                                    selected={amount===this.props.value}/>
                     })}
                 </div>
                 <div className="boxes-container" style={{color: '#f05e1c'}}>
                     {[5000, 10000, 30000].map(amount=>{
                         return <Box value={amount}
                                     onChange={this.handleChange}
-                                    selected={amount===this.state.value}/>
+                                    selected={amount===this.props.value}/>
                     })}
                 </div>
                 <div style={{marginLeft: 10}}>
                     <Box value={50000}
                          onChange={this.handleChange}
-                         selected={50000===this.state.value}/>
+                         selected={50000===this.props.value}/>
                     <span />
                 </div>
             </div>

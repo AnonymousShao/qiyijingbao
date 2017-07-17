@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import setTitle from '../../helper/fix-title'
 import validator from 'validator'
 import {isValidPassword} from '../../helper/validatorX'
-import { Button } from '../../components/button'
+import { ButtonClassic } from '../../components/button'
 import {sendResetCode, resetPwd} from '../../helper/http'
 
 const phone = 'PHONE',
@@ -120,9 +120,9 @@ export default class Register extends Component{
                            isError={this.state[code+'isError']}
                            onChange={this.handleChange.bind(this, code)} />
                 </div>
-                <Button className="login-submit"
-                        style={{backgroundImage: `url(${require('../../assets/images/btn_1.png')}`}}
-                        onClick={this.dealData.bind(this)}>登录</Button>
+                <ButtonClassic
+                    className="login-submit"
+                    onClick={this.dealData.bind(this)}>登录</ButtonClassic>
                 <div className="ft-action">
                     <Link className="u-line" to="/login">登录</Link>
                     <Link className="u-line" to="/register">注册</Link>

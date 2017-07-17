@@ -59,4 +59,12 @@ button.weui-btn.weui-btn_default {
   width: 77px;
   height: 77px;
   border: 1px solid #d9d9d9;
+  background-size: 100%;
+
+  &.content-file:after, &.content-file:before{
+    content: none;
+  }
+  &.content-file{
+    border: none;
+  }
 }

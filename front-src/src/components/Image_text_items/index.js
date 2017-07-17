@@ -81,12 +81,15 @@ export class Type4 extends Component{
                         <img src={imageHost + this.props.APPImgUrl} alt=""/>
                     </div>
                     <div className="text_container">
-                        <h3 className="main-name">{this.props.WorkClassName} <span className="fc-weak">({this.props.ArtistName})</span></h3>
-                        <p className="sub-name">{this.props.Title}</p>
+                        <h3 className="main-name">{this.props.Title} <span className="fc-weak">({this.props.ArtistName})</span></h3>
+                        <p className="sub-name">{this.props.AuctionCode}</p>
                         <p className="price">
                             估价 <span> RMB {toThousands(this.props.MinEvaluationPrice)} - {toThousands(this.props.MaxEvaluationPrice)}</span>
                         </p>
-                        <p className="tip-ft"><strong>{this.props.AuctionCount}</strong>次出价</p>
+                        <p className="tip-ft">
+                            <strong>{this.props.AuctionCount}</strong>次出价
+                            <strong>{this.props.BrowseCount}</strong>次围观
+                        </p>
                     </div>
                 </a>
             </li>

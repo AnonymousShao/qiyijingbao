@@ -5,6 +5,7 @@ import Footer from '../../../components/footer'
 import { Select, FormCell, CellHeader, CellBody, Input} from '../../../components/button'
 import UpOrDown from "../../../components/up_or_down/index";
 import CardBoard from "../../../components/card/index";
+import { getBargainList } from '../../../helper/http/bargain'
 import { getParameterByName } from '../../../helper/query_string'
 
 require('./style.scss')
@@ -13,13 +14,26 @@ require('./style.scss')
 class Main extends Component{
 
     state = {
-        dataList: [{},{},{},{},{},{},{}],
+        BargainWorkList: [],
         secondMenuList: [],
         belongId: parseInt(getParameterByName('type')),
     }
 
     constructor(props){
         super(props)
+    }
+
+    componentDidMount(){
+        let params = {
+            classNo: this.state.belongId
+        }
+        getBargainList(params).then(data=>{
+            if(data){
+                this.setState({
+                    BargainWorkList: data.BargainWorkList
+                })
+            }
+        })
     }
 
     handleChangeClass(){
@@ -68,11 +82,11 @@ class Main extends Component{
                             <UpOrDown title="热度" value={this.state.price} onChange={this.handleUpDownChange.bind(this, 'price')}/>
                             <UpOrDown title="起议价" value={this.state.year} onChange={this.handleUpDownChange.bind(this, 'year')}/>
                             <UpOrDown title="剩余时间" value={this.state.year} onChange={this.handleUpDownChange.bind(this, 'year')}/>
-                            <span className="" style={{lineHeight: '2.1rem'}}>共 <span className="main-color">{this.state.dataList.length}</span>件作品</span>
+                            <span className="" style={{lineHeight: '2.1rem'}}>共 <span className="main-color">{this.state.BargainWorkList.length}</span>件作品</span>
                         </div>
                     </div>
                     <div style={{marginTop: 10}}>
-                        <CardBoard type="2" cardlist={this.state.dataList} />
+                        <CardBoard type="2" cardlist={this.state.BargainWorkList} />
                     </div>
                 </div>
             </div>

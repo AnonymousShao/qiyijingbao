@@ -1,2 +1,25 @@
 @import "../../../style/common";
 
+.weui-label{
+  font-size: 0.9rem;
+  color: #333333;
+}
+
+.weui-input{
+  font-size: 0.9rem;
+}
+
+.weui-select{
+  font-size: 1rem;
+}
+
+.required{
+  color: #e20001;
+}
+
+.weui-vcode-btn{
+  color: #ea5b3d;
+  padding: 0 16px;
+  font-size: 0.8rem;
+  text-decoration: underline;
+}

@@ -5,7 +5,6 @@ import Footer from '../../../components/footer/index'
 import Exhibition from "../detail/exhibition";
 import { getWorkInfo } from '../../../helper/http/work'
 import { getParameterByName , toThousands } from '../../../helper/query_string'
-import MoreImage from "../../../components/more_image/index";
 import './style.scss'
 
 class Main extends Component{

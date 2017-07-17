@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import setTitle from '../../helper/fix-title'
 import validator from 'validator'
 import {isValidPassword} from '../../helper/validatorX'
-import {Button} from '../../components/button'
+import { ButtonClassic} from '../../components/button'
 import { register, sendSMS } from '../../helper/http'
 
 const phone = 'PHONE',
@@ -141,9 +141,9 @@ export default class Register extends Component{
                            isError={this.state[code+'isError']}
                            onChange={this.handleChange.bind(this, code)} />
                 </div>
-                <Button className={"login-submit " + (this.state.checked?'':'login-disabled')}
-                        style={{backgroundImage: `url(${require('../../assets/images/btn_1.png')}`}}
-                        onClick={this.dealData.bind(this)}>注册</Button>
+                <ButtonClassic
+                    className={"login-submit " + (this.state.checked?'':'login-disabled')}
+                    onClick={this.dealData.bind(this)}>注册</ButtonClassic>
                 <div className="ft-action">
                     <span>
                         <CheckBox checked={this.state.checked} onChange={this.handleChange.bind(this, 'checked')}/>

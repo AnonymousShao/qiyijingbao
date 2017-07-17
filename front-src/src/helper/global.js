@@ -7,4 +7,4 @@ export const classes = [
     {name: '工艺杂项', type: '', no: 6},
     {name: '古典家具', type: '', no: 7},
     {name: '佛教珍藏', type: '', no: 8}
-    ]
+]

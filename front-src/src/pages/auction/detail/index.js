@@ -34,7 +34,7 @@ class Actions extends Component{
             <div>
                 <ButtonArea direction="horizontal">
                     <Button size="small" type='primary'
-                            onClick={this.handleClick.bind(this, 'notice')}>竞拍须知</Button>
+                            onClick={e=>window.location.href='/docs_notice.html'}>竞拍须知</Button>
                     <Button size="small" type='default'
                             onClick={e=>window.location.href='/auction_info.html?no='+this.props.info.WorkNO}>拍品详情</Button>
                     <Button size="small" type='default'
@@ -147,18 +147,18 @@ class Main extends Component{
                     ref_workclassno: data.AuctionoWorkInfo[0].WorkClassNo
                 }
                 getSimilar(similarParams).then(data=>{
-                    if(!data){return}
+                    if(!data) return
                     this.setState({
                         similarList: data.ArtistExponent
                     })
                     this.retrieveLatestData()
                 })
 
-                let recordParms = {
+                let recordParams = {
                     AuctionNO: data.AuctionoWorkInfo[0].AuctionNO,
                     AuctionWorkNO: this.state.no
                 }
-                getBidRecord(recordParms).then(data=>{
+                getBidRecord(recordParams).then(data=>{
                     if(data){
                         this.setState({
                             bidRecord: data.AuctionWorkBidList
@@ -230,6 +230,7 @@ class Main extends Component{
         }
         postComment(params).then(data=>{
             this.refs.comment.hide()
+            this.setState({comment: ''})
             this.getComment()
         })
     }
@@ -263,12 +264,12 @@ class Main extends Component{
                 <div className="board-container auction-info-board">
                     <p className="remaining">距结束 <span>1天</span></p>
                     <h2 className="title">
-                        <span>{this.state.workInfo.Title}</span>
+                        <span>{this.state.workInfo.AuctionCode + ' ' + this.state.workInfo.Title}</span>
                         <span className="fr remainder">收藏</span>
                     </h2>
-                    <p className="name">{this.state.workInfo.ArtistName}</p>
+                    <p className="name">{this.state.workInfo.ArtistName}（b.{this.state.workInfo.Birthday}）</p>
                     <p className="info">{this.state.workInfo.Specifications}</p>
-                    {/*<p className="info">(假数据)设色纸本 立轴 2006年作</p>*/}
+                    <p className="info">(假数据)设色纸本 立轴 {this.state.workInfo.CreationTime}作</p>
                     <p className="price">估价： RMB {toThousands(this.state.workInfo.MinEvaluationPrice)} - {toThousands(this.state.workInfo.MaxEvaluationPrice)}</p>
                 </div>
 

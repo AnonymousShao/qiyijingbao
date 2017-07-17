@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import setTitle from '../../helper/fix-title'
 import validator from 'validator'
 import { isValidPassword } from '../../helper/validatorX'
-import { Button, Dialog } from '../../components/button'
+import { ButtonClassic, Dialog } from '../../components/button'
 import { login } from '../../helper/http'
 import Toast from '../../components/toast'
 
@@ -127,9 +127,7 @@ export default class Register extends Component{
                            placeholder="请输入图形验证码"
                            onChange={this.handleChange.bind(this, imgCode)}/>
                 </div>
-                <Button className="login-submit"
-                        style={{backgroundImage: `url(${require('../../assets/images/btn_1.png')}`}}
-                        onClick={this.dealData.bind(this)}>登录</Button>
+                <ButtonClassic className="login-submit" onClick={this.dealData.bind(this)}>登录</ButtonClassic>
                 <div className="ft-action">
                     <Link className="u-line" to="/reset">忘记密码</Link>
                     <Link className="u-line" to="/register">注册账号</Link>
