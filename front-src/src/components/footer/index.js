@@ -38,7 +38,7 @@ export default class Footer extends Component{
         srcOn: require('../../assets/images/footer/tab_personal_pre@2x.png'),
         srcOff: require('../../assets/images/footer/tab_personal@2x.png'),
         name: '我的',
-        url: '',
+        url: '/home.html',
         key: 'user'
     }]
 

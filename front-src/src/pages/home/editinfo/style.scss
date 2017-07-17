@@ -55,7 +55,7 @@
           width:100%;
           height:rem(50px);
           bottom:-2px;
-          background: url(../img/shiming.jpg) no-repeat 50% 0;
+          background: url(../../../assets/images/shiming.jpg) no-repeat 50% 0;
           background-size: contain;
           z-index: 2;
         }
@@ -145,7 +145,7 @@
     padding-left: rem(30px);
     height: rem(86px);
     border-bottom: 1px solid #dddddd;
-    background: url(../img/next.png) no-repeat right 50%;
+    background: url(../../../assets/images/next.png) no-repeat right 50%;
   }
   .tb-line{
     border-top: 1px solid #dddddd;
@@ -165,7 +165,7 @@
 
   }
   .tb-input-birthday{
-    background: url(../img/next.png) no-repeat right 50%;
+    background: url(../../../assets/images/next.png) no-repeat right 50%;
   }
   .tb-input-title{
     color:#333;
