@@ -19,8 +19,9 @@
     display: flex;
     height: 70px;
     box-sizing: border-box;
-    div{
+    a{
       flex: 1;
+      display: block;
       text-align:center;
       .icon{
         margin: 7px auto 0;

@@ -17,7 +17,7 @@ class EditInfo extends React.Component {
         return (
             <section className="tb-content">
                 <header className="tb-header">
-                    <a href="" className="return-back"><img src={require('../../../assets/images/back.png')} alt=""/></a>
+                    <a href="/home.html" className="return-back"><img src={require('../../../assets/images/back.png')} alt=""/></a>
                     <a href="">编辑个人资料</a>
                     <a href=""></a>
                 </header>

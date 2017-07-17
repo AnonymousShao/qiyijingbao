@@ -24,7 +24,7 @@ const Root = () => (
         <div>
             <Head />
             <Show />
-            <Footer />
+            <Footer active="user" />
             <div style={{padding: '0 25px'}}>
                 <Router>
                     {router}

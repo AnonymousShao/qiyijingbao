@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux';
 import {store} from '../../../reduxes/store'
 
+import Footer from '../../../components/footer';
 import '../common.scss'
 import './style.scss'
 
@@ -72,36 +73,6 @@ class MsgBox extends React.Component {
                             </p>
                             <p className="ta-message-content">这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容</p>
                         </li>
-                        <li className="tb-message-item">
-                            <p className="tb-message-title">
-                                <span className="ta-message-time">04-5 15:14</span>
-                            </p>
-                            <p className="ta-message-content">这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容</p>
-                        </li>
-                        <li className="tb-message-item">
-                            <p className="tb-message-title">
-                                <span className="ta-message-time">04-5 15:14</span>
-                            </p>
-                            <p className="ta-message-content">这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容</p>
-                        </li>
-                        <li className="tb-message-item">
-                            <p className="tb-message-title">
-                                <span className="ta-message-time">04-5 15:14</span>
-                            </p>
-                            <p className="ta-message-content">这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容</p>
-                        </li>
-                        <li className="tb-message-item">
-                            <p className="tb-message-title">
-                                <span className="ta-message-time">04-5 15:14</span>
-                            </p>
-                            <p className="ta-message-content">这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容</p>
-                        </li>
-                        <li className="tb-message-item">
-                            <p className="tb-message-title">
-                                <span className="ta-message-time">04-5 15:14</span>
-                            </p>
-                            <p className="ta-message-content">这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容这是一段内容</p>
-                        </li>
                     </ul>
                 </section>
             </section>
@@ -121,6 +92,7 @@ const Root = () => (
     <Provider store={store}>
         <div>
             <MsgBox/>
+            <Footer/>
             <div style={{padding: '0 25px'}}>
                 <Router>
                     {router}

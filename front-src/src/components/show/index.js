@@ -9,74 +9,74 @@ export default class Show extends Component{
                <div className="auction">
                    <div className="title">我的竞价</div>
                    <div className="content">
-                       <div className="bidding">
+                       <a className="bidding" href="/home_bid.html#/bidding">
                            <p className="icon"><img src={require('../../assets/images/per_ic_auction@2x.png')} alt=""/></p>
                            <p className="icon-title">竞拍中</p>
-                       </div>
-                       <div className="bid-history">
+                       </a>
+                       <a className="bid-history"  href="/home_bid.html#/bidhistory">
                            <p className="icon"><img src={require('../../assets/images/per_ic_auction-h@2x.png')}/></p>
                            <p className="icon-title">竞拍历史</p>
-                       </div>
-                       <div className="bid-success">
+                       </a>
+                       <a className="bid-success"  href="/home_bid.html#/bidsuc">
                            <p className="icon"><img src={require('../../assets/images/per_ic_auction-s@2x.png')} alt=""/></p>
                            <p className="icon-title">竞拍成功</p>
-                       </div>
+                       </a>
                    </div>
                </div>
                <div className="bargin">
                    <div className="title">我的议价</div>
                    <div className="content">
-                       <div className="bidding">
+                       <a className="bidding"  href="/home_bargin.html">
                            <p className="icon"><img src={require('../../assets/images/per_ic_bar@2x.png')} alt=""/></p>
                            <p className="icon-title">议价中</p>
-                       </div>
-                       <div className="bid-history">
+                       </a>
+                       <a className="bid-history"  href="/home_bargin.html">
                            <p className="icon"><img src={require('../../assets/images/per_ic_bar-h@2x.png')} alt=""/></p>
                            <p className="icon-title">出价历史</p>
-                       </div>
-                       <div className="bid-success">
+                       </a>
+                       <a className="bid-success"  href="/home_bargin.html">
                            <p className="icon"><img src={require('../../assets/images/per_ic_bar-s@2x.png')} alt=""/></p>
                            <p className="icon-title">议价成功</p>
-                       </div>
+                       </a>
                    </div>
                </div>
                <div className="operations">
                    <div className="title">实用操作</div>
                    <div className="content">
-                       <div className="case">
+                       <a className="case">
                            <p className="icon iconfont icon-baozhengjin"></p>
                            <p className="icon-title">保证金充值</p>
-                       </div>
-                       <div className="record">
+                       </a>
+                       <a className="record">
                            <p className="icon iconfont icon-jilu"></p>
                            <p className="icon-title">充值记录</p>
-                       </div>
-                       <div className="addr">
+                       </a>
+                       <a className="addr">
                            <p className="icon iconfont icon-dizhi"></p>
                            <p className="icon-title">收获地址</p>
-                       </div>
-                       <div className="pwd">
+                       </a>
+                       <a className="pwd">
                            <p className="icon iconfont icon-ai-password"></p>
                            <p className="icon-title">修改密码</p>
-                       </div>
+                       </a>
                    </div>
                    <div className="content">
-                       <div className="refund">
+                       <a className="refund">
                            <p className="icon iconfont icon-tuikuan"></p>
                            <p className="icon-title">保证金退款</p>
-                       </div>
-                       <div className="record-refund">
+                       </a>
+                       <a className="record-refund">
                            <p className="icon iconfont icon-jilu1"></p>
                            <p className="icon-title">退款记录</p>
-                       </div>
-                       <div className="delgate">
+                       </a>
+                       <a className="delgate">
                            <p className="icon iconfont icon-weituo"></p>
                            <p className="icon-title">委托记录</p>
-                       </div>
-                       <div className="help">
+                       </a>
+                       <a className="help">
                            <p className="icon iconfont icon-bangzhuzhongxin"></p>
                            <p className="icon-title">帮助中心</p>
-                       </div>
+                       </a>
                    </div>
                </div>
                <div className="ad">

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux';
 import {store} from '../../../reduxes/store'
-
+import Footer from '../../../components/footer';
 import '../common.scss'
 import './style.scss'
 
@@ -67,6 +67,7 @@ const Root = () => (
     <Provider store={store}>
         <div>
             <Auth/>
+            <Footer/>
             <div style={{padding: '0 25px'}}>
                 <Router>
                     {router}

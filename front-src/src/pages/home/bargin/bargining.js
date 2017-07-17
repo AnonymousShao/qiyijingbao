@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import {store} from '../../../reduxes/store'
 
 import Footer from '../../../components/footer';
-import './style.scss'
+import './bargining/style.scss'
 
 import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 
