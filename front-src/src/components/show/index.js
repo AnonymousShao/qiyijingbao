@@ -43,37 +43,37 @@ export default class Show extends Component{
                <div className="operations">
                    <div className="title">实用操作</div>
                    <div className="content">
-                       <a className="case">
+                       <a className="case" href="/operation_addcash.html">
                            <p className="icon iconfont icon-baozhengjin"></p>
                            <p className="icon-title">保证金充值</p>
                        </a>
-                       <a className="record">
+                       <a className="record" href="/operation_record.html">
                            <p className="icon iconfont icon-jilu"></p>
                            <p className="icon-title">充值记录</p>
                        </a>
-                       <a className="addr">
+                       <a className="addr" href="/operation_addr.html">
                            <p className="icon iconfont icon-dizhi"></p>
                            <p className="icon-title">收获地址</p>
                        </a>
-                       <a className="pwd">
+                       <a className="pwd" href="/home_updatepwd.html">
                            <p className="icon iconfont icon-ai-password"></p>
                            <p className="icon-title">修改密码</p>
                        </a>
                    </div>
                    <div className="content">
-                       <a className="refund">
+                       <a className="refund" href="/operation_cashoffline.html">
                            <p className="icon iconfont icon-tuikuan"></p>
                            <p className="icon-title">保证金退款</p>
                        </a>
-                       <a className="record-refund">
+                       <a className="record-refund" href="/operation_refund.html">
                            <p className="icon iconfont icon-jilu1"></p>
                            <p className="icon-title">退款记录</p>
                        </a>
-                       <a className="delgate">
+                       <a className="delgate" href="/operation_entrust.html">
                            <p className="icon iconfont icon-weituo"></p>
                            <p className="icon-title">委托记录</p>
                        </a>
-                       <a className="help">
+                       <a className="help" href="/operation_help.html">
                            <p className="icon iconfont icon-bangzhuzhongxin"></p>
                            <p className="icon-title">帮助中心</p>
                        </a>
