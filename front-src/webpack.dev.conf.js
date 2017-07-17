@@ -11,7 +11,9 @@ const find = require('./config/find_entry').find
 const isProd = process.env.NODE_ENV==='production'
 
 let webpackConfig = {
-    entry: find('./src/pages/**/index.js'),
+    entry: find('./src/pages/**/index.js', {
+        // ignore: './src/pages/home/**'
+    }),
     resolve: {
         extensions: ['.js', '.jsx'],
     },

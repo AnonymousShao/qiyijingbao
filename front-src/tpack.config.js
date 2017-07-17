@@ -1,9 +1,15 @@
 const tPack = require('./config/resource_html')
 const find = require('./config/find_entry').find
 
+console.log(find('./src/pages/**/*.html', {
+    // ignore: './src/pages/home/**'
+}))
+
 let options = {
     context: '.',
-    entry: find('./src/pages/**/*.html'),
+    entry: find('./src/pages/**/*.html', {
+        ignore: './src/pages/home/'
+    }),
     output: {
         path: 'dist',
         publicAssets: 'dist/statics/',
