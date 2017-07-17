@@ -2,7 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux';
 import {store} from '../../../reduxes/store'
-require('./style.scss');
+import Footer from '../../../components/footer'
+import './style.scss';
 
 import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 
@@ -15,7 +16,7 @@ class Bid extends React.Component {
         return (
             <section className="tb-content">
                 <header className="tb-header">
-                    <a href="" className="return-back"><img src="img/back.png" alt=""/></a>
+                    <a href="" className="return-back"><img src={require('../../../assets/images/bg_rule.png')} alt=""/></a>
                     <a href="">我的收藏</a>
                     <a href=""></a>
                 </header>
@@ -149,6 +150,7 @@ const Root = () => (
     <Provider store={store}>
         <div>
             <Bid />
+            <Footer active="user"/>
             <div style={{padding: '0 25px'}}>
                 <Router>
                     {router}

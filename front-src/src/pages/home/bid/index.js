@@ -92,7 +92,7 @@ const Root = () => (
     <Provider store={store}>
         <div>
             <Bid />
-            <Footer/>
+            <Footer active="user"/>
         </div>
     </Provider>
 );

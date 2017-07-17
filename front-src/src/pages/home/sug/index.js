@@ -67,7 +67,7 @@ const Root = () => (
     <Provider store={store}>
         <div>
             <Sug/>
-            <Footer/>
+            <Footer active="user"/>
 
             <div style={{padding: '0 25px'}}>
                 <Router>
