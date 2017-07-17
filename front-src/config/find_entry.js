@@ -1,9 +1,10 @@
 const glob = require('glob')
 
 
-module.exports.find = function(pattern){
+module.exports.find = function(pattern, options){
+    options = options || {}
     const entry = {};
-    const files = glob.sync(pattern)
+    const files = glob.sync(pattern, options)
 
     files.forEach(file=>{
         const pathPartial = file.split('/')
