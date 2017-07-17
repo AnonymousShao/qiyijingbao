@@ -56,19 +56,19 @@
       }
     }
     .ta-message-bidding{
-      background: url(../img/tab_bid@2x.png) no-repeat 50% 50%;
+      background: url(../../../assets/images/tab_bid@2x.png) no-repeat 50% 50%;
       background-size: contain;
     }
     .ta-message-bargain{
-      background: url(../img/tab_neg@2x.png) no-repeat 50% 50%;
+      background: url(../../../assets/images/tab_neg@2x.png) no-repeat 50% 50%;
       background-size: contain;
     }
     .ta-message-fund{
-      background: url(../img/money.png) no-repeat 50% 50%;
+      background: url(../../../assets/images/money.png) no-repeat 50% 50%;
       background-size: contain;
     }
     .ta-message-sys{
-      background: url(../img/services.png) no-repeat 50% 50%;
+      background: url(../../../assets/images/services.png) no-repeat 50% 50%;
       background-size: contain;
     }
   }
@@ -126,6 +126,6 @@
   width:rem(60px);
   height:rem(60px);
   border-radius: 50%;
-  background: #8d8d8d url(../img/scrollTop.png) no-repeat 50% 50%;
+  background: #8d8d8d url(../../../assets/images/scrollTop.png) no-repeat 50% 50%;
   background-size: contain;
 }

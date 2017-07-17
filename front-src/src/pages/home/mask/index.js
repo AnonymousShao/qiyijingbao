@@ -18,7 +18,7 @@ class Mask extends React.Component {
             <div>
                 <section className="tb-content">
                     <header className="tb-header">
-                        <a href="" className="return-back"><img src="img/back.png" alt=""/></a>
+                        <a href="" className="return-back"><img src={require('../../../assets/images/back.png')} alt=""/></a>
                         <a href="">我的收藏</a>
                         <a href=""></a>
                     </header>
