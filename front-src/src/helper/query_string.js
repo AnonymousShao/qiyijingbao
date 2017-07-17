@@ -30,3 +30,17 @@ export function toThousands(num) {
     if (num) { result = num + result; }
     return result;
 }
+
+export function calcTime(timeStamp) {
+    if(!timeStamp) return ''
+    timeStamp = timeStamp / 1000
+    const day = 86400, hour = 3600, minute = 60, second = 1
+    let days = Math.floor(timeStamp / day)
+        timeStamp = timeStamp - days * day
+    let hours = Math.floor(timeStamp / hour)
+        timeStamp = timeStamp - hours * hour
+    let  minutes = Math.floor(timeStamp / minute)
+        timeStamp = timeStamp - minutes * minute
+    let seconds = Math.floor(timeStamp / second)
+    return `${days}天${hours}小时${minutes}分${seconds}秒`
+}
