@@ -13,12 +13,13 @@ router.get('/getHomeAdv', async function (ctx) {
 router.get('/getBargainList', async function (ctx) {
     let params = {
         workclassno: ctx.request.query.classNo,
-        // priceZoneLeft: "",
-        // priceZoneRight:'',
-        // key:'',
+        priceZoneLeft: ctx.request.query.min || 0,
+        priceZoneRight: ctx.request.query.max || null,
+        key: ctx.request.query.key || null,
         rows: 1000,
         page: 1
     }
+    console.log(params)
     ctx.body = await bargain(params)
 })
 

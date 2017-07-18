@@ -17,6 +17,7 @@
     "classnames": "^2.2.5",
     "echarts-for-react": "^1.4.4",
     "iscroll": "^5.2.0",
+    "jweixin": "^1.0.0",
     "postcss": "^6.0.6",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",

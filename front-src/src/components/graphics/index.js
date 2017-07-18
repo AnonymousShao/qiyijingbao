@@ -4,6 +4,40 @@ import echarts from 'echarts'
 
 export default class Graphics extends Component{
 
+    state = {
+        labels: [],
+        maxPriceList: [],
+        minPriceList: [],
+        avrPriceList: []
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.updateData(nextProps)
+    }
+
+    componentDidMount(){
+        this.updateData(this.props)
+    }
+
+    updateData(props){
+        const list = props.ArtistExponent
+        if(list){
+            const labels = [],
+                maxPriceList = [],
+                minPriceList = [],
+                avrPriceList = [];
+            list.forEach(item=>{
+                labels.push(item.ExponentTime)
+                maxPriceList.push(item.MaxAmount)
+                minPriceList.push(item.MinAmount)
+                avrPriceList.push(item.AvgAmount)
+            })
+            this.setState({
+                labels, maxPriceList, minPriceList, avrPriceList
+            })
+        }
+    }
+
     render(){
         const option = {
             title: {
@@ -41,7 +75,7 @@ export default class Graphics extends Component{
                 type: 'category',
                 name:'',
                 boundaryGap: false,
-                data: this.props.dataSet.labels
+                data: this.state.labels
             },
             yAxis: {
                 type: 'value',
@@ -58,20 +92,21 @@ export default class Graphics extends Component{
                 {
                     name:'最高',
                     type:'line',
-                    data: this.props.dataSet.maxPriceList
+                    data: this.state.maxPriceList
                 },
                 {
                     name:'均价',
                     type:'line',
-                    data: this.props.dataSet.avrPriceList
+                    data: this.state.avrPriceList
                 },
                 {
                     name:'最低',
                     type:'line',
-                    data: this.props.dataSet.minPriceList
+                    data: this.state.minPriceList
                 }
             ]
-        };
+        }
+
         return (
             <div>
                 <ReactEcharts

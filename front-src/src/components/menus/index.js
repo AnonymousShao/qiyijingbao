@@ -22,38 +22,6 @@ export default class Menus extends Component{
             {name: '佛教珍藏', type: '', no: 8}]
     ]
 
-    style = {
-        wrap: {
-            display: 'flex',
-            flexFlow: 'noWrap',
-        },
-        title: {
-            width: document.body.clientWidth / 4,
-            flexShrink: 0,
-            textAlign: 'center',
-            padding: '10px 0'
-        },
-        arrow: {
-            position: 'relative',
-        },
-        arrowRev: {
-            padding: '10px 2px',
-            position: 'absolute',
-            left: 0, top: 0,
-            height: '100%',
-            boxSizing: 'border-box',
-            zIndex: 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.05)'
-        },
-        arrowImg: {
-            top: '50%',
-        }
-    }
-
-    handleClick(action){
-        this.refs.carousel[action]()
-    }
-
     onAfterChange(target){
         this.setState({
             currentPage: target
@@ -86,6 +54,54 @@ export default class Menus extends Component{
                           onBeforeChange={this.onBeforeChange.bind(this)}
                           onAfterChange={this.onAfterChange.bind(this)}>
                     {this.menu.map(m=>(
+                        <div>
+                            <div className="menu-wrap">
+                                {m.map(mm=>(
+                                    <span onClick={this.changeMenu.bind(this, mm)} className={'menu-title'}>
+                                        <span className={'title ' + (mm.no===this.state.currentNo?'active':'')}>{mm.name}</span>
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    ))}</Carousel>
+            </div>
+        )
+    }
+}
+
+export class MenuList extends Component{
+
+    state = {
+        currentPage: parseInt(this.props.no) > 4?1:0,
+        currentNo: parseInt(this.props.no) || 1
+    }
+
+    onAfterChange(target){
+        this.setState({
+            currentPage: target
+        })
+    }
+
+    changeMenu(item){
+        this.setState({
+            currentNo: item.no
+        })
+        this.props.onChange(item)
+    }
+
+    render(){
+        const settings = {
+            dots: false,
+            infinite: false,
+            slidesToShow: 1,
+            initialSlide: this.state.currentPage,
+            slidesToScroll: 1
+        }
+        return (
+            <div className="brb" style={{position: 'relative', backgroundColor: 'white'}}>
+                <Carousel ref='carousel' settings={settings}
+                          onAfterChange={this.onAfterChange.bind(this)}>
+                    {this.props.list.map(m=>(
                         <div>
                             <div className="menu-wrap">
                                 {m.map(mm=>(

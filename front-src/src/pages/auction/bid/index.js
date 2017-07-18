@@ -6,7 +6,8 @@ import './style.scss'
 import CardBoard from "../../../components/card/index";
 import { CellBody, CellHeader, Select, Input, FormCell } from '../../../components/button'
 import UpOrDown from "../../../components/up_or_down/index";
-import { getSimilar, getWorkClass } from '../../../helper/http'
+import { getSimilar } from '../../../helper/http'
+import { getWorkClass, getWorkList } from '../../../helper/http/similar'
 
 class Main extends Component{
     state = {
@@ -15,19 +16,27 @@ class Main extends Component{
         theme: '',
         price: undefined,
         year: undefined,
-        workClass: '-1',
+        workClass: '',
         menuList: [],
         belongId: 1,
-        secondMenuList: []
+        secondMenuList: [],
+        WorkSimilarList: []
     }
 
     componentDidMount(){
         this.submit()
-        getWorkClass().then(data=>{
+        this.queryWorkClass()
+    }
+
+    queryWorkClass(){
+        let params = {
+            belongClassNo: this.state.belongId
+        }
+        getWorkClass(params).then(data=>{
             if(data){
                 this.setState({
-                    secondMenuList: data.WorkClass,
-                    workClass: '-1'
+                    secondMenuList: data.WorkClassInfo,
+                    workClass: ''
                 })
             }
         })
@@ -37,7 +46,7 @@ class Main extends Component{
         let result = this.state.dataList.slice()
         if(type==='price'){
             result = this.state.dataList.sort((p, i)=>{
-                return (value?1:-1) * (p.sortPrice - i.sortPrice)
+                return (value?1:'') * (p.sortPrice - i.sortPrice)
             })
             this.setState({
                 year: undefined
@@ -45,7 +54,7 @@ class Main extends Component{
         }
         if(type==='year'){
             result = this.state.dataList.sort((p, i)=>{
-                return (value?1:-1) * (p.sortYear - i.sortYear)
+                return (value?1:'') * (p.sortYear - i.sortYear)
             })
             this.setState({
                 price: undefined
@@ -72,23 +81,25 @@ class Main extends Component{
     submit(){
         let params = {
             theme: this.state.theme,
-            // ref_artistno: this.state.ref_artistno,
-            ref_workclassno: this.state.workClass!=='-1'?this.state.workClass:null
+            belongClassNo: this.state.belongId,
+            workclassno: this.state.workClass
         }
-        getSimilar(params).then(data=>{
-            let list = data.ArtistExponent
+        getWorkList(params).then(data=>{
+            let list = data.WorkSimilarList
             list.forEach(item=>{
                 item.sortYear = 0.5 * parseInt(item.ArtistBirthYear) + 0.5 * parseInt(item.ArtistDeathYear || new Date().getFullYear())
                 item.sortPrice = 0.5 * (item.MinEvaluationPrice + item.MaxEvaluationPrice)
             })
-            this.setState({dataList: data.ArtistExponent})
+            this.setState({
+                dataList: data.WorkSimilarList,
+            })
         })
     }
 
     handleChangeClass(item){
         this.setState({
             belongId:item.no
-        })
+        }, e=>this.queryWorkClass())
     }
 
     render(){
@@ -98,8 +109,8 @@ class Main extends Component{
                 <FormCell select selectPos="before" style={{backgroundColor: 'white'}}>
                     <CellHeader>
                         <Select onChange={this.handleSelectChange.bind(this)}>
-                            <option value="-1">全部</option>
-                            {this.state.secondMenuList.filter(second=>{return (second.BelongID===this.state.belongId)}).map(second=>(<option value={second.NO}>{second.Name}</option>))}
+                            <option value="">全部</option>
+                            {this.state.secondMenuList.map(second=>(<option value={second.NO}>{second.FULLNAME}</option>))}
                         </Select>
                     </CellHeader>
                     <CellBody>

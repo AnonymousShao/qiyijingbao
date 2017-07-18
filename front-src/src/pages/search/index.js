@@ -6,13 +6,32 @@ import Arts from "./arts";
 import News from "./news";
 import Artists from "./artists";
 import {SearchBar} from "../../components/button";
-import { searchAuction, getArtists } from '../../helper/http'
+import { searchAuction } from '../../helper/http'
+import { getArtists, getWorks, getNews } from '../../helper/http/search'
 import { getParameterByName } from '../../helper/query_string'
 const q = getParameterByName('q')
 
 class Main extends Component{
 
     componentDidMount(){
+
+        let queryParms = {
+            key: q
+        }
+
+        getWorks(queryParms).then(data=>{
+            debugger
+        })
+
+        getArtists(queryParms).then(data=>{
+            debugger
+        })
+
+        getNews(queryParms).then(data=>{
+            debugger
+        })
+
+
         searchAuction().then(data=>{
             const list = data.AuctionList
             let result = list.filter(i=>{
@@ -71,7 +90,7 @@ class Main extends Component{
                 <div>
                     {this.state.view==='arts'? <Arts auctionList={this.state.auctionInfo}/>:null}
                     {this.state.view==='artists'?<Artists workClass={this.state.workClass} />:null}
-                    {this.state.view==='news'?<News/>:null}
+                    {this.state.view==='news'?<News />:null}
                 </div>
 
             </div>

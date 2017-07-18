@@ -4,10 +4,16 @@ import Header from '../../components/header/index'
 import Footer from '../../components/footer/index'
 import { ButtonClassic } from '../../components/button'
 import { getParameterByName } from '../../helper/query_string'
+import { payEnSecure } from '../../helper/http/pay'
 import classnames from 'classnames'
 import './style.scss'
 
 class Main extends Component{
+
+    constructor(props){
+        super(props)
+        this.submitPay = this.submitPay.bind(this)
+    }
 
     state={
         type: '1',
@@ -18,6 +24,12 @@ class Main extends Component{
         if(!this.state.amount){
             alert('缺少金额参数！')
         }
+    }
+
+    submitPay(){
+        payEnSecure().then(data=>{
+            debugger
+        })
     }
 
     render(){
@@ -59,7 +71,7 @@ class Main extends Component{
                     </li>
                 </ul>
                 <div style={{padding: '60px 47px'}}>
-                    <ButtonClassic>确认支付 RMB {this.state.amount}</ButtonClassic>
+                    <ButtonClassic onClick={this.submitPay}>确认支付 RMB {this.state.amount}</ButtonClassic>
                 </div>
             </div>
         )

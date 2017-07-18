@@ -7,7 +7,7 @@ router.get('/', function (ctx) {
 
 router.get('/wxlogin', function (ctx) {
     const sourceUrl = encodeURIComponent(ctx.request.query.sourceurl),
-        url = getCodeUrl(sourceUrl);
+        url = getCodeUrl('http://test.daxianyu.cn/wx/getcode/');
     ctx.session.sourceUrl = sourceUrl
     ctx.response.redirect(url)
 })
@@ -22,6 +22,9 @@ router.get('/getcode', async function (ctx) {
     let userData = await getUnionId(code)
     const openId = userData.data.openid,
         accessToken = userData.data.access_token
+
+    if(!ctx.session.userInfo) ctx.sessionSecret.userInfo = {}
+    ctx.session.userInfo.openId = openId
 
     let userInfo = await getUserInfo({accessToken, openId})
     let sourceUrl = ctx.session.sourceUrl || '/'

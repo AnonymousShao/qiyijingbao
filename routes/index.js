@@ -11,6 +11,8 @@ const search = require('./search');
 const bargain = require('./bargain');
 const work = require('./work');
 const comment = require('./comment');
+const pay = require('./pay');
+const similar = require('./similar');
 
 
 router.use('/users', users.routes(), users.allowedMethods());
@@ -23,6 +25,8 @@ router.use('/search', search.routes(), search.allowedMethods())
 router.use('/bargain', bargain.routes(), bargain.allowedMethods())
 router.use('/work', work.routes(), work.allowedMethods())
 router.use('/comment', comment.routes(), comment.allowedMethods())
+router.use('/pay', pay.routes(), pay.allowedMethods())
+router.use('/similar', similar.routes(), similar.allowedMethods())
 
 router.get('/', function (ctx) {
     ctx.body = '123123'

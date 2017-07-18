@@ -2,6 +2,7 @@ const router = require('koa-router')();
 const { getAuction } = require('../apis/Auction')
 const { getWorkClass } = require('../apis/Artist')
 const { getSimilar } = require('../apis/artist_similar')
+const { search } = require('../apis/Search')
 
 router.get('/auction', async function (ctx) {
     const page = ctx.request.query.page || 1;
@@ -44,6 +45,36 @@ router.get('/getBidDetail', async function (ctx) {
         workno: ctx.request.query.workno
     }
     ctx.body = await getSimilar(params)
+})
+
+router.get('/getArtists', async function (ctx) {
+    let params = {
+        type: 2,
+        key: ctx.request.query.key,
+        iPageIndex: ctx.request.query.index || 1,
+        iPageSize: ctx.request.query.pageSize || 10
+    }
+    ctx.body = await search(params)
+})
+
+router.get('/getWorks', async function (ctx) {
+    let params = {
+        type: 1,
+        key: ctx.request.query.key,
+        iPageIndex: ctx.request.query.index || 1,
+        iPageSize: ctx.request.query.pageSize || 10
+    }
+    ctx.body = await search(params)
+})
+
+router.get('/getNews', async function (ctx) {
+    let params = {
+        type: 3,
+        key: ctx.request.query.key,
+        iPageIndex: ctx.request.query.index || 1,
+        iPageSize: ctx.request.query.pageSize || 10
+    }
+    ctx.body = await search(params)
 })
 
 module.exports = router

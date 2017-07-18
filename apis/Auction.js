@@ -42,7 +42,7 @@ module.exports.getAuction = function (params) {
     })
 }
 
-module.exports.getSucRecord = function (params) {
+module.exports.getAuctionV2 = function (params) {
     return http.get(host + '/api/auctionsimple', {params}).then(data=>data.data)
 }
 

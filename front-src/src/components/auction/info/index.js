@@ -11,6 +11,7 @@ export default class InfoBoard extends Component{
     state = {
         showRemainder: false,
         remainderType: [],
+        workInfo: {},
         buttons: [{
             type: 'default',
             label: '关闭',
@@ -67,7 +68,7 @@ export default class InfoBoard extends Component{
                         ?<span onClick={e=>this.setState({showRemainder: true})} className="fr auction-info__remainder">提醒</span>
                         :null}
                 </h2>
-                <p className="auction-info__info">竞拍地点：网络竞拍</p>
+                <p className="auction-info__info">竞拍地点：{this.state.workInfo.OffLineAuctionAddr||'网络竞拍'}</p>
                 <p className="auction-info__info">竞拍时间：{new Date(this.props.info.BeginTime).toLocaleDateString()} - {new Date(this.props.info.EndTime).toLocaleDateString()}</p>
                 {this.props.history
                     ?<p className="auction-info__info">成交价: {toThousands(this.props.info.SuccTradeAmt)}</p>

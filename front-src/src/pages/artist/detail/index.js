@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Header from '../../../components/header'
 import Footer from '../../../components/footer'
 import './style.scss'
-import Graphics from "../../auction/detail/graphic";
+import Graphics from "../../../components/graphics/index";
 import Artists from "../../auction/detail/artists";
 import { getArtistDataList } from '../../../helper/http/artist'
 import { getParameterByName } from '../../../helper/query_string'
@@ -18,21 +18,8 @@ class Main extends Component{
         }
         getArtistDataList(params).then(data=>{
             if(data){
-                const list = data.ArtistExponent,
-                    labels = [],
-                    maxPriceList = [],
-                    minPriceList = [],
-                    avrPriceList = [];
-                list.forEach(item=>{
-                    labels.push(item.ExponentTime)
-                    maxPriceList.push(item.MaxAmount)
-                    minPriceList.push(item.MinAmount)
-                    avrPriceList.push(item.AvgAmount)
-                })
                 this.setState({
-                    dataSet: {
-                        labels, maxPriceList, minPriceList, avrPriceList
-                    }
+                    ArtistExponent: data.ArtistExponent
                 })
             }
         })
@@ -40,19 +27,14 @@ class Main extends Component{
 
     state = {
         artistNo: getParameterByName('artistno'),
-        dataSet: {
-            labels: [],
-            maxPriceList: [],
-            minPriceList: [],
-            avrPriceList: [],
-        }
+        ArtistExponent: []
     }
 
     render(){
         return (
             <div>
                 <Artists artistNo={this.state.artistNo}/>
-                {this.state.dataSet.labels.length?<Graphics dataSet={this.state.dataSet}/>:null}
+                <Graphics ArtistExponent={this.state.ArtistExponent}/>
             </div>
         )
     }

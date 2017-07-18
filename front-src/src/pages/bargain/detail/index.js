@@ -5,15 +5,15 @@ import Header from '../../../components/header'
 import Footer from '../../../components/footer'
 import Exhibition from '../../auction/detail/exhibition'
 import Artist from './artist'
-import Graphics from './graphics'
+import Graphics from '../../../components/graphics/'
 
 import { toThousands, getParameterByName } from '../../../helper/query_string'
 import { getWork } from '../../../helper/http/bargain'
 import Similar from '../../../components/similar'
-import { } from '../../../components/button'
 
 import { getSimilar } from '../../../helper/http'
 import { getComments, postComment } from '../../../helper/http/comment'
+import { getArtistDataList } from '../../../helper/http/artist'
 import Accordion from "../../../components/accordion/index";
 import {Type6} from "../../../components/Image_text_items/index";
 import BottomUp from "../../../components/bottom_input/index";
@@ -120,7 +120,8 @@ class Main extends Component{
         workInfo: {},
         commentList: [],
         comment: '',
-        similarList: []
+        similarList: [],
+        ArtistExponent: []
     }
 
     componentDidMount(){
@@ -142,6 +143,17 @@ class Main extends Component{
                     this.setState({
                         similarList: data.ArtistExponent
                     })
+                })
+
+                let artistParams = {
+                    artistno: data.BargainWorkDetail[0].ArtistNO
+                }
+                getArtistDataList(artistParams).then(data=>{
+                    if(data){
+                        this.setState({
+                            ArtistExponent: data.ArtistExponent
+                        })
+                    }
                 })
             }
         })
@@ -228,7 +240,7 @@ class Main extends Component{
                     ?<Exhibition list={this.state.imgList}/>
                     :null}
                 {this.state.view==='artist'?<Artist artistNo={this.state.workInfo.ArtistNO}/>:null}
-                {this.state.view==='graphic'?<Graphics />:null}
+                {this.state.view==='graphic'?<Graphics ArtistExponent={this.state.ArtistExponent}/>:null}
 
                 <div className="board-container bargain-info-board">
                     <p className="remaining">距结束 <span>1天</span></p>

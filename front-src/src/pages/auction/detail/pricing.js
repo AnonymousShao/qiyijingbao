@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Dialog } from '../../../components/button/index'
+import { Dialog, Toast } from '../../../components/button/index'
 import { toThousands } from '../../../helper/query_string'
 import { bidRule, commissionRule } from '../../../helper/validatorX'
 
@@ -13,6 +13,8 @@ export default class Pricing extends Component{
 
     state = {
         view: '',
+        uploading: true,
+        showLoading: false,
         bid: {
             title: 'Heading',
             buttons: [
@@ -48,8 +50,22 @@ export default class Pricing extends Component{
                 type: 'primary',
                 label: '确定',
                 onClick: ()=>{
+                    this.setState({
+                        view: '',
+                        showLoading: true
+                    })
                     this.props.biding().then(data=>{
-                        debugger
+                        if(data){
+                            this.setState({uploading: true})
+                            setTimeout(()=> e=> this.setState({
+                                uploading: false,
+                                showLoading: false
+                            }), 1000)
+                        } else {
+                            this.setState({
+                                showLoading: false
+                            })
+                        }
                     })
                 }
             }]
@@ -105,7 +121,7 @@ export default class Pricing extends Component{
                     buttons={this.state.bid.buttons}>
                     <div style={this.style.title}>
                         <p>当前最高价：<span className="main-color">RMB {toThousands(start)}</span></p>
-                        <p>您的出价:</p>
+                        <p>您的出价: {this.props.bidPrice}</p>
                     </div>
                     <div style={this.style.body}>
                         <p style={this.style.item}>
@@ -126,15 +142,25 @@ export default class Pricing extends Component{
                                    onChange={this.changeBid.bind(this, start + 3 * commission, 3)} />
                             <span style={this.style.itemPrice}>RMB {toThousands(start + 3 * commission)}</span>
                         </p>
-                        <p style={this.style.item}>
-                            <input type="radio" name="price" value={(start + 5 * commission).toString()}
-                                   checked={this.props.bidPrice===(start + 5 * commission)}
-                                   onChange={this.changeBid.bind(this, start + 5 * commission, 5)} />
-                            <span style={this.style.itemPrice} className="main-color">RMB {toThousands(start + 5 * commission)} 一口价摘牌</span>
-                        </p>
+                        {this.props.IsAllowCopper
+                            ? <p style={this.style.item}>
+                                <input type="radio" name="price" value={(start + 5 * commission).toString()}
+                                       checked={this.props.bidPrice===(start + 5 * commission)}
+                                       onChange={this.changeBid.bind(this, start + 5 * commission, 5)} />
+                                <span style={this.style.itemPrice} className="main-color">RMB {toThousands(start + 5 * commission)} 一口价摘牌</span>
+                            </p>
+                            : <p style={this.style.item}>
+                                <input type="radio" name="price" value={(start + 4 * commission).toString()}
+                                       checked={this.props.bidPrice===(start + 4 * commission)}
+                                       onChange={this.changeBid.bind(this, start + 4 * commission, 4)} />
+                                <span style={this.style.itemPrice}>RMB {toThousands(start + 4 * commission)}</span>
+                            </p>
+                        }
                     </div>
                     <p style={this.style.tip}>竞拍成功后必须支付佣金{commissionRule(start) * 100}%</p>
                 </Dialog>
+
+                <Toast icon={this.state.uploading?'loading':'success-no-circle'} show={this.state.showLoading}>{this.state.uploading?'正在提交...': '出价成功！'}</Toast>
 
                 <Dialog
                     show={this.state.view === 'confirm'}

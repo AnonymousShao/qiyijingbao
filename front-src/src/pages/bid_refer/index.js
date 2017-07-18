@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import Header from "../../components/header/index";
 import Footer from "../../components/footer/index";
-import Graphics from "../auction/detail/graphic";
+import Graphics from "../../components/graphics/index";
 import { getBidDetail } from '../../helper/http'
 import { getParameterByName } from '../../helper/query_string'
 import './style.scss'

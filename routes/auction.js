@@ -1,6 +1,6 @@
 const router = require('koa-router')();
 const BaseConst = require('../globals/BaseConst')
-const { getAuction, pricing, getSucRecord, alert } = require('../apis/Auction')
+const { getAuction, pricing, getAuctionV2, alert } = require('../apis/Auction')
 const { getComments, postComment} = require('../apis/Comments')
 const { getArtistList, getWorkClass, getArtistIndex, getArtistInfo } = require('../apis/Artist')
 const { nologin, successCode } = require('../apis/config')
@@ -153,7 +153,7 @@ router.get('/getLatestPrice', async function (ctx) {
         // StartPrice: ctx.request.query.StartPrice,
         strAWorksNO: ctx.request.query.workno,
     }
-    ctx.body = await getAuction(params)
+    ctx.body = await getAuctionV2(params)
 })
 
 router.get('/getStrategy', async function (ctx) {
@@ -250,7 +250,7 @@ router.get('/getSucRecord', async function (ctx) {
         page: ctx.request.query.page || 1,
         rows: ctx.request.query.rows || 10
     }
-    ctx.body = await getSucRecord(params)
+    ctx.body = await getAuctionV2(params)
 })
 
 router.get('/alert', async function (ctx) {

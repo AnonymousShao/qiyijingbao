@@ -6,11 +6,14 @@ import { Button, ButtonArea, Dialog } from '../../../components/button/index'
 import Accordion from "../../../components/accordion/index";
 import Artists from "./artists";
 import Exhibition from "./exhibition";
-import Graphics from "./graphic";
+import Graphics from "../../../components/graphics/index";
 import './style.scss'
 import Similar from '../../../components/similar'
 import {getAuctionDetail, getLatestPrice, submitAuctionWorkPrice,
     getBidRecord, getComments, postComment } from '../../../helper/http/auction'
+
+import { getArtistDataList } from '../../../helper/http/artist'
+
 import { getSimilar } from '../../../helper/http'
 import { getParameterByName, toThousands, calcTime } from '../../../helper/query_string'
 import { imageHost } from '../../../helper/config'
@@ -104,6 +107,7 @@ class Main extends Component{
         consultInfo: {},
         workInfo: {},
         similarList: [],
+        ArtistExponent: [],
         bidRecord: [],
         latest: {},
         nowPrice: '',
@@ -117,6 +121,7 @@ class Main extends Component{
         showShare: false,
         isFinished: false,
         IsCopper: false,
+        IsAllowCopper: true,
         remainingTime: null
     }
 
@@ -146,6 +151,7 @@ class Main extends Component{
                     startPrice: data.AuctionoWorkInfo[0].StartPrice,
                     nowPrice: data.AuctionoWorkInfo[0].NowPrice,
                     IsCopper: data.AuctionoWorkInfo[0].IsCopper,
+                    IsAllowCopper: data.AuctionoWorkInfo[0].IsAllowCopper,
                     isFinished: data.AuctionoWorkInfo[0].AuctionStatus===3
                 })
                 let similarParams = {
@@ -170,6 +176,19 @@ class Main extends Component{
                         }, e=>this.refs.record.setHeight())
                     }
                 })
+
+                let artistParams = {
+                    artistno: data.AuctionoWorkInfo[0].ArtistNO
+                }
+
+                getArtistDataList(artistParams).then(data=>{
+                    if(data){
+                        this.setState({
+                            ArtistExponent: data.ArtistExponent
+                        })
+                    }
+                })
+
                 this.getComment()
 
                 this.calculateRemainingTime()
@@ -178,9 +197,15 @@ class Main extends Component{
     }
 
     calculateRemainingTime(){
-        if(this.state.remainingTime===null || this.state.remainingTime>0){
+        if(this.state.remainingTime===null || this.state.remainingTime>=0){
             this.setState({
                 remainingTime: new Date(this.state.workInfo.EndTime) - new Date()
+            })
+        }
+        if(this.state.remainingTime<=0){
+            this.setState({
+                remainingTime: 0,
+                isFinished: true,
             })
         }
         setTimeout(()=>this.calculateRemainingTime(), 1000)
@@ -192,7 +217,7 @@ class Main extends Component{
             workno: this.state.no
         }
         getLatestPrice(params).then(data=>{
-            const latest = JSON.parse(data.NowPrice)
+            const latest = data.NowPrice
 
             if(this.state.workInfo.AuctionStatus===2 && this.state.workInfo.IsCopper){
                 this.setState({isFinished: true})
@@ -284,7 +309,9 @@ class Main extends Component{
                     ?<Exhibition list={this.state.imgList}/>
                     :null}
                 {this.state.view==='artists'?<Artists artistNo={this.state.workInfo.ArtistNO}/>:null}
-                {this.state.view==='graphic'?<Graphics />:null}
+                {this.state.view==='graphic' && this.state.ArtistExponent.length
+                    ?<Graphics ArtistExponent={this.state.ArtistExponent}/>
+                    :null}
 
                 <div className="board-container auction-info-board">
                     {this.state.isFinished
@@ -330,7 +357,7 @@ class Main extends Component{
                         </span>
                         <span>
                             <img className="price-info__icon" src={require('../../../assets/images/auction/ic_delist.png')} alt=""/>
-                            <span className="price-info__text">允许摘牌</span>
+                            <span className="price-info__text">{this.state.IsAllowCopper?'':'不'}允许摘牌</span>
                         </span>
                     </div>
                 </div>
@@ -425,6 +452,7 @@ class Main extends Component{
                     priceLimit={this.state.priceLimit}
                     biding={this.biding.bind(this)}
                     nowPrice={this.state.nowPrice}
+                    IsAllowCopper={this.state.IsAllowCopper}
                     startPrice={this.state.startPrice}
                     bidPrice={this.state.bidPrice}
                 />

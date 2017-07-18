@@ -14,6 +14,7 @@ require('./style.scss')
 class Main extends Component{
 
     state = {
+        key: '',
         BargainWorkList: [],
         secondMenuList: [],
         belongId: parseInt(getParameterByName('type')),
@@ -24,7 +25,12 @@ class Main extends Component{
     }
 
     componentDidMount(){
+        this.queryList()
+    }
+
+    queryList(){
         let params = {
+            key: this.state.key,
             classNo: this.state.belongId
         }
         getBargainList(params).then(data=>{
@@ -44,12 +50,14 @@ class Main extends Component{
         debugger
     }
 
-    handleInputChange(){
-        debugger
+    handleInputChange(e){
+        this.setState(({
+            key: e.target.value
+        }))
     }
 
     submit(){
-        debugger
+        this.queryList()
     }
 
     handleUpDownChange(){
