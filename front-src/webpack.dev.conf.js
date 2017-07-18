@@ -58,7 +58,7 @@ let webpackConfig = {
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
-                use: 'css-to-string-loader!css-loader!postcss-loader!sass-loader'
+                use: 'css-loader!postcss-loader!sass-loader'
             })
         },{
             test: /\.(png|jpe?g|ico)$/,

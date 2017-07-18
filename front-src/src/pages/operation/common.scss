@@ -173,7 +173,7 @@ btn{width:5.62rem;height:rem(82px);line-height:rem(82px);border-radius:rem(10px)
     .entrust-state{top:rem(28px);}
 }
 /*帮助中心*/
-.small-tit{@include fs32;height:rem(30px);line-height:rem(90px);padding:0 rem(30px);letter-spacing:1px;background-color:$cfff;border-bottom:1px solid $ceee;}
+.small-tit{@include fs32;height:rem(90px);line-height:rem(90px);padding:0 rem(30px);letter-spacing:1px;background-color:$cfff;border-bottom:1px solid $ceee;}
 .issue-list{background-color:$cfff;
     .issue-item{height:rem(80px);line-height:rem(80px);padding:0 rem(30px);border-bottom:1px solid $ceee;
         a{width:100%;height:100%;display:inline-block;}

@@ -58,7 +58,7 @@ class SelectAddr extends React.Component {
                             </div>
                         </li>
                     </ul>
-                    <div className="add-address"><a href="javascript:;">添加收货地址</a></div>
+                    <div className="add-address"><a href="/operation_addr.html">添加收货地址</a></div>
                 </section>
             </section>
         );

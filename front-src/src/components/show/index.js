@@ -51,7 +51,7 @@ export default class Show extends Component{
                            <p className="icon iconfont icon-jilu"></p>
                            <p className="icon-title">充值记录</p>
                        </a>
-                       <a className="addr" href="/operation_addr.html">
+                       <a className="addr" href="/operation_selectaddr.html">
                            <p className="icon iconfont icon-dizhi"></p>
                            <p className="icon-title">收获地址</p>
                        </a>

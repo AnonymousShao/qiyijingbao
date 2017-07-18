@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux';
 import {store} from '../../../reduxes/store'
 import Footer from '../../../components/footer';
+import { getAuthNum, validating } from '../../../helper/http/auth';
 import '../common.scss'
 import './style.scss'
 
@@ -13,6 +14,11 @@ import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 // })
 
 class Auth extends React.Component {
+    componentDidMount(){
+        /*获取到验证码*/
+        var data = JSON.parse(getAuthNum());
+        
+    }
     render(){
         return (
             <section className="tb-content">
@@ -26,7 +32,7 @@ class Auth extends React.Component {
                 <ul className="tb-au-info">
                     <li className="tb-au-item">
                         <span className="tb-au-title">姓名</span>
-                        <span className="ta-au-tel">18214789657</span>
+                        <span className="ta-au-tel"><input type="text" placeholder="请输入手机号"/></span>
                     </li>
                     <li className="tb-au-item">
                         <span className="tb-au-title">图形验证码</span>
@@ -46,7 +52,7 @@ class Auth extends React.Component {
                     </li>
                     <li className="tb-au-item">
                         <span className="tb-au-title ">身份证号</span>
-                        <span className="tb-au-id-num">745644444158236415</span>
+                        <span className="tb-au-id-num"><input type="text" placeholder="身份证号"/></span>
                     </li>
                 </ul>
                 <section className="ta-au-submit-btn">

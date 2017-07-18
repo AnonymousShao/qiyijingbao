@@ -10,7 +10,7 @@ import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 // http.get('/login/sendMSMALL?phone=13248260781').then(data=>{
 //     debugger
 // })
-class cashOffline extends React.Component {
+class CashOffline extends React.Component {
     render(){
         return (
             <section className="container recharge-table">
@@ -51,7 +51,7 @@ const router = (
 const Root = () => (
     <Provider store={store}>
         <div>
-            <cashOffline />
+            <CashOffline />
             <Footer active="user"/>
             <div style={{padding: '0 25px'}}>
                 <Router>
