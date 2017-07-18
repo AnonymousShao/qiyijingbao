@@ -14,13 +14,14 @@ import { HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 // })
 
 class Auth extends React.Component {
-    getInitialState(){
-        return {
+    constructor(props) {
+        super(props);
+        this.state = {
             username: '',
             tel: '',
             valCode: '',
             idCode: ''
-        }
+        };
     }
     handleUsername(e){
         var val = e.target.value;
@@ -31,13 +32,13 @@ class Auth extends React.Component {
     handleTel(e){
         var val = e.target.value;
         this.setState({
-            valCode: val
+            tel: val
         });
     }
     handleGraph(e){
         var val = e.target.value;
         this.setState({
-            tel: val
+            valCode: val
         });
     }
     handleId(e){
@@ -50,7 +51,13 @@ class Auth extends React.Component {
     validate(){
         var dataObj = {
             "Pre_MemberInfoView":" {RealName:"+this.state.username+"，Account:"+this.state.tel+",IDNumber:"+this.state.idCode+",securitycode:"+this.state.valCode+"} "};
-        var res = validating(dataObj).then(data => JSON.parse(data));
+        var res = validating(dataObj)
+                    .then(data => JSON.parse(data))
+                    .then( res => {
+                        if(res.res_code == '0'){
+                            this.refs.btnAu.value = '验证已经成功';
+                        }
+                    });
     }
 
     componentDidMount(){
@@ -71,12 +78,12 @@ class Auth extends React.Component {
                 <ul className="tb-au-info">
                     <li className="tb-au-item">
                         <span className="tb-au-title">姓名</span>
-                        <span className="ta-au-tel"><input type="text" placeholder="请输入用户名" value={{/*this.state.username*/}} onChange={this.handleUsername}/></span>
+                        <span className="ta-au-tel"><input type="text" placeholder="请输入用户名" value={this.state.username} onChange={this.handleUsername.bind(this)}/></span>
                     </li>
                     <li className="tb-au-item">
                         <span className="tb-au-title">图形验证码</span>
                         <section className="tb-input-bar">
-                            <input type="text" placeholder="请输入图形验证码" ref="graphCode" value={{/*this.state.valCode*/}} onChange={this.handleGraph}/>
+                            <input type="text" placeholder="请输入图形验证码" ref="graphCode" value={this.state.valCode} onChange={this.handleGraph.bind(this)}/>
                                 <span className="tb-img-test">4587</span>
                         </section>
 
@@ -84,18 +91,18 @@ class Auth extends React.Component {
                     <li className="tb-au-item">
                         <span className="tb-au-title">手机验证码</span>
                         <section className="tb-input-bar">
-                            <input type="text" placeholder="请输入手机验证码" value={{/*this.state.tel*/}} onChange={this.handleTel}/>
+                            <input type="text" placeholder="请输入手机验证码" value={this.state.tel} onChange={this.handleTel.bind(this)}/>
                                 <span className="tb-au-getphone-test">获取验证码</span>
                         </section>
 
                     </li>
                     <li className="tb-au-item">
                         <span className="tb-au-title ">身份证号</span>
-                        <span className="tb-au-id-num"><input type="text" placeholder="身份证号" value={{/*this.state.idCode*/}} onChange={this.handleId}/></span>
+                        <span className="tb-au-id-num"><input type="text" placeholder="身份证号" value={this.state.idCode} onChange={this.handleId.bind(this)}/></span>
                     </li>
                 </ul>
-                <section className="ta-au-submit-btn" onClick={this.validate}>
-                    <button className="tb-au-submit">验证通过</button>
+                <section className="ta-au-submit-btn" onClick={this.validate.bind(this)}>
+                    <button className="tb-au-submit" ref="btnAu">验证通过</button>
                 </section>
             </section>
         );
@@ -109,6 +116,7 @@ const router = (
 );
 
 const Root = () => (
+    <Provider store={store}>
         <div>
             <Auth/>
             <Footer active="user"/>
@@ -118,6 +126,7 @@ const Root = () => (
                 </Router>
             </div>
         </div>
+    </Provider>
 );
 
 ReactDOM.render(
