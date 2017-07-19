@@ -57,3 +57,13 @@ export function commissionRule(input) {
     if(input>=5000) return 0.10
     return 0.12
 }
+
+export function telRule(input){
+    var reg = /^1\d{10}$/;
+    return reg.test(input);
+}
+
+export function idRule(input){
+    var reg = /^\d{16}(\d|x)$/;
+    return reg.test(input);
+}

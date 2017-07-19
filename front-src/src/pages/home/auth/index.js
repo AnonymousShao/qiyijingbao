@@ -78,12 +78,12 @@ class Auth extends React.Component {
                 <ul className="tb-au-info">
                     <li className="tb-au-item">
                         <span className="tb-au-title">姓名</span>
-                        <span className="ta-au-tel"><input type="text" placeholder="请输入用户名" value={this.state.username} onChange={this.handleUsername.bind(this)}/></span>
+                        <span className="ta-au-tel"><input type="text" required placeholder="请输入用户名" value={this.state.username} onChange={this.handleUsername.bind(this)}/></span>
                     </li>
                     <li className="tb-au-item">
                         <span className="tb-au-title">图形验证码</span>
                         <section className="tb-input-bar">
-                            <input type="text" placeholder="请输入图形验证码" ref="graphCode" value={this.state.valCode} onChange={this.handleGraph.bind(this)}/>
+                            <input type="text" placeholder="请输入图形验证码" required ref="graphCode" value={this.state.valCode} onChange={this.handleGraph.bind(this)}/>
                                 <span className="tb-img-test">4587</span>
                         </section>
 
@@ -91,14 +91,14 @@ class Auth extends React.Component {
                     <li className="tb-au-item">
                         <span className="tb-au-title">手机验证码</span>
                         <section className="tb-input-bar">
-                            <input type="text" placeholder="请输入手机验证码" value={this.state.tel} onChange={this.handleTel.bind(this)}/>
+                            <input type="text" placeholder="请输入手机验证码" required value={this.state.tel} onChange={this.handleTel.bind(this)}/>
                                 <span className="tb-au-getphone-test">获取验证码</span>
                         </section>
 
                     </li>
                     <li className="tb-au-item">
                         <span className="tb-au-title ">身份证号</span>
-                        <span className="tb-au-id-num"><input type="text" placeholder="身份证号" value={this.state.idCode} onChange={this.handleId.bind(this)}/></span>
+                        <span className="tb-au-id-num"><input type="text" required placeholder="身份证号" value={this.state.idCode} onChange={this.handleId.bind(this)}/></span>
                     </li>
                 </ul>
                 <section className="ta-au-submit-btn" onClick={this.validate.bind(this)}>
